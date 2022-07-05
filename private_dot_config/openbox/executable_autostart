@@ -1,0 +1,47 @@
+#
+# These things are run when an Openbox X Session is started.
+#
+
+# for timing startup script
+
+# wallpaper
+wallpaper=$(cat "$HOME"/wallpapers/.current)
+feh --bg-scale "$wallpaper" &
+wal -in "$wallpaper"
+
+# recover last pywal color scheme (https://github.com/dylanaraps/pywal/wiki/Getting-Started#making-the-colorscheme-persist-on-reboot)
+wal -R
+
+# compositor (blur, rounded corners)
+picom --experimental-backends --config ~/.config/picom.conf &
+
+# for openbox (not 100% on the regex)
+if [[ $(wmctrl -m | grep -oP 'Name: \K openbox') =~ openbox ]]; then
+    # skippy (macOS like window switcing)
+    skippy-xd --start-daemon &
+
+    # polybar
+    "$HOME"/.config/polybar/launch.sh
+fi
+
+# make kde apps configurable by qt5ct
+export QT_QPA_PLATFORMTHEME="qt5ct"
+
+# use liquidctl to set fan speeds (low speed)
+liquidctl -m "smart device" set fan1 speed 20 &
+liquidctl -m "smart device" set fan2 speed 20 &
+liquidctl -m kraken set fan speed 0 0 20 20 25 30 35 35 50 50 70 80 85 100 &
+
+# swap windows and alt keys
+setxkbmap -option altwin:swap_alt_win
+# setup compose key
+setxkbmap -option compose:caps
+
+# volume hud overlay
+#exec "$HOME"/pulse-volume-watcher.py | xob
+
+# increase mouse sensitivity
+xinput --set-prop 10 "libinput Accel Speed" 0.7
+
+# notifications (with deadd-notification-center)
+#deadd-notification-center
