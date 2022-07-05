@@ -1,0 +1,142 @@
+[loader]
+
+    ; this is only here to load the modules
+    include-file =      $HOME/.config/polybar/colors.ini
+    include-directory = $HOME/.config/polybar/modules/
+
+;;
+
+
+[globalOpts]
+
+    ; fonts
+   
+    ; Font for text:
+    font-0 = Sans:size=14
+    
+    ; copy and paste from here: https://icons8.com/line-awesome. Some icons are only in the solid or regular font families, so load both/
+    font-1 = la\\-regular\\-400:size=18;2
+    font-2 = la\\-solid\\-900:size=18;2
+
+    ; this is just a fallback
+    ;font-3 = JetBrainsMono Nerd Font Mono:size=24;2
+
+    ; leftover from the old config. left heree if i need to add it back
+    ;font-2 = Material Icons Outlined:pixelsize=20;0
+
+
+    width = 3808
+    height = 52
+    offset-x = 16
+    offset-y = 16
+    bottom = true
+    override-redirect = false
+    background = #00000000
+    radius = 0
+    
+    ; this is necessary for polywins. i have it defined globally for consistency.
+    line-size = 4
+
+;;
+
+[bar/desktops]
+
+    inherit = globalOpts
+
+    modules-left = workspacer
+
+;;
+
+[bar/stats]
+
+    inherit = globalOpts
+
+    modules-left = switchBar space mem space gpu space cpu space fs space net space 
+
+;;
+
+
+[bar/spotify]
+
+    inherit = globalOpts
+
+    modules-left = switchBar space spotify space
+
+;;
+
+[bar/zero]
+
+    inherit = globalOpts
+
+    modules-left = switchBar space timeOnly space
+
+;;
+
+[bar/min]
+
+    inherit = globalOpts
+
+    modules-left = switchBar space time date space weather space
+
+;;
+
+
+[bar/mid]
+
+    inherit = globalOpts
+
+    modules-left = switchBar space switchTheme space switchWallpaper space weather space time date space
+
+;;
+
+
+[bar/max]
+
+    inherit = globalOpts
+    background = ${colors.primary}
+
+    modules-left = switchBar space switchTheme space switchWallpaper space weather space time date space
+
+    modules-center = polywins
+
+    modules-right = mem space gpu space cpu space fs space net space 
+
+;;
+
+
+[bar/mono]
+
+; fonts
+   
+    ; Font for text:
+    
+    ; copy and paste from here: https://icons8.com/line-awesome. Some icons are only in the solid or regular font families, so load both/
+    font-0 = la\\-regular\\-400:size=18;2
+    font-1 = la\\-solid\\-900:size=18;2
+    font-2 = Mono:size=14
+
+    ; this is just a fallback
+    ;font-3 = JetBrainsMono Nerd Font Mono:size=24;2
+
+    ; leftover from the old config. left heree if i need to add it back
+    ;font-2 = Material Icons Outlined:pixelsize=20;01
+
+    width = 3840
+    height = 52
+    offset-x = 0
+    offset-y = 0
+    bottom = true
+    override-redirect = false
+    background = ${colors.white}
+    foreground = ${colors.black}
+    
+    ; this is necessary for polywins. i have it defined globally for consistency.
+    line-size = 4
+
+    modules-left = switchBar space switchTheme space switchWallpaper space weather space time date space
+
+    modules-center = polywins
+
+    modules-right = mem space gpu space cpu space fs space net space 
+
+;;
