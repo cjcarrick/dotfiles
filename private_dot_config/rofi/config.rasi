@@ -1,0 +1,125 @@
+configuration {
+  sidebar-mode:  true;
+  hide-scrollbar: true;
+  kb-cancel: "Escape,Control+bracketleft";
+  kb-mode-next: "Alt+Right,Shift+Right,Control+Tab";
+  kb-mode-previous: "Alt+Left,Shift+Left,Control+ISO_Left_Tab";
+  /* kb-row-select:; */
+  modi: "run,drun";
+  show: "drun";
+
+  show-icons:      true;
+  icon-theme:      "Papirus";
+  cycle:           true;
+  disable-history: false;
+  display-drun:    "apps";
+                  font:            "mono 14";
+
+}
+
+
+
+// disable the thing next to the input that says "combi", et
+// ... {
+// enabled: false;
+// }
+
+
+// {
+
+// corsor: pointer;
+// }
+
+* {
+  fg: #C5C8C6;
+  bg: #202444;
+  bgAlt: #26294e;
+  col: #b57e93;
+
+  border-radius: 8px;
+
+  text-color: @fg;
+  background-color: @bg;
+
+}
+
+window {
+  padding :12px;
+
+}
+
+entry {
+  padding: 16px;
+
+  background-color: @bgAlt;
+    border-color: @fg;
+  // border: 0 solid 0 solid 2px solid 0 solid;
+}
+
+prompt { 
+  enabled: false;
+}
+case-indicator {
+  enabled: false;
+
+}
+num-filtered-rows {
+  enabled: false;
+
+}
+num-rows {
+  enabled: false;
+
+}
+
+listview {
+  margin: 6px 0;
+  padding :8px 0;
+  border-color: @bgAlt;
+  border-radius: 0;
+  border: 0 solid 0 solid 2px solid 0 solid;
+}
+
+element  {
+  padding :12px 0;
+  background-color: @bg;
+  spacing: 8px;
+  cursor: pointer;
+  border-radius: 0;
+
+}
+
+element-icon  {
+  background-color: @bg;
+  cursor: pointer;
+margin: 0 0 0 8px;
+}
+element-text  {
+  background-color: @bg;
+  cursor: pointer;
+
+}
+
+element selected {
+  background-color: @bgAlt;
+
+}
+element-icon selected {
+  background-color: @bgAlt;
+
+}
+element-text selected {
+  background-color: @bgAlt;
+}
+
+
+button {
+  padding: 16px;
+  cursor: pointer;
+}
+button selected { 
+  background-color: @bgAlt;
+  border-color: @fg;
+  // border: 0 solid 0 solid 2px solid 0 solid;
+  margin: 6px 6px 20px 6px;
+}
