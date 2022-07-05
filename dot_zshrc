@@ -1,0 +1,72 @@
+# bindings
+bindkey "^[[3" delete-key
+bindkey "^[[1;5C" forward-word
+bindkey "^[[1;5D" backward-word
+bindkey "^W" forward-word
+bindkey "^B" backward-word
+
+
+# Arrow key history, with the cursor placed at the end (https://unix.stackexchange.com/a/97844)
+
+SAVEHIST=1000  # Save most-recent 1000 lines
+HISTFILE=~/.zsh_history
+
+autoload -U history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey "^[[A" history-beginning-search-backward
+bindkey "^[[B" history-beginning-search-forward
+
+
+
+
+# Highlighted completion
+zstyle ':completion:*' menu select
+
+# Completion at middle of file name
+zstyle ':completion:*' completer _complete
+zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|=* r:|=*'
+
+# Colored completion
+zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)(?)*==34=34}:${(s.:.)LS_COLORS}")';
+
+
+autoload -Uz compinit
+compinit
+
+
+
+# Env vars
+
+FZF_DEFAULT_COMMAND='find . \( -name node_modules -name .git \) -prune -o -print'
+
+PROMPT='%B%F{blue}%c %F{red}%(?..[%?])%F{default}%b -> '
+
+PATH="$PATH:~/.cargo/bin"
+
+EDITOR="nvim"
+
+
+
+# ALiases
+
+
+alias ls='ls -ACh --color --group-directories-first'
+alias ll='ls --color -hCvAo --group-directories-first'
+alias ll-date='ls --color -tchCvAo --group-directories-first'
+alias ll-size='ls --color -ShCvAo --group-directories-first'
+
+alias sp='sudo pacman'
+alias sp-clean-deps='sudo pacman -Rsn $(pacman -Qdtq)'
+alias sp-key='sudo pacman-key --populate archlinux'
+
+
+
+# Plugins
+# (Avoid using a plugin manager because its not necessary and impedes startup time)
+
+# Better completions
+fpath=($HOME/zsh-completions/src $fpath)
+
+# Snntax highlighting (must be at the end of the file)
+source $HOME/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
