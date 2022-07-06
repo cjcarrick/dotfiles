@@ -1,0 +1,42 @@
+{
+  "coc.preferences.formatOnSaveFiletypes": ["css", "markdown", "json", "typescript", "html", "json", "typescriptreact", "sass", "scss"],
+  "prettier.semi": false,
+  "prettier.printWidth": 140,
+  "prettier.useTabs": false,
+  "prettier.arrowParens": "avoid",
+  "prettier.singleQuote": true,
+  "prettier.trailingComma": "none",
+  "snippets.textmateSnippetsRoots": ["~/.config/coc/textmate/"],
+  "snippets.priority": 200,
+  "hover.floatConfig": {
+    "winblend": 16
+  },
+  "suggest.ignoreRegexps": ["*.md", "*.txt"],
+  "suggest.completionItemKindLabels": {
+    "text": "",
+    "method": "",
+    "function": "",
+    "constructor": "",
+    "field": "",
+    "variable": "",
+    "class": "",
+    "interface": "",
+    "module": "",
+    "property": "",
+    "unit": "",
+    "value": "",
+    "enum": "",
+    "keyword": "",
+    "snippet": "",
+    "color": "",
+    "file": "",
+    "reference": "",
+    "folder": "",
+    "enumMember": "",
+    "constant": "",
+    "struct": "",
+    "event": "",
+    "operator": "",
+    "typeParameter": ""
+  }
+}
