@@ -10,19 +10,13 @@ _Managed with [chezmoi](https://www.chezmoi.io) (`brew install chezmoi`, `pacman
 chezmoi init https://github.com/cervidae/dotfiles.git
 ```
 
-1. Show what will be changed
-
-```sh
-chezmoi diff
-```
-
-1. Apply changes:
+2. Accept all incoming changes:
 
 ```sh
 chezmoi apply -v
 ```
 
-1. Apply changes later:
+3. Pull changes later
 
 ```sh
 chezmoi update -v
