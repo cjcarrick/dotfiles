@@ -25,7 +25,7 @@ chezmoi update -v
 ### Adding to a new machine and installing all at once:
 
 ```sh
-sh -c "$(curl -fsLS chezmoi.io/get)" -- init --one-shot cervodae
+sh -c "$(curl -fsLS chezmoi.io/get)" -- init --one-shot cjcarrick
 ```
 
 This will also remove chezmoi from the system, so you won't be able to update when there are changes made later.
