@@ -4,13 +4,15 @@
 
 Some configuration files are Linux or MacOS specific. Only copy what you need.
 
-## ZSH
+A lot of the programs I use are listed in
+[linux-from-scratch.md](linux-from-scratch.md).
 
+## ZSH
 
 I don't use a plugin manager so you'll have to install these and source them
 manually.
 
-- (zsh-users/zsh-syntax-highlighting)[https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters/main.md]
+- [zsh-users/zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters/main.md)
 
 ## Neovim
 
@@ -18,13 +20,14 @@ Configuration is based on the latest nightly build of neovim.
 
 Fern.vim uses nerfont.vim to draw icons. I think these icons are too big. The
 font (fantasque-sans-mono) at the root of this repo includes the icons from
-(seti)[https://github.com/jesseweed/seti-ui/tree/master/styles/_fonts/seti],
+[seti](https://github.com/jesseweed/seti-ui/tree/master/styles/_fonts/seti),
 which are only one character wide. In addition, there are a lot more icons in
 this seti than in normal Nerd Font patched font. All of the old icons that are
 too big are still in the font.
 
 After installing all the plugins, copy the json files from
-.config/nvim/icons/json to nerfont.vim/assets/\*.json
+.config/nvim/icons/json to nerfont.vim/assets/*.json to
+.local/share/nvim/site/pack/packer/opt/nerdfont.vim/assets/json
 
 TODO: find a way to automate this and/or remove clutter from .config/nvim.
 
@@ -36,9 +39,8 @@ want to use one of the other colorschemes.
 
 ## dmenu
 
-- Uses [cjcarrick/dmenu]
+- Uses [cjcarrick/dmenu](https://github.com/cjcarrick/dmenu)
 
 ## i3
 
 - Uses [i3status-rust](https://github.com/greshake/i3status-rust)
-
