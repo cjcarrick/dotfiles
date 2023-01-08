@@ -1,0 +1,21 @@
+{
+  ".*angular.*\\.js$": "",
+  ".*backbone.*\\.js$": "",
+  ".*materialize.*\\.css$": "",
+  "tsconfig\\.json": "",
+  "tsconfig\\..*\\.json": "",
+  ".eslintrc\\.js": "",
+  ".eslintrc\\.cjs": "",
+  ".*materialize.*\\.js$": "",
+  ".*mootools.*\\.js$": "",
+  "readme.*": "",
+  ".*require.*\\.js$": "",
+  ".*vimrc.*": "",
+  "/Trash.$": "",
+  "/\\.Trash-\\d\\+.$": "",
+  "/\\.atom.$": "",
+  "/\\.git.$": "",
+  "/\\.idea.$": "",
+  "/include.$": "",
+  "Vagrantfile$": ""
+}

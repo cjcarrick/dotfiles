@@ -1,0 +1,32 @@
+colors:
+  primary:
+    background: '#2b3339'
+    foreground: '#d3c6aa'
+  selection:
+    text: CellForeground
+    background: '#5d5f5b'
+  search:
+    matches:
+      foreground: CellForeground
+      background: '#5d5f5b'
+  footer_bar:
+    background: '#5d5f5b'
+    foreground: '#d3c6aa'
+  normal:
+    black:   '#2b3339'
+    red:     '#e67e80'
+    green:   '#a7c080'
+    yellow:  '#dbbc7f'
+    blue:    '#7fbbb3'
+    magenta: '#d699b6'
+    cyan:    '#83c092'
+    white:   '#d3c6aa'
+  bright:
+    black:   '#323c41'
+    red:     '#4e3e43'
+    green:   '#404d44'
+    yellow:  '#4a4940'
+    blue:    '#7fbbb3'
+    magenta: '#d699b6'
+    cyan:    '#e69875'
+    white:   '#5d5f5b'

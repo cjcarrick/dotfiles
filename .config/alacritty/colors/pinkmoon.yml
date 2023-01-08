@@ -1,0 +1,30 @@
+colors:
+  # Default colors
+  primary:
+    # hard contrast: background = '0x1d2021'
+    background: '#2a2e39'
+    # soft contrast: background = '0x32302f'
+    foreground: '#f0fdff'
+
+  # Normal colors
+  normal:
+    black:   '#2a2e39'
+    red:     '#f0fdff'
+    green:   '#FDF8CE'
+    yellow:  '#ffd17f'
+    blue:    '#6F98B3'
+    magenta: '#D08785'
+    cyan:    '#a6b8cc'
+    white:   '#f0fdff'
+
+  # Bright colors
+  bright:
+    black:   '#333c47'
+    red:     '#fcdbd9'
+    green:   '#98971a'
+    yellow:  '#fdf8ce'
+    blue:    '#6d7b8b'
+    magenta: '#fcdbd9'
+    cyan:    '#6F98B3'
+    white:   '#6d7b8b'
+

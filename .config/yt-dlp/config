@@ -1,0 +1,12 @@
+# Download and merge the best video-only format and the best audio-only format,
+# or download the best combined format if video-only format is not available
+#-f "bv+ba/b"
+
+# Download the best mp4 video available, or the best video if no mp4 available
+-f "bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4] / bv*+ba/b"
+
+# Restrict filenames to only ASCII characters, and avoid "&" and spaces in
+# filenames
+--restrict-filenames
+
+-o "%(title)s.%(ext)s"

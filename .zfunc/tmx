@@ -1,0 +1,54 @@
+getSession() {
+  existing=$(tmux ls -F '#S' 2>/dev/null)
+  existingArr=($existing)
+
+  if [[ "${#existing[@]}" -eq 0 ]]; then
+    echo ""
+  else
+    (echo "<cr> to open session, <A-cr> to kill that session, <esc> to quit."; echo "$existing") | fzf \
+      --header-lines=1 \
+      --header-first \
+      --tac --no-sort \
+      --preview "bash $HOME/.zfunc/helpers/tmux-tree.sh {}" \
+      --bind "alt-enter:execute(tmux kill-session -t \$(echo '{}' | sed 's;$HOME;~;'))+reload(echo 'Killed {}'; tmux ls -F '#S' 2>/dev/null)"
+  fi
+}
+
+# Creates a new session or just opens it if it already exists.
+#
+# openTmux <LABEL> [CWD]
+#
+# CWD defaults to the current CWD
+openTmux () {
+  DIR="$2" || "$(pwd)"
+  echo "opening $1"
+  tmux new -A -s "$1" -c "$DIR"
+}
+
+# If passed a dir as the first arg, create a session there / go into it
+if [[ "$1" ]]; then
+
+  if ! [[ -d "$1" ]]; then
+    echo "Error: $1 is not a directory."
+  else
+    DIR=$(readlink -f "$1")
+
+    # TODO: Fix edge case. This sed will fail when there are semicolons in
+    # pathnames.
+    LABEL=$(echo "$DIR" | sed "s;$HOME;~;")
+
+    openTmux "$LABEL" "$DIR"
+  echo '3'
+  fi
+
+else
+
+  if [[ $(tmux ls 2>/dev/null | wc -l) == 0 ]]; then
+    echo "No existing tmx sessions found."
+    echo "Run $0 <path> to create one somewhere, or tmx . to create one here."
+    return 1
+  fi
+
+  openTmux "$(getSession)"
+
+fi
