@@ -1,4 +1,4 @@
--- require('hlargs').setup()
+if not pcall(require, 'nvim-treesitter') then return end
 
 require('nvim-treesitter.configs').setup {
   ensure_installed = {},
@@ -7,36 +7,29 @@ require('nvim-treesitter.configs').setup {
 
   highlight = {
     enable = true,
-    disable = { 'setup', 'help' },
+    disable = { --[[ 'html', 'markdown', 'css', 'setup', ]] 'help', 'telescope' },
   },
 
-  autotag = {
-    enable = true,
-  },
+  indent = { enable = false },
 
-  -- hlargs = {
-  --   enable = true,
-  -- },
+  hlargs = { enable = false },
 
   query_linter = {
-    lint_events = { 'BufWrite', 'CursorHold' },
-    use_virtual_text = true,
+    -- lint_events = { 'BufWrite', 'CursorHold' },
+    use_virtual_text = false,
   },
 
-  context_commentstring = {
+  incremental_selection = {
     enable = true,
+    keymaps = {
+      init_selection = '<CR>',
+      -- scope_incremental = '<CR>',
+      node_incremental = '<CR>',
+      node_decremental = '<S-CR>',
+    },
   },
 
-  illuminate = {
-    enable = true,
-    disable = { 'fern' },
-  },
+  context_commentstring = { enable = true },
 
-  playground = {
-    enable = true,
-  },
+  playground = { enable = false },
 }
-
-vim.opt.foldlevel = 20
-vim.o.foldmethod = 'expr'
-vim.o.foldexpr = 'nvim_treesitter#foldexpr()'

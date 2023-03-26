@@ -2,10 +2,10 @@
 vim.o.t_Co = 16
 
 local bg = 0
-local bgBright = 8
+local bgBright = 15
 
 local fg = 7
-local fgBright = 15
+local fgBright = 8
 
 local red = 1
 local brightRed = 9
@@ -34,7 +34,7 @@ hi({ 'FidgetTask' }, { ctermfg = fgBright })
 
 hi({ 'DapUIStepBack', 'DapUIStepOver', 'DapUIStepInto', 'DapUIStepOut' }, { ctermfg = blue })
 hi({ 'DapUIWatchesEmpty' }, { link = 'Comment' })
-hi({ 'DapUILineNumber' }, { ctermfg = fgBright })
+hi({ 'DapUILineNumber' }, { ctermfg = bgBright })
 hi({ 'DapUIWatchesValue', 'DapUIBreakpointsPath', 'DapUIDecoration', 'DapUIScope' }, { ctermfg = fg })
 hi({ 'DapUIModifiedValue' }, { ctermfg = fg, bold = true })
 hi({ 'DapUIWatchesError' }, { ctermfg = red })
@@ -44,6 +44,8 @@ hi({ 'DapUIStop' }, { ctermfg = red })
 hi({ 'DapBreakpointCondition', 'DapUISource' }, { ctermfg = purple })
 hi({ 'DapLogPoint' }, { ctermfg = blue })
 hi({ 'DapStopped', 'DapUIBreakpointsCurrentLine' }, { ctermfg = orange })
+
+hi({ 'htmlBold' }, { bold = false })
 
 vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'DapBreakpoint' })
 vim.fn.sign_define('DapBreakpointCondition', { text = '', texthl = 'DapBreakpointCondition' })
@@ -60,10 +62,10 @@ hi({
 hi({ 'Cursor' }, { ctermfg = bg, ctermbg = blue })
 hi({ 'CursorColumn' }, { ctermbg = bgBright })
 
-hi({ 'CursorLine' }, { ctermbg = bgBright })
+hi({ 'CursorLine', 'TelescopeSelection' }, { ctermbg = bgBright })
 
-hi({ 'LineNr' }, { ctermfg = fgBright, ctermbg = "NONE" })
-hi({ 'CursorLineNr' }, { ctermfg = fg, ctermbg = "NONE" })
+hi({ 'LineNr' }, { ctermfg = bgBright, ctermbg = 'NONE' })
+hi({ 'CursorLineNr' }, { ctermfg = fg, ctermbg = 'NONE' })
 
 hi({ 'LeapLabelPrimary' }, { ctermfg = bg, ctermbg = green })
 hi({ 'LeapLabelSecondary' }, { ctermfg = bg, ctermbg = blue })
@@ -88,7 +90,7 @@ hi({ 'WarningMsg' }, { ctermfg = red })
 hi({ 'Question' }, { ctermfg = purple })
 
 hi({ 'Pmenu' }, { ctermfg = fg, ctermbg = bgBright })
-hi({ 'PmenuSel', 'TabLineSel', 'TelescopeSelection' }, { ctermbg = fgBright, ctermfg = fg })
+hi({ 'PmenuSel', 'TabLineSel' }, { ctermbg = fgBright, ctermfg = fg })
 hi({ 'PmenuSbar' }, { ctermbg = bgBright })
 hi({ 'PmenuThumb' }, { ctermbg = fg })
 
@@ -99,13 +101,13 @@ hi({ 'SpellCap' }, { ctermfg = yellow })
 hi({ 'SpellLocal' }, { ctermfg = yellow })
 hi({ 'SpellRare' }, { ctermfg = yellow })
 
-hi({ 'StatusLine' }, { ctermfg = fg, ctermbg = bgBright })
-hi({ 'StatusLineAlt' }, { ctermfg = fgBright, ctermbg = bgBright })
-hi({ 'StatusLineError' }, { ctermfg = red, ctermbg = bgBright })
-hi({ 'StatusLineWarn' }, { ctermfg = orange, ctermbg = bgBright })
-hi({ 'StatusLineHint' }, { ctermfg = blue, ctermbg = bgBright })
-hi({ 'StatusLineInfo' }, { ctermfg = blue, ctermbg = bgBright })
-hi({ 'StatusLineNC' }, { ctermfg = fgBright, ctermbg = bgBright })
+hi({ 'StatusLine' }, { ctermfg = fg })
+hi({ 'StatusLineAlt' }, { ctermfg = fgBright })
+hi({ 'StatusLineError' }, { ctermfg = red })
+hi({ 'StatusLineWarn' }, { ctermfg = orange })
+hi({ 'StatusLineHint' }, { ctermfg = blue })
+hi({ 'StatusLineInfo' }, { ctermfg = blue })
+hi({ 'StatusLineNC' }, { ctermfg = fgBright })
 
 hi({ 'TabLine' }, { ctermfg = fgBright, ctermbg = bgBright })
 hi({ 'TabLineFill' }, { ctermfg = fgBright, ctermbg = bgBright })
@@ -117,10 +119,10 @@ hi({ 'ColorColumn' }, { ctermbg = bgBright })
 hi({ 'Conceal' }, { ctermfg = fg })
 hi({ 'Directory' }, { ctermfg = fg })
 hi({ 'FernBranchSymbol', 'FernBranchText', 'FernBranch' }, { ctermfg = fg })
-hi({ 'VertSplit' }, { ctermfg = bgBright, ctermbg = bgBright })
+hi({ 'VertSplit' }, { ctermfg = bgBright })
 hi({ 'Folded' }, { ctermfg = fg })
 hi({ 'FoldColumn' }, { ctermfg = fg })
-hi({ 'SignColumn' }, { ctermfg = fg, ctermbg = "NONE" })
+hi({ 'SignColumn' }, { ctermfg = fg, ctermbg = 'NONE' })
 
 hi({
   'illuminatedWord',
@@ -139,21 +141,49 @@ hi({ 'WildMenu' }, { ctermfg = fg })
 hi({ 'preproc', '@preproc' }, { ctermfg = fg })
 
 hi({ 'NonText' }, { ctermfg = bg })
-hi({ 'Comment' }, { ctermfg = 15, italic = true })
+hi({ 'Comment', 'markdownCode' }, { ctermfg = 8, italic = true })
 hi({ 'Whitespace' }, { ctermfg = bgBright })
 
 -- hmtl/xml/css
-hi({ 'Tag', '@tag' }, { ctermfg = red })
-hi({ '@tag.delimiter' }, { ctermfg = fg })
+hi({ 'Tag', '@tag', 'htmlTagName', 'cssTagName', 'htmlSpecialTagName', 'sassAmpersand' }, { ctermfg = red })
+hi({ '@tag.delimiter', 'htmlTag', 'htmlEndTag' }, { ctermfg = fg })
 hi({ '@identifier.id' }, { ctermfg = blue })
-hi({ '@identifier.class', '@attribute', '@tag.attribute' }, { ctermfg = orange })
-hi({ '@pseudo' }, { ctermfg = cyan })
+hi({
+  '@identifier.class',
+  'htmlScriptTag',
+  'cssClassName',
+  'sassClass',
+  'sassClassChar',
+  'cssClassNameDot',
+  'cssColor',
+  'cssAttr',
+  '@attribute',
+  '@tag.attribute',
+  'htmlArg',
+}, { ctermfg = orange })
+hi({ '@pseudo', 'cssHacks','cssNoise', 'cssVendor', 'cssPseudoClass', 'cssPseudoClassId' }, { ctermfg = cyan })
+hi(
+  {
+    'cssProp',
+    'cssAttributeSelector',
+    'cssSelectorOp',
+    'cssBraces',
+    'typescriptBraces',
+    'typescriptEndColons',
+    'cssAttrComma',
+  },
+  { ctermfg = fg }
+)
 --
 
 hi({
   '@punctuation.special',
   '@regex',
   'Operator',
+  'typescriptAssign',
+  'typescriptSpecial',
+  'typescriptBinaryOp',
+  'typescriptUnaryOp',
   'SpecialChar',
 }, { ctermfg = cyan })
 
@@ -171,7 +201,11 @@ hi({
 
 hi({
   'Function',
+  'typescriptBOMNavigatorProp',
+  'typescriptStringMethod',
   'CmpItemKindFunction',
+  'sassMixinName',
+  '@text.environment',
   'CmpItemKindMethod',
 }, { ctermfg = blue, nocombine = false })
 
@@ -180,6 +214,7 @@ hi({
 }, { ctermfg = orange })
 hi({
   'Constant',
+  'CmpItemKindConstant',
   '@constant.builtin',
   '@variable.builtin',
 }, { ctermfg = yellow })
@@ -187,17 +222,22 @@ hi({
 hi({
   '@namespace',
   '@variable',
+  'CmpItemKindEnum',
   'label',
   'Identifier',
   'typescriptIdentifier',
+  'typescriptIdentifierName',
   'CmpItemKindVariable',
 }, { ctermfg = red })
 hi({
   'Parameter',
+  '@text.environment.name',
   'Hlargs',
 }, { italic = true })
 hi({
   'Conditional',
+  'typescriptExport',
+  'typescriptTernaryOp',
   'Define',
   'Excpetion',
   'Include',
@@ -206,6 +246,8 @@ hi({
   'Macro',
   'Repeat',
   'Statement',
+  'luaFunction',
+  'sassMixin',
 }, { ctermfg = purple })
 
 hi({
@@ -217,7 +259,7 @@ hi({
   'Special',
 }, { ctermfg = yellow })
 
-hi({ '@unit' }, { ctermfg = red })
+hi({ '@unit', 'cssUnitDecorators' }, { ctermfg = red })
 
 -- Diagnostics
 
@@ -255,10 +297,10 @@ hi({ 'SignifySignAdd' }, { ctermbg = bg, ctermfg = green })
 hi({ 'SignifySignDelete' }, { ctermbg = bg, ctermfg = red })
 hi({ 'SignifySignChange' }, { ctermbg = bg, ctermfg = orange })
 
-hi({ 'DiffAdd', 'diffAdded' }, { ctermbg = brightGreen, ctermfg = fg })
-hi({ 'DiffChange', 'diffChanged' }, { ctermbg = brightYellow, ctermfg = fg })
-hi({ 'DiffDelete', 'diffRemoved' }, { ctermbg = brightRed, ctermfg = fg })
-hi({ 'DiffText', 'diffLine' }, { ctermbg = yellow, ctermfg = bg })
+hi({ 'DiffAdd', 'diffAdded' }, { ctermbg = brightGreen })
+hi({ 'DiffChange', 'diffChanged' }, { ctermbg = brightYellow })
+hi({ 'DiffDelete', 'diffRemoved' }, { ctermbg = brightRed })
+hi({ 'DiffText', 'diffLine' }, { ctermbg = yellow })
 
 hi({ 'gitcommitComment' }, { ctermfg = fgBright })
 hi({ 'gitcommitUnmerged' }, { ctermfg = red })
@@ -280,13 +322,16 @@ hi({ 'gitcommitDiscardedArrow' }, { link = 'gitcommitDiscardedArrow' })
 hi({ 'gitcommitSelectedArrow' }, { link = 'gitcommitSelectedArrow' })
 hi({ 'gitcommitUnmergedArrow' }, { link = 'gitcommitUnmergedArrow' })
 
-hi({ 'TelescopeBorder', 'FloatBorder', 'DapUIFloatBorder' }, { ctermfg = fgBright, ctermbg = bgBright })
-hi({ 'TelescopePreviewNormal' }, { ctermbg = bgBright })
--- hi({ 'TelescopeMatching' }, { ctermbg = blue, ctermfg = bg })
+hi({ 'TelescopeBorder', 'LspInfoBorder', 'FloatBorder', 'DapUIFloatBorder' }, { ctermfg = bgBright })
 -- hi({ 'TelescopePromptPrefix' }, { ctermfg = blue })
--- hi({ 'TelescopeSelectionCaret' }, { ctermfg = fg, ctermbg = fg })
--- hi({ 'TelescopePromptTitle', 'TelescopePreviewMessage' }, { ctermfg = fg })
-hi({ 'TelescopeNormal', 'NormalFloat' }, { ctermbg = bgBright })
+hi({ 'TelescopeSelectionCaret' }, { ctermfg = bgBright, ctermbg = bgBright })
+hi(
+  { 'TelescopePromptTitle', 'TelescopePreviewTitle', 'TelescopePreviewMessage', 'TelescopePromptCounter' },
+  { ctermfg = fgBright }
+)
+
+hi({ 'TelescopeNormal' }, { ctermbg = bg, ctermfg = fgBright })
+hi({ 'TelescopeMatching' }, { ctermfg = fg })
 -- hi({ 'TelescopeMultiIcon' }, { ctermfg = bgBright })
 
 --vim.cmd [[

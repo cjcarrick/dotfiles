@@ -1,6 +1,6 @@
 require 'keys'
 require 'sets'
-require 'colorscheme.onehalfdark'
+require 'colorscheme.16color'
 require 'statusline'
 require 'plugins'
 require 'impatient'

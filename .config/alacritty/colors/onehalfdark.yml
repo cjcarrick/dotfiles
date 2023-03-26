@@ -22,8 +22,8 @@ colors:
     blue: '#61afef'
     magenta: '#c678dd'
   bright:
-    black: '#2f353e'
-    white: '#5c6370'
+    black: '#5c6370' # comments
+    white: '#2f353e' #cursorline
     red: '#65414a'
     yellow: '#675d4c'
     green: '#4f624c'

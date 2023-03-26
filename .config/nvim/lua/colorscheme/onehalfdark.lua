@@ -81,18 +81,18 @@ hi({
   'Normal',
   'none',
   '@punctuation.bracket',
-}, { fg = fg[1], bg = bg[1] })
+}, { fg = fg[1] })
 
-hi({ 'Cursor' }, { fg = 'bg', bg = blue })
+hi({ 'Cursor' }, { fg = bg[1], bg = blue })
 hi({ 'CursorColumn' }, { bg = bg[2] })
 
-hi({ 'CursorLine' }, { bg = bg[2] })
+hi({ 'CursorLine' }, { bg = bg[2], blend = 50 })
 
-hi({ 'LineNr' }, { fg = fg[2], bg = bg[1] })
-hi({ 'CursorLineNr' }, { fg = fg[1], bg = bg[1] })
+hi({ 'LineNr' }, { fg = fg[2] })
+hi({ 'CursorLineNr' }, { fg = fg[1] })
 
-hi({ 'LeapLabelPrimary' }, { fg = 'bg', bg = green })
-hi({ 'LeapLabelSecondary' }, { fg = 'bg', bg = blue })
+hi({ 'LeapLabelPrimary' }, { fg = bg[1], bg = green })
+hi({ 'LeapLabelSecondary' }, { fg = bg[1], bg = blue })
 
 hi({ 'GlyphPalette0' }, { fg = red })
 hi({ 'GlyphPalette1' }, { fg = orange })
@@ -105,8 +105,8 @@ hi({ 'GlyphPalette7' }, { fg = pink })
 hi({ 'GlyphPalette8' }, { fg = fg[1] })
 hi({ 'GlyphPalette9' }, { fg = fg[2] })
 
-hi({ 'IncSearch', 'Search' }, { fg = 'bg', bg = selection[1] })
-hi({ 'Search' }, { fg = 'bg', bg = selection[1] })
+hi({ 'IncSearch', 'Search' }, { fg = bg[1], bg = selection[1] })
+hi({ 'Search' }, { fg = bg[1], bg = selection[1] })
 
 hi({ 'ErrorMsg' }, { fg = fg[1] })
 hi({ 'ModeMsg' }, { fg = fg[1] })
@@ -147,7 +147,7 @@ hi({ 'Directory' }, { fg = 'fg' })
 hi({ 'FernBranchSymbol', 'FernBranchText', 'FernBranch' }, { fg = 'fg' })
 hi({ 'VertSplit' }, { fg = bg[2], bg = bg[2] })
 hi({ 'Folded' }, { fg = fg[1] })
-hi({ 'FoldColumn' }, { fg = fg[1] })
+hi({ 'FoldColumn' }, { bg = fg[0] })
 hi({ 'SignColumn' }, { fg = fg[1], bg = bg[0] })
 
 hi({
@@ -206,6 +206,11 @@ hi({
   'Undefined',
 }, { fg = orange })
 hi({
+  'Parameter',
+  '@parameter',
+  'Hlargs',
+}, { fg = red, italic = true })
+hi({
   'Constant',
   '@constant.builtin',
   '@variable.builtin',
@@ -219,11 +224,6 @@ hi({
   'typescriptIdentifier',
   'CmpItemKindVariable',
 }, { fg = red })
-hi({
-  'Parameter',
-  '@parameter',
-  'Hlargs',
-}, { italic = true })
 hi({
   'Conditional',
   'Define',
@@ -293,9 +293,9 @@ local bg = {
   '#20242b',
 }
 
-hi({ 'SignifySignAdd' }, { bg = 'bg', fg = green })
-hi({ 'SignifySignDelete' }, { bg = 'bg', fg = red })
-hi({ 'SignifySignChange' }, { bg = 'bg', fg = orange })
+hi({ 'SignifySignAdd' }, { bg = bg[1], fg = green })
+hi({ 'SignifySignDelete' }, { bg = bg[1], fg = red })
+hi({ 'SignifySignChange' }, { bg = bg[1], fg = orange })
 
 hi({ 'DiffAdd', 'diffAdded' }, { bg = mix(green, bg[1], 0.4), ctermfg = 'white' })
 hi({ 'DiffChange', 'diffChanged' }, { bg = mix(yellow, bg[1], 0.1), ctermfg = 'white' })

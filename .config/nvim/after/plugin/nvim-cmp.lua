@@ -30,8 +30,11 @@ local has_words_before = function()
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match '%s' == nil
 end
 
+vim.o.pumheight = 8
+
 local cmp = require 'cmp'
 cmp.setup {
+
   enabled = function()
     local buftype = vim.api.nvim_buf_get_option(0, 'buftype')
     if buftype == 'prompt' then
@@ -40,7 +43,8 @@ cmp.setup {
       -- elseif snippy.is_active() then
       --   return false
       -- disable in snippets
-    elseif require('cmp.config.context').in_treesitter_capture 'comment' == true
+    elseif
+        require('cmp.config.context').in_treesitter_capture 'comment' == true
         or require('cmp.config.context').in_syntax_group 'Comment'
     then
       return false
@@ -58,7 +62,6 @@ cmp.setup {
   formatting = {
     format = function(_, vim_item)
       vim_item.kind = (kind_icons[vim_item.kind] or vim_item.kind)
-
       -- prevent menus from being really wide, and try to keep them fixed width
       -- (https://github.com/hrsh7th/nvim-cmp/discussions/609#discussioncomment-3395522)
       local MAX_LABEL_WIDTH = 25
@@ -67,21 +70,34 @@ cmp.setup {
       else
         vim_item.abbr = vim_item.abbr .. (' '):rep(MAX_LABEL_WIDTH - #vim_item.abbr)
       end
-
       return vim_item
     end,
   },
 
   mapping = cmp.mapping.preset.insert {
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = function() cmp.complete() end,
-    ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
-    },
+        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
 
-    ['<Tab>'] = cmp.mapping(function(fallback)
+        ['<C-Space>'] = cmp.mapping(function()
+      print 'hello'
+      cmp.complete { reason = cmp.ContextReason.Auto }
+    end, { 'i', 's' }),
+
+        ['<CR>'] = function(fallback)
+      if (not cmp.get_selected_entry()) or cmp.get_selected_entry().source.name == 'nvim_lsp_signature_help' then
+        fallback()
+      else
+        cmp.confirm {
+          -- Replace word if completing in the middle of a word
+          -- https://github.com/hrsh7th/nvim-cmp/issues/664
+          behavior = cmp.ConfirmBehavior.Replace,
+          -- Don't select first item on CR if nothing was selected
+          select = true,
+        }
+      end
+    end,
+
+        ['<Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
       elseif has_words_before() then
@@ -91,7 +107,7 @@ cmp.setup {
       end
     end, { 'i', 's' }),
 
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
+        ['<S-Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
       else
@@ -102,12 +118,16 @@ cmp.setup {
 
   completion = {
     completeopt = 'menu,menuone,noinsert',
+    autocomplete = {
+      cmp.TriggerEvent.TextChanged,
+      cmp.TriggerEvent.InsertEnter,
+    },
   },
 
   sources = {
     { name = 'nvim_lsp_signature_help' },
     { name = 'path' },
     { name = 'luasnip' },
-    { name = 'nvim_lsp', keyword_length = 0 },
+    { name = 'nvim_lsp',               keyword_length = 0 },
   },
 }

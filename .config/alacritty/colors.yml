@@ -1,32 +1,22 @@
 colors:
   primary:
-    background: "#282c34"
-    foreground: '#d8dee9'
-  selection:
-    text: CellForeground
-    background: '#4c566a'
-  search:
-    matches:
-      foreground: CellBackground
-      background: '#88c0d0'
-  footer_bar:
-    background: '#434c5e'
-    foreground: '#d8dee9'
+    background: '#282828'
+    foreground: '#ebdbb2'
   normal:
-    black: '#282c34'
-    white: '#abb2bf'
-    red: '#e06c75'
-    yellow: '#e5c07b'
-    green: '#98c379'
-    cyan: '#56b6c2'
-    blue: '#61afef'
-    magenta: '#c678dd'
+    black:   '#282828'
+    red:     '#c15550'
+    green:   '#98971a'
+    yellow:  '#dead2a'
+    blue:    '#458588'
+    magenta: '#b85b96'
+    cyan:    '#689d6a'
+    white:   '#ebdbb2'
   bright:
-    black: '#2f353e'
-    white: '#5c6370'
-    red: '#65414a'
-    yellow: '#675d4c'
-    green: '#4f624c'
-    cyan: '#e8a15e'
-    blue: '#81a1c1'
-    magenta: '#b48ead'
+    black:   '#62584d'
+    red:     '#563634'
+    green:   '#4a4924'
+    yellow:  '#67552a'
+    blue:    '#83a598'
+    magenta: '#d3869b'
+    cyan:    '#e79653'
+    white:   '#393939'

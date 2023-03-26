@@ -1,0 +1,20 @@
+#000000:#cc6666:#66cc99:#cc9966:#6699cc:#cc6699:#66cccc:#cccccc:#999999:#ff9999:#99ffcc:#ffcc99:#99ccff:#f9f9f9:#99ffff:#ffffff
+colors:
+  normal:
+    black:   '#262626'
+    red:     '#cc6666'
+    green:   '#66cc99'
+    yellow:  '#ffcc99'
+    blue:    '#6699cc'
+    magenta: '#cc6699'
+    cyan:    '#66cccc'
+    white:   '#d9d9d9'
+  bright:
+    black:   '#8c8c8c'
+    red:     '#cc6666'
+    green:   '#66cc99'
+    yellow:  '#ffcc99'
+    blue:    '#99ccff'
+    magenta: '#cc6699'
+    cyan:    '#cc9966'
+    white:   '#333333'

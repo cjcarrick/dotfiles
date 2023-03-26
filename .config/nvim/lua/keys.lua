@@ -4,6 +4,9 @@ local map = vim.keymap.set
 vim.g.mapleader = ' '
 map('n', '<SPACE>', '<Nop>')
 
+map('v', '<leader>y', '"*y')
+map('n', '<leader>y', '"*y')
+
 map('n', '<C-N>', ':bnext <cr>')
 map('n', '<C-P>', ':bprev <cr>')
 

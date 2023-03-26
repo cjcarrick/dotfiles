@@ -17,17 +17,24 @@ set.sidescrolloff = 4
 set.syntax = 'on'
 set.wrap = false
 set.cursorline = true
+set.cmdheight = 0
 
 -- Editing
-set.tw = 80
+set.textwidth = 80
+set.linebreak = true -- break lines at word boundaries instead of at the middle of a word
 -- set.formatoptions = 'jcroql'
 -- set.formatoptions = 'jcroq/na'
 set.diffopt = set.diffopt + 'iwhite' + 'iblank' + 'algorithm:patience'
+set.foldmethod = 'indent'
+set.foldenable = false
 
 -- Sidebar
 set.number = true
 set.relativenumber = true
 set.signcolumn = 'yes'
+-- set.statuscolumn = '%=%{v:relnum?v:relnum:v:lnum}%s%C '
+-- set.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+-- set.foldcolumn = '1'
 
 -- Case insensitive commands
 set.ignorecase = true
@@ -57,8 +64,8 @@ set.writebackup = false
 -- Filetypes
 vim.filetype.add {
   filename = {
-    ['tsconfig.json'] = 'jsonc',
-    ['tsconfig.*.json'] = 'jsonc',
+        ['tsconfig.json'] = 'jsonc',
+        ['tsconfig.*.json'] = 'jsonc',
   },
 }
 

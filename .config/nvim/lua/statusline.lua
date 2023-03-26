@@ -1,15 +1,19 @@
 vim.opt.statusline = ''
-local function status(append) vim.opt.statusline = vim.opt.statusline + append or '' end
+
+local function status(append) vim.opt.statusline = vim.opt.statusline + (append or '') end
 
 local function hl(group) return '%#' .. group .. '#' end
+local restoreHl = '%*'
 
-status(hl 'StatusLine')
-status '%f' -- file name
-status ' %m' -- file is modified
+status "%{expand('%:~:.')}" -- file name. If you just use %f like you're meant to, sometimes it actually prints out the absolute path (https://stackoverflow.com/a/45244610)
+status ' %m'                -- file is modified
 
 status(hl 'StatusLineAlt')
+
 -- status '%{FugitiveStatusline()}' -- git branch
 status ' %{sy#repo#get_stats_decorated()}' -- git changes
+
+status(restoreHl)
 
 status '%q' -- quickfix list
 
@@ -43,7 +47,7 @@ status '%{%luaeval("NumDiagnostics()")%}'
 status(hl 'StatusLineAlt')
 status ' %y' -- language mode
 
-status(hl 'StatusLine')
+status(restoreHl)
 status ' %3l:%-2c' -- line:column
 
 status(hl 'StatusLineAlt')
