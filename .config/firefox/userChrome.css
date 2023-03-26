@@ -1,0 +1,327 @@
+:root {
+  --custom-height: 52px;
+}
+
+#urlbar {
+  --urlbar-toolbar-height: var(--custom-height) !important;
+}
+
+#urlbar-input-container {
+  padding-right: calc(var(--urlbar-container-padding) + 30px) !important;
+}
+
+toolbar#nav-bar {
+  min-height: var(--custom-height) !important;
+  padding: 0 6px !important;
+}
+#tracking-protection-icon-container {
+  display: none !important;
+}
+
+#identity-box {
+  display: none !important;
+}
+
+#stop-button,
+#reload-button {
+  margin-left: calc(-100% - 39px) !important;
+  cursor: pointer;
+  z-index: 100 !important;
+}
+#stop-reload-button image {
+  width: 0;
+}
+
+#page-action-buttons,
+#stop-reload-button {
+  opacity: 0;
+  transition: 50ms;
+}
+
+#stop-reload-button:hover,
+#urlbar-container:hover ~ #stop-reload-button,
+#page-action-buttons:hover,
+#urlbar-container:hover #page-action-buttons {
+  opacity: 1 !important;
+}
+
+#urlbar-input:not(:focus) {
+  text-align: center !important;
+}
+
+#urlbar-input {
+  padding-left: 8px !important;
+}
+
+toolbar #ublock0_raymondhill_net-BAP image {
+  list-style-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg id='SVGRepo_bgCarrier' stroke-width='0'%3E%3C/g%3E%3Cg id='SVGRepo_tracerCarrier' stroke-linecap='round' stroke-linejoin='round'%3E%3C/g%3E%3Cg id='SVGRepo_iconCarrier'%3E%3Cpath d='M12 20.75C11.9046 20.7488 11.81 20.7319 11.72 20.7C9.00416 19.495 6.73215 17.4724 5.22095 14.9143C3.70974 12.3562 3.0347 9.39015 3.29 6.42999C3.29874 6.26297 3.36381 6.10384 3.47458 5.97853C3.58536 5.85323 3.73532 5.76915 3.9 5.73999C6.60383 5.33069 9.2302 4.5148 11.69 3.31999C11.7874 3.2758 11.8931 3.25293 12 3.25293C12.1069 3.25293 12.2126 3.2758 12.31 3.31999C14.7698 4.5148 17.3962 5.33069 20.1 5.73999C20.2647 5.76915 20.4146 5.85323 20.5254 5.97853C20.6362 6.10384 20.7013 6.26297 20.71 6.42999C20.9653 9.39015 20.2903 12.3562 18.7791 14.9143C17.2679 17.4724 14.9958 19.495 12.28 20.7C12.19 20.7319 12.0954 20.7488 12 20.75ZM4.76 7.10999C4.61105 9.61694 5.22251 12.1105 6.51433 14.2641C7.80616 16.4177 9.71815 18.1311 12 19.18C14.2819 18.1311 16.1939 16.4177 17.4857 14.2641C18.7775 12.1105 19.389 9.61694 19.24 7.10999C16.7326 6.68438 14.2961 5.91373 12 4.81999C9.7039 5.91373 7.26744 6.68438 4.76 7.10999Z' fill='%23ffffff'%3E%3C/path%3E%3C/g%3E%3C/svg%3E") !important;
+}
+
+toolbar #addon_darkreader_org-BAP image {
+  list-style-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg id='SVGRepo_bgCarrier' stroke-width='0'%3E%3C/g%3E%3Cg id='SVGRepo_tracerCarrier' stroke-linecap='round' stroke-linejoin='round'%3E%3C/g%3E%3Cg id='SVGRepo_iconCarrier'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M12.0972 2.53039C12.2913 2.8649 12.2752 3.28136 12.0557 3.5998C11.3898 4.56594 11 5.73595 11 7.00002C11 10.3137 13.6863 13 17 13C18.2641 13 19.4341 12.6102 20.4002 11.9443C20.7187 11.7249 21.1351 11.7087 21.4696 11.9028C21.8041 12.0969 21.9967 12.4665 21.9642 12.8519C21.5313 17.9765 17.236 22 12 22C6.47715 22 2 17.5229 2 12C2 6.76398 6.02351 2.46874 11.1481 2.03585C11.5335 2.0033 11.9031 2.19588 12.0972 2.53039ZM9.42424 4.42352C6.26994 5.49553 4 8.48306 4 12C4 16.4183 7.58172 20 12 20C15.517 20 18.5045 17.7301 19.5765 14.5758C18.7676 14.8508 17.9008 15 17 15C12.5817 15 9 11.4183 9 7.00002C9 6.09922 9.1492 5.2324 9.42424 4.42352Z' fill='%23ffffff'%3E%3C/path%3E%3C/g%3E%3C/svg%3E") !important;
+}
+
+#titlebar {
+  display: none;
+}
+
+#sidebar-header {
+  display: none;
+}
+
+/* #reload-button  > .toolbarbutton-icon { */
+/*   height: calc(2 * var(--toolbarbutton-inner-padding) + 12px) !important; */
+/*   width: calc(2 * var(--toolbarbutton-inner-padding) + 12px) !important; */
+/* } */
+
+/* bookmark button in the url */
+#star-button-box {
+  display: none;
+}
+/* the go button at the right of the url */
+#urlbar-go-button {
+  display: none;
+}
+
+/*** Megabar Styler General - version 2021-09-09 ***/
+
+/*** General Preferences ***/
+
+:root {
+  /* Number of pixels of enlargement when URL bar is focused */
+
+  --mbarstyler-popout-pixels: 0px; /* [0px - 7px] */
+
+  /* Top Bar Display or Not */
+
+  --mbarstyler-top-bar-display: block; /* [block,none] */
+
+  /* Font sizes (default: 13.8px for title, 10.2px for URL) */
+
+  --mbarstyler-title-font-size: 15px; /* [13px - 18px] */
+
+  --mbarstyler-url-font-size: 13px; /* [12px - 16px] */
+
+  /* Rows to show without scrolling */
+
+  --mbarstyler-max-rows-without-scrolling: 10;
+
+  /* Bottom border for each result row */
+
+  --mbarstyler-bottom-border-width: 0px; /* [0px or 1px] */
+
+  /* Height adjustment for labels (Proton) */
+
+  --mbarstyler-label-height-adjustment: 0px; /* [0px or 35px] */
+
+  /* Match display style */
+
+  --mbarstyler-match-weight: 700; /* [400,700] */
+
+  --mbarstyler-match-background-opacity: 0; /* [0.0,0.05,0.1] */
+}
+
+/*** URL bar enlargement or lack thereof ***/
+
+/* Compute new position, width, and padding */
+
+#urlbar[breakout][breakout-extend] {
+  top: calc(10px - var(--mbarstyler-popout-pixels)) !important;
+
+  left: calc(0px - var(--mbarstyler-popout-pixels)) !important;
+
+  width: calc(100% + (2 * var(--mbarstyler-popout-pixels))) !important;
+
+  padding: var(--mbarstyler-popout-pixels) !important;
+}
+
+[uidensity='compact'] #urlbar[breakout][breakout-extend] {
+  top: calc(3px - var(--mbarstyler-popout-pixels)) !important;
+}
+
+[uidensity='touch'] #urlbar[breakout][breakout-extend] {
+  top: calc(4px - var(--mbarstyler-popout-pixels)) !important;
+}
+
+/* Prevent shift of URL bar contents */
+
+#urlbar[breakout][breakout-extend] > #urlbar-input-container {
+  height: var(--urlbar-height) !important;
+
+  padding: 0 !important;
+}
+
+/* Do not animate */
+
+#urlbar[breakout][breakout-extend] > #urlbar-background {
+  animation: none !important;
+}
+
+/* Remove shadows */
+
+#urlbar[breakout][breakout-extend] > #urlbar-background {
+  box-shadow: none !important;
+}
+
+/*** Top "Blue Bar" Display ***/
+
+.urlbarView-row:first-of-type {
+  display: var(--mbarstyler-top-bar-display) !important;
+}
+
+/*** Font Sizes and Scrolling ***/
+
+/* Title font-size */
+
+.urlbarView-row .urlbarView-title {
+  font-size: var(--mbarstyler-title-font-size) !important;
+}
+
+/* URL / action font-size */
+
+.urlbarView-row .urlbarView-secondary,
+.urlbarView-row .urlbarView-url,
+.urlbarView-row .urlbarView-action {
+  font-size: var(--mbarstyler-url-font-size) !important;
+}
+
+/* Set max-height for items visible without scrolling */
+
+#urlbarView-results,
+#urlbar-results {
+  height: unset !important;
+
+  max-height: calc(
+    2.5 *
+      (
+        var(--mbarstyler-title-font-size) +
+          var(--mbarstyler-bottom-border-width)
+      ) * var(--mbarstyler-max-rows-without-scrolling) +
+      var(--mbarstyler-label-height-adjustment)
+  ) !important;
+}
+
+#urlbar-results {
+  overflow-y: auto !important;
+}
+
+/* Clean up extra spacing at the top and bottom */
+
+#urlbar-results {
+  padding-top: 6px !important;
+
+  padding-bottom: 6px !important;
+}
+
+/* Subtle border between results */
+
+.urlbarView-row:not(:last-of-type) {
+  border-bottom: var(--mbarstyler-bottom-border-width) solid rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Match Styling Like Fx43-47 */
+
+[lwt-popup-darktext] .urlbarView-row:not([selected]) .urlbarView-title strong,
+[lwt-popup-darktext] .urlbarView-row:not([selected]) .urlbarView-url strong {
+  font-weight: var(--mbarstyler-match-weight) !important;
+
+  box-shadow: inset 0 0 1px 1px
+    rgba(0, 0, 0, calc(var(--mbarstyler-match-background-opacity) * 2));
+
+  background-color: rgba(0, 0, 0, var(--mbarstyler-match-background-opacity));
+
+  border-radius: 2px;
+}
+
+[lwt-popup-brighttext] .urlbarView-row:not([selected]) .urlbarView-title strong,
+[lwt-popup-brighttext] .urlbarView-row:not([selected]) .urlbarView-url strong {
+  font-weight: var(--mbarstyler-match-weight) !important;
+
+  box-shadow: inset 0 0 1px 1px
+    rgba(255, 255, 255, calc(var(--mbarstyler-match-background-opacity) * 2));
+
+  background-color: rgba(
+    255,
+    255,
+    255,
+    var(--mbarstyler-match-background-opacity)
+  );
+
+  border-radius: 2px;
+}
+
+/* Hide "Firefox Suggest", "Google Suggestions" and other labels */
+.urlbarView-row[label]::before {
+  /* Suppress the text */
+  display: none !important;
+}
+.urlbarView-row[label] {
+  /* Remove the empty space */
+  margin-block-start: 0 !important;
+}
+
+/*** End of: Megabar Styler General ***/
+
+/*** Megabar Styler One-Offs - version 2020-05-31 ***/
+
+/*** One-Off Search Button Preferences ***/
+
+:root {
+  /* One-Offs Display or Not */
+
+  --mbarstyler-oneoffs-display: none; /* [flex,none] */
+}
+
+/* Show or Hide the One-Offs Search Icon Bar */
+
+#urlbar .search-one-offs:not([hidden]) {
+  display: var(--mbarstyler-oneoffs-display) !important;
+}
+
+/* Shorten the One-Offs Search Icon Bar Vertically */
+
+#urlbar .search-one-offs:not([hidden]) {
+  padding-block: unset !important;
+}
+
+/* We don't need the text */
+
+#urlbar .search-one-offs .search-panel-header {
+  display: none !important;
+}
+
+/*** End of: Megabar Styler One-Offs ***/
+
+/* ------------------------------------ */
+/* Firefox Translucent Tabbar for macOS */
+/* ------------------------------------ */
+
+:root:not(:-moz-window-inactive) #navigator-toolbox {
+  background-color: rgba(0, 0, 0, 24%) !important;
+}
+
+#sidebar-box,
+#webextpanels-window {
+  -moz-appearance: -moz-mac-vibrant-titlebar-light !important;
+  -moz-appearance: -moz-mac-source-list !important;
+  background-color: transparent !important;
+}
+
+/* De-emphasize tab icons and names when window is unfocused */
+:root:-moz-window-inactive .tab-content {
+  opacity: 0.6;
+}
+
+/* recolor toolbar button hover/active bg colors to semi-transparent */
+:root {
+  --toolbarbutton-hover-background: color-mix(
+    in srgb,
+    currentColor 11%,
+    transparent
+  ) !important;
+  --toolbarbutton-active-background: color-mix(
+    in srgb,
+    currentColor 21%,
+    transparent
+  ) !important;
+}

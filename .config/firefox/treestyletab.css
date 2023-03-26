@@ -1,0 +1,113 @@
+/** todo: cleanup this file */
+
+.newtab-button-box {
+  display: none;
+}
+
+:root {
+  --bg: var(--theme-colors-toolbar);
+
+  --tab-active-bg: var(--theme-colors-frame);
+  --tab-hover-bg: var(--theme-colors-frame-50);
+  --button-hover-bg: var(--theme-colors-toolbar_field_text-10);
+
+  --fg: var(--theme-colors-toolbar_field_text);
+  --fg-hover: var(--fg);
+
+  --br: 4px;
+  --pad: 4px;
+  --tab-pad: 6px;
+  --favicon-size: 14px;
+  --icon-size: calc(var(--favicon-size) + var(--pad) * 2);
+
+  --tab-margin-top: 2px;
+
+  --tab-margin-bottom: 2px;
+  --tab-margin-left: var(--tab-pad);
+  --tab-margin-right: var(--tab-pad);
+}
+
+#tabbar {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+tab-twisty,
+tab-closebox {
+  background: var(--bg1);
+}
+
+tab-item .background {
+  border-radius: var(--br);
+}
+tab-item:hover .background {
+  background: var(--tab-hover-bg);
+}
+
+tab-item:hover tab-favicon {
+  opacity: 0;
+}
+
+tab-item.active .background {
+  background: var(--tab-active-bg);
+}
+
+tab-item-substance {
+  display: flex;
+  flex-direction: row;
+  gap: var(--pad);
+  padding: var(--tab-pad) calc(var(--tab-pad) * 0.5);
+  align-items: center;
+}
+
+tab-closebox {
+  position: absolute;
+  left: calc(var(--icon-size));
+  top: calc(var(--tab-pad) / 2);
+  display: none;
+}
+
+tab-item:hover tab-closebox {
+  display: initial;
+  border-radius: var(--br);
+}
+
+tab-twisty,
+tab-closebox {
+  padding: calc(var(--icon-size) / 2);
+  opacity: 1;
+}
+
+.favicon-builtin::before,
+tab-twisty::before,
+tab-closebox::after {
+  background: var(--fg);
+}
+
+tab-item:hover .favicon-builtin::before,
+tab-item:hover tab-twisty:hover::before,
+tab-item:hover tab-closebox:hover::after {
+  background: var(--fg-hover);
+}
+
+tab-twisty::before,
+tab-closebox::after {
+  position: absolute;
+  top: 50%;
+  left: var(--pad);
+  transform: translate(0, -50%);
+  mask-size: 80%;
+}
+
+tab-twisty:hover::after,
+tab-closebox:hover::before {
+  background: var(--button-hover-bg);
+  border-radius: var(--br);
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(0, -50%);
+  width: var(--icon-size);
+  height: var(--icon-size);
+}
