@@ -4,7 +4,7 @@
 
 Some configuration files are Linux or MacOS specific. Only copy what you need.
 
-A lot of the programs I use are listed in
+A lot of the programs I use (on Linux and Mac) are listed in
 [linux-from-scratch.md](linux-from-scratch.md).
 
 ## ZSH
@@ -12,7 +12,8 @@ A lot of the programs I use are listed in
 I don't use a plugin manager so you'll have to install these and source them
 manually.
 
-- [zsh-users/zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters/main.md)
+- [zsh-users/zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
+- [jeffreytse/zsh-vi-mode](https://github.com/jeffreytse/zsh-vi-mode)
 
 ## Neovim
 
