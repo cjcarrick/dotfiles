@@ -1,3 +1,5 @@
+if not pcall(require, 'illuminate') then return end
+
 require('illuminate').configure {
   providers = { 'regex' },
   delay = 0,

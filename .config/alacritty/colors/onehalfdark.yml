@@ -14,7 +14,7 @@ colors:
     foreground: '#d8dee9'
   normal:
     black: '#282c34'
-    white: '#abb2bf'
+    white: '#d8dee9'
     red: '#e06c75'
     yellow: '#e5c07b'
     green: '#98c379'
@@ -22,11 +22,11 @@ colors:
     blue: '#61afef'
     magenta: '#c678dd'
   bright:
-    black: '#5c6370' # comments
-    white: '#2f353e' #cursorline
-    red: '#65414a'
-    yellow: '#675d4c'
-    green: '#4f624c'
-    cyan: '#e8a15e'
-    blue: '#81a1c1'
+    black: '#5d6679' # comments
+    white: '#3e4450' #cursorline
+    red: '#834c54'
+    yellow: '#867657'
+    green: '#607756'
+    cyan: '#e29678'
+    blue: '#446d91'
     magenta: '#b48ead'
