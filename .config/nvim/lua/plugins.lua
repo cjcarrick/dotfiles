@@ -25,47 +25,40 @@ end
 return require('packer').startup(function(use)
   -- Interface
   use { 'RRethy/vim-illuminate' }
-  use { 'shortcuts/no-neck-pain.nvim' }
-  -- use { 'lukas-reineke/indent-blankline.nvim' }  -- made vim slow with large files
+
+  -- TODO: make fails. Missing <luaxlib.h>. Probably comes from liblua. How do
+  -- you intall liblua on macos?
+  -- use { 'JosefLitos/reform.nvim', disable = true, run = 'make' }
 
   -- Functionality
-  -- use { 'tpope/vim-commentary' }
-  use { 'numToStr/Comment.nvim' }
   use { 'echasnovski/mini.align', branch = 'stable' }
-  use { 'ThePrimeagen/harpoon', requires = { 'nvim-lua/plenary.nvim' } }
-
-  use { 'mogelbrod/vim-jsonpath', cmd = { 'JsonPath' } }
+  use { 'mattn/emmet-vim' }
+  use { 'numToStr/Comment.nvim' }
 
   use { 'christoomey/vim-tmux-navigator' }
-  use { 'dkarter/bullets.vim', ft = 'markdown' }
-  use { 'ggandor/leap.nvim', event = 'BufEnter *' }
-  use { 'tpope/vim-abolish', event = 'BufEnter *' }
+  use { 'ggandor/leap.nvim' }
   use { 'jiangmiao/auto-pairs' }
-  use { 'alvan/vim-closetag' }
-  use { 'tpope/vim-surround', event = 'BufEnter *' }
-  use { 'uga-rosa/ccc.nvim', event = { 'BufEnter *' } }
-  use { 'tpope/vim-fugitive' }
+  use { 'tpope/vim-surround' }
+  use { 'uga-rosa/ccc.nvim' }
+  -- use { 'alvan/vim-closetag' }
 
   -- Misc.
   use { 'lewis6991/impatient.nvim' }
   use { 'wbthomason/packer.nvim' }
 
   -- LSP
-  use {
-    'neovim/nvim-lspconfig',
-    requires = {
-      { 'j-hui/fidget.nvim' },
-      { 'jose-elias-alvarez/null-ls.nvim' },
-      { 'b0o/schemastore.nvim' },
-    },
-  }
+  use { 'b0o/schemastore.nvim' }
+  use { 'j-hui/fidget.nvim' }
+  use { 'jose-elias-alvarez/null-ls.nvim' }
+  use { 'neovim/nvim-lspconfig' }
+  use { 'ray-x/lsp_signature.nvim' }
 
-  -- Jupyter notebooks
-  use { 'GCBallesteros/jupytext.vim' }
-  use { 'hkupty/iron.nvim' }
-  use { 'kana/vim-textobj-user' }
-  use { 'kana/vim-textobj-line' }
-  use { 'GCBallesteros/vim-textobj-hydrogen' }
+  -- -- Jupyter notebooks
+  -- use { 'GCBallesteros/jupytext.vim' }
+  -- use { 'hkupty/iron.nvim' }
+  -- use { 'kana/vim-textobj-user' }
+  -- use { 'kana/vim-textobj-line' }
+  -- use { 'GCBallesteros/vim-textobj-hydrogen' }
 
   -- Completion
   use { 'L3MON4D3/LuaSnip', tag = 'v1.*' }
@@ -73,7 +66,6 @@ return require('packer').startup(function(use)
     'hrsh7th/nvim-cmp',
     requires = {
       { 'hrsh7th/cmp-nvim-lsp' },
-      { 'hrsh7th/cmp-nvim-lsp-signature-help' },
       { 'hrsh7th/cmp-path' },
       { 'saadparwaiz1/cmp_luasnip' },
     },
@@ -83,23 +75,18 @@ return require('packer').startup(function(use)
   use {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
-    -- disable = true,
-    requires = {
-      'nvim-treesitter/playground',
-      'JoosepAlviste/nvim-ts-context-commentstring',
-    },
+    disable = false,
+    requires = { 'JoosepAlviste/nvim-ts-context-commentstring' },
   }
 
   -- Git
-  -- use { 'tpope/vim-fugitive' }
   use { 'mhinz/vim-signify' }
 
   -- Telescope
   use {
     'nvim-telescope/telescope.nvim',
-    cmd = { 'Telescope' },
     tag = '0.1.0',
-    requires = { 'nvim-lua/plenary.nvim' },
+    requires = { 'nvim-lua/plenary.nvim', 'nvim-tree/nvim-web-devicons' },
   }
 
   -- nvim-tree
@@ -107,11 +94,19 @@ return require('packer').startup(function(use)
     'nvim-tree/nvim-tree.lua',
     requires = { 'nvim-tree/nvim-web-devicons' },
   }
+  -- use { 'tpope/vim-vinegar' }
 
-  -- -- debugger
-  -- use {
-  --   'mfussenegger/nvim-dap',
-  --   cmd = { 'DapContinue' },
-  --   requires = { 'rcarriga/nvim-dap-ui', },
-  -- }
+  -- debugger
+  use {
+    'mfussenegger/nvim-dap',
+    requires = {
+      'LiadOz/nvim-dap-repl-highlights',
+      'mxsdev/nvim-dap-vscode-js',
+      {
+        'microsoft/vscode-js-debug',
+        opt = true,
+        run = 'npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out',
+      },
+    },
+  }
 end)

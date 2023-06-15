@@ -21,8 +21,6 @@ require('telescope').setup {
 }
 
 vim.keymap.set('n', '<leader>p',  ':Telescope find_files <cr>')
-vim.keymap.set('n', '<leader>s',  ':Telescope spell_suggest <cr>')
 vim.keymap.set('n', '<leader>hl', ':Telescope highlights <cr>')
 vim.keymap.set('n', '<leader>r',  ':Telescope oldfiles <cr>')
-vim.keymap.set('n', '<leader>t',  ':Telescope filetypes <cr>')
 vim.keymap.set('n', '<leader>l',  ':Telescope grep_string search="" <cr>')

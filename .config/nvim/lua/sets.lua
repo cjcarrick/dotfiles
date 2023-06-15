@@ -1,3 +1,8 @@
+vim.g.user_emmet_mode = 'inv' -- enable all functions, which is equal to
+vim.g.user_emmet_leader_key = '<C-e>'
+
+vim.g['grammarous#jar_url'] = 'https://www.languagetool.org/download/LanguageTool-5.9.zip'
+
 local set = vim.opt
 
 -- Fixes italics in tmux
@@ -9,6 +14,8 @@ set t_ZR=^[[23m
 set.showtabline = 1
 set.hidden = true
 
+vim.api.nvim_create_user_command('Wa', ':wa', {})
+
 -- Interface
 set.list = true
 set.listchars = 'tab:>-,trail:·' -- ,space:·
@@ -17,7 +24,8 @@ set.sidescrolloff = 4
 set.syntax = 'on'
 set.wrap = false
 set.cursorline = true
-set.cmdheight = 0
+set.spellsuggest = set.spellsuggest + '10'
+-- set.cmdheight = 0
 
 -- Editing
 set.textwidth = 80
@@ -64,10 +72,11 @@ set.writebackup = false
 -- Filetypes
 vim.filetype.add {
   filename = {
-        ['tsconfig.json'] = 'jsonc',
-        ['tsconfig.*.json'] = 'jsonc',
+    ['tsconfig.json'] = 'jsonc',
+    ['tsconfig.*.json'] = 'jsonc',
   },
 }
+vim.g.tex_flavor = 'latex'
 
 -- Misc
 set.mouse = 'a'

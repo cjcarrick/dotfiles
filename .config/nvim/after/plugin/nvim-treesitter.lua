@@ -7,7 +7,17 @@ require('nvim-treesitter.configs').setup {
 
   highlight = {
     enable = true,
-    disable = { --[[ 'html', 'markdown', 'css', 'setup', ]] 'help', 'telescope' },
+    disable = {
+      'html',
+      'markdown',
+      'css',
+      'sass',
+      'scss',
+      'setup',
+      'tex',
+      'help',
+      'telescope',
+    },
   },
 
   indent = { enable = false },

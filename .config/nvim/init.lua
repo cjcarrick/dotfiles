@@ -1,6 +1,7 @@
+require 'impatient'
 require 'keys'
 require 'sets'
-require 'colorscheme.16color'
+require 'colorscheme.ansi16.default'
 require 'statusline'
 require 'plugins'
-require 'impatient'
+
