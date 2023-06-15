@@ -1,14 +1,16 @@
+if not pcall(require, 'nvim-tree') then return end
+
 local lib = require 'nvim-tree.lib'
+local utils = require 'nvim-tree.utils'
 local view = require 'nvim-tree.view'
 local api = require 'nvim-tree.api'
 
 vim.g.nvim_tree_disable_default_bindings = 1
 
-vim.keymap.set('n', '<leader>j', function() api.tree.open() end)
+vim.keymap.set('n', '<leader>j', function() api.tree.toggle { find_file = true, focus = true } end)
 
 local function natural_cmp(left, right)
   -- sort directories first
-  print(left.type, right.type)
   if (left.type == 'directory') and (right.type == 'file') then
     return true
   elseif (left.type == 'file') and (right.type == 'directory') then
@@ -37,36 +39,19 @@ end
 
 local function copy_file_to(node)
   local file_src = node['absolute_path']
-  -- The args of input are {prompt}, {default}, {completion}
-  -- Read in the new file path using the existing file's path as the baseline.
-  local file_out = vim.fn.input('COPY TO: ', file_src, 'file')
-  -- Create any parent dirs as required
+  local file_out = vim.fn.input('Copy to: ', file_src, 'file')
+  if file_out == '' then return end
   local dir = vim.fn.fnamemodify(file_out, ':h')
   vim.fn.system { 'mkdir', '-p', dir }
-  -- Copy the file
   vim.fn.system { 'cp', '-R', file_src, file_out }
 end
 
-local function copy_things(bufnr)
-  print 'Copy:  [F]ile  -  Bu[f]fer Relative Path  -  CWD Relative [p]ath  -  Absolute [P]ath  -  [N]ame'
-
-  local maps = {
-    F = function() copy_file_to(lib.get_node_at_cursor()) end,
-    f = api.fs.copy.relative_path,
-    p = function() print 'p' end,
-    P = api.fs.copy.absolute_path,
-    N = api.fs.copy.name,
-  }
-
-  for k, cb in pairs(maps) do
-    vim.keymap.set('n', k, function()
-      cb()
-
-      for k2 in pairs(maps) do
-        vim.keymap.del('n', k2, { buffer = bufnr })
-      end
-    end, { buffer = bufnr })
-  end
+-- Adapted from the native move function (https://github.com/nvim-tree/nvim-tree.lua/blob/b601b5aa25627f68d3d73ba9269b49e4f04ce126/lua/nvim-tree/actions/fs/rename-file.lua#L18-L32)
+local function move_file_to(node)
+  local to = vim.fn.input('Move to: ', node.absolute_path, 'file')
+  local success, err = vim.loop.fs_rename(node.absolute_path, to)
+  if not success then print('Could not move', node.absolute_path, 'to', to, 'Err:', err) end
+  utils.rename_loaded_buffers(node.absolute_path, to)
 end
 
 local function edit_or_open()
@@ -86,46 +71,21 @@ local function edit_or_open()
   end
 end
 
-local function vsplit_preview()
-  -- open as vsplit on current node
-  local action = 'vsplit'
-  local node = lib.get_node_at_cursor()
-
-  -- Just copy what's done normally with vsplit
-  if node.link_to and not node.nodes then
-    require('nvim-tree.actions.node.open-file').fn(action, node.link_to)
-  elseif node.nodes ~= nil then
-    lib.expand_or_collapse(node)
-  else
-    require('nvim-tree.actions.node.open-file').fn(action, node.absolute_path)
-  end
-
-  -- Finally refocus on tree if it was lost
-  view.focus()
-end
-
-local git_add = function()
-  local node = lib.get_node_at_cursor()
-  local gs = node.git_status.file
-
-  -- If the file is untracked, unstaged or partially staged, we stage it
-  if gs == '??' or gs == 'MM' or gs == 'AM' or gs == ' M' then
-    vim.cmd('silent !git add ' .. node.absolute_path)
-
-    -- If the file is staged, we unstage
-  elseif gs == 'M ' or gs == 'A ' then
-    vim.cmd('silent !git restore --staged ' .. node.absolute_path)
-  end
-
-  lib.refresh_tree()
-end
-
 local function on_attach(bufnr)
   local function opts(desc)
     return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
   end
 
-  vim.keymap.set('n', 'm', api.fs.rename, opts 'Rename')
+  vim.keymap.set('n', 'm', function()
+    local node = api.tree.get_node_under_cursor()
+    move_file_to(node)
+  end, opts 'Move')
+
+  vim.keymap.set('n', 'cp', function()
+    local node = api.tree.get_node_under_cursor()
+    copy_file_to(node)
+  end, opts 'Copy')
+
   vim.keymap.set('n', 'n', api.fs.create, opts 'Create')
   vim.keymap.set('n', 'dd', api.fs.trash, opts 'Trash')
   vim.keymap.set('n', 'D', api.fs.trash, opts 'Trash')
@@ -142,8 +102,7 @@ local function on_attach(bufnr)
   vim.keymap.set('n', 'q', api.tree.close, opts 'Close')
   vim.keymap.set('n', '<esc>', api.tree.close, opts 'Close')
   vim.keymap.set('n', '?', api.tree.toggle_help, opts 'Help')
-  vim.keymap.set('n', 'Y', copy_things, opts 'Copy')
-  vim.keymap.set('n', 'yy', copy_things, opts 'Copy')
+  vim.keymap.set('n', 'u', api.tree.toggle_custom_filter, opts 'Toggle hidden')
 
   vim.keymap.set('n', 'P', function()
     local node = api.tree.get_node_under_cursor()
@@ -154,8 +113,13 @@ end
 require('nvim-tree').setup {
   on_attach = on_attach,
   sort_by = function(nodes) table.sort(nodes, natural_cmp) end,
-  view = { hide_root_folder = true, adaptive_size = true },
+  view = {
+    adaptive_size = true,
+    signcolumn = 'no',
+  },
   filters = {
+    dotfiles = false,
+    git_clean = false,
     custom = {
       '^\\.DS_Store',
       '^\\.ipynb_checkpoints',
@@ -164,8 +128,9 @@ require('nvim-tree').setup {
     },
   },
   renderer = {
-    indent_width = 1,
+    indent_width = 2,
     add_trailing = true,
+    root_folder_label = false,
     icons = {
       show = { folder = false },
       git_placement = 'signcolumn',
@@ -173,8 +138,8 @@ require('nvim-tree').setup {
         default = '',
         bookmark = '*',
         folder = {
-          arrow_closed = '',
-          arrow_open = '',
+          arrow_closed = '  ',
+          arrow_open = '  ',
           -- default = '',
           -- open = '',
           -- symlink = '',

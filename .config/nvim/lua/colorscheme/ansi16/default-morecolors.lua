@@ -1,4 +1,5 @@
 -- enable 16 color
+
 vim.o.t_Co = 16
 
 local bg = 0
@@ -17,6 +18,7 @@ local green = 2
 local brightGreen = 10
 
 local blue = 4
+local brightBlue = 12
 
 local purple = 5
 local pink = 13
@@ -55,6 +57,7 @@ vim.fn.sign_define('DapStopped', { text = '', texthl = 'DapStopped' })
 
 hi({
   'Normal',
+  'NormalFloat',
   'none',
 }, { ctermfg = fg, ctermbg = 'NONE' })
 -- '@punctuation.bracket',
@@ -64,8 +67,8 @@ hi({ 'CursorColumn' }, { ctermbg = bgBright })
 
 hi({ 'CursorLine', 'TelescopeSelection' }, { ctermbg = bgBright })
 
-hi({ 'LineNr' }, { ctermfg = bgBright, ctermbg = 'NONE' })
-hi({ 'CursorLineNr' }, { ctermfg = fg, ctermbg = 'NONE' })
+hi({ 'LineNr' }, { ctermfg = fgBright, ctermbg = bgBright })
+hi({ 'CursorLineNr' }, { ctermfg = fg, ctermbg = bgBright, bold = true })
 
 hi({ 'LeapLabelPrimary' }, { ctermfg = bg, ctermbg = green })
 hi({ 'LeapLabelSecondary' }, { ctermfg = bg, ctermbg = blue })
@@ -81,7 +84,7 @@ hi({ 'GlyphPalette7' }, { ctermfg = pink })
 hi({ 'GlyphPalette8' }, { ctermfg = fg })
 hi({ 'GlyphPalette9' }, { ctermfg = fgBright })
 
-hi({ 'Search', 'IncSearch' }, { ctermbg = fgBright, ctermfg = fg })
+hi({ 'Search', 'IncSearch' }, { ctermbg = brightYellow })
 
 hi({ 'ErrorMsg' }, { ctermfg = fg })
 hi({ 'ModeMsg' }, { ctermfg = fg })
@@ -101,19 +104,18 @@ hi({ 'SpellCap' }, { ctermfg = yellow })
 hi({ 'SpellLocal' }, { ctermfg = yellow })
 hi({ 'SpellRare' }, { ctermfg = yellow })
 
-hi({ 'StatusLine' }, { ctermfg = fg })
-hi({ 'StatusLineAlt' }, { ctermfg = fgBright })
+hi({ 'StatusLine' }, { ctermfg = bg, ctermbg = fg, bold = true })
 hi({ 'StatusLineError' }, { ctermfg = red })
 hi({ 'StatusLineWarn' }, { ctermfg = orange })
 hi({ 'StatusLineHint' }, { ctermfg = blue })
 hi({ 'StatusLineInfo' }, { ctermfg = blue })
-hi({ 'StatusLineNC' }, { ctermfg = fgBright })
+hi({ 'StatusLineNC' }, { ctermfg = fgBright, ctermbg = bgBright })
 
 hi({ 'TabLine' }, { ctermfg = fgBright, ctermbg = bgBright })
 hi({ 'TabLineFill' }, { ctermfg = fgBright, ctermbg = bgBright })
 
-hi({ 'Visual' }, { ctermbg = bgBright })
-hi({ 'VisualNOS' }, { ctermbg = bgBright })
+hi({ 'Visual' }, { ctermbg = brightBlue })
+hi({ 'VisualNOS' }, { ctermbg = brightBlue })
 
 hi({ 'ColorColumn' }, { ctermbg = bgBright })
 hi({ 'Conceal' }, { ctermfg = fg })
@@ -122,7 +124,7 @@ hi({ 'FernBranchSymbol', 'FernBranchText', 'FernBranch' }, { ctermfg = fg })
 hi({ 'VertSplit' }, { ctermfg = bgBright })
 hi({ 'Folded' }, { ctermfg = fg })
 hi({ 'FoldColumn' }, { ctermfg = fg })
-hi({ 'SignColumn' }, { ctermfg = fg, ctermbg = 'NONE' })
+hi({ 'SignColumn' }, { ctermfg = fg, ctermbg = bgBright})
 
 hi({
   'illuminatedWord',
@@ -132,7 +134,7 @@ hi({
   'illuminatedCurWord',
 }, { ctermbg = bgBright })
 
-hi({ 'MatchParen' }, { ctermbg = fgBright })
+hi({ 'MatchParen' }, { ctermbg = fgBright, ctermfg = fg })
 
 hi({ 'SpecialKey' }, { ctermfg = fg })
 hi({ 'Title' }, { ctermfg = green })
@@ -141,7 +143,7 @@ hi({ 'WildMenu' }, { ctermfg = fg })
 hi({ 'preproc', '@preproc' }, { ctermfg = fg })
 
 hi({ 'NonText' }, { ctermfg = bg })
-hi({ 'Comment', 'markdownCode' }, { ctermfg = 8, italic = true })
+hi({ 'Comment', 'markdownCode' }, { ctermfg = fgBright, italic = true })
 hi({ 'Whitespace' }, { ctermfg = bgBright })
 
 -- hmtl/xml/css
@@ -161,19 +163,16 @@ hi({
   '@tag.attribute',
   'htmlArg',
 }, { ctermfg = orange })
-hi({ '@pseudo', 'cssHacks','cssNoise', 'cssVendor', 'cssPseudoClass', 'cssPseudoClassId' }, { ctermfg = cyan })
-hi(
-  {
-    'cssProp',
-    'cssAttributeSelector',
-    'cssSelectorOp',
-    'cssBraces',
-    'typescriptBraces',
-    'typescriptEndColons',
-    'cssAttrComma',
-  },
-  { ctermfg = fg }
-)
+hi({ '@pseudo', 'cssHacks', 'cssNoise', 'cssVendor', 'cssPseudoClass', 'cssPseudoClassId' }, { ctermfg = cyan })
+hi({
+  'cssProp',
+  'cssAttributeSelector',
+  'cssSelectorOp',
+  'cssBraces',
+  'typescriptBraces',
+  'typescriptEndColons',
+  'cssAttrComma',
+}, { ctermfg = fg })
 --
 
 hi({
