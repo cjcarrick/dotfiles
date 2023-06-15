@@ -17,7 +17,7 @@ set.sidescrolloff = 4
 set.syntax = 'on'
 set.wrap = false
 set.cursorline = true
-set.cmdheight = 0
+-- set.cmdheight = 0 -- this shits unusable
 
 -- Editing
 set.textwidth = 80

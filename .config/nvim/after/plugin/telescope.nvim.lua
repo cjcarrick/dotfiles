@@ -14,9 +14,9 @@ require('telescope').setup {
   pickers = {
     find_files = { theme = 'dropdown' },
     treesitter = { theme = 'dropdown' },
-    oldfiles = { theme = 'dropdown' },
-    filetypes = { theme = 'ivy' },
-    live_grep = { theme = 'dropdown' },
+    oldfiles   = { theme = 'dropdown' },
+    filetypes  = { theme = 'ivy'      },
+    live_grep  = { theme = 'dropdown' },
   },
 }
 

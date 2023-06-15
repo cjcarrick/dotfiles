@@ -40,7 +40,7 @@ end
 
 -- Update by autocmd instead of luaeval because i think that means it won't have
 -- to update as often
-vim.api.nvim_create_autocmd({ 'DiagnosticChanged' }, { callback = function() status '' end })
+-- vim.api.nvim_create_autocmd({ 'DiagnosticChanged' }, { callback = function() status '' end })
 
 status '%{%luaeval("NumDiagnostics()")%}'
 

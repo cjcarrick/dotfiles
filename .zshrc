@@ -80,10 +80,10 @@ alias cl="clear"
 
 alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME"
 
-alias ls='gls -ACh --color --group-directories-first'
-alias ll='gls --color -hCvAo --group-directories-first'
-alias ll-date='gls --color -tchCvAo --group-directories-first'
-alias ll-size='gls --color -ShCvAo --group-directories-first'
+alias ls='ls -ACh --color --group-directories-first'
+alias ll='ls --color -hCvAo --group-directories-first'
+alias ll-date='ls --color -tchCvAo --group-directories-first'
+alias ll-size='ls --color -ShCvAo --group-directories-first'
 
 
 # cargo
@@ -95,7 +95,7 @@ export PNPM_HOME="$HOME/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 
 # bun
-export PATH="$HOME/.bun/bin:$PATH"
+export PATH="$HOME/.bun/bin:$HOME/.bun/install/global:$PATH"
 
 # python
 export PATH="$HOME/.local/bin:/usr/local/opt/python@3.10/libexec/bin:$PATH"
@@ -111,7 +111,7 @@ bindkey -a -r ':'
 
 # Sntax highlighting 
 
-source "$(brew --prefix)/opt/zsh-syntax-highlighting/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+# source "$(brew --prefix)/opt/zsh-syntax-highlighting/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 # (must be at the end of .zshrc)
 
 # Change some colors
@@ -125,3 +125,6 @@ ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=green'
 ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=green'
 
 export PATH="/usr/local/opt/llvm/bin:$PATH"
+
+# bun completions
+[ -s "/home/cervidae/.bun/_bun" ] && source "/home/cervidae/.bun/_bun"

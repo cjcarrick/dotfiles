@@ -161,19 +161,16 @@ hi({
   '@tag.attribute',
   'htmlArg',
 }, { ctermfg = orange })
-hi({ '@pseudo', 'cssHacks','cssNoise', 'cssVendor', 'cssPseudoClass', 'cssPseudoClassId' }, { ctermfg = cyan })
-hi(
-  {
-    'cssProp',
-    'cssAttributeSelector',
-    'cssSelectorOp',
-    'cssBraces',
-    'typescriptBraces',
-    'typescriptEndColons',
-    'cssAttrComma',
-  },
-  { ctermfg = fg }
-)
+hi({ '@pseudo', 'cssHacks', 'cssNoise', 'cssVendor', 'cssPseudoClass', 'cssPseudoClassId' }, { ctermfg = cyan })
+hi({
+  'cssProp',
+  'cssAttributeSelector',
+  'cssSelectorOp',
+  'cssBraces',
+  'typescriptBraces',
+  'typescriptEndColons',
+  'cssAttrComma',
+}, { ctermfg = fg })
 --
 
 hi({
@@ -330,7 +327,7 @@ hi(
   { ctermfg = fgBright }
 )
 
-hi({ 'TelescopeNormal' }, { ctermbg = bg, ctermfg = fgBright })
+hi({ 'TelescopeNormal' }, { ctermbg = 'NONE', ctermfg = fgBright })
 hi({ 'TelescopeMatching' }, { ctermfg = fg })
 -- hi({ 'TelescopeMultiIcon' }, { ctermfg = bgBright })
 

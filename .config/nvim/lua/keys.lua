@@ -15,5 +15,6 @@ map('v', '>', '>gv')
 map('v', '<', '<gv')
 
 map('n', '<Leader>w', ':set wrap! <cr>')
+map('n', '<Leader>T', ':set termguicolors! <cr>')
 
 map('n', '<leader>c', ':CccPick <cr>')
