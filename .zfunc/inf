@@ -1,3 +1,0 @@
-#/usr/bin/env zsh
-
-mdls "$1" | sed -e "s/^kMDItem//" -e "s/= (//" -e "s/= /\n    /" -e "/)/d" 

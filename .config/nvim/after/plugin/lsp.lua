@@ -14,7 +14,6 @@ end
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
-local configs = require 'lspconfig.configs'
 
 local _border = 'rounded'
 require('lspconfig.ui.windows').default_options = {
@@ -29,37 +28,28 @@ require('lspconfig.ui.windows').default_options = {
 -- vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = _border, max_width = 80 })
 vim.lsp.handlers['textDocument/signatureHelp'] =
     vim.lsp.with(vim.lsp.handlers.signature_help, { border = _border, max_width = 80 })
-vim.diagnostic.config { float = { border = _border, max_width = 80 } }
 
-if not configs.ls_emmet then
-  configs.ls_emmet = {
-    default_config = {
-      cmd = { 'ls_emmet', '--stdio' },
-      filetypes = {
-        'html',
-        -- 'css',
-        -- 'scss',
-        'javascriptreact',
-        'typescriptreact',
-        'haml',
-        'xml',
-        'xsl',
-        'pug',
-        'slim',
-        -- 'sass',
-        -- 'stylus',
-        -- 'less',
-        -- 'sss',
-        'hbs',
-        'handlebars',
-      },
-      root_dir = function(fname) return vim.loop.cwd() end,
-      settings = {},
-    },
-  }
-end
-lspconfig.ls_emmet.setup {
-  capabilities = capabilities,
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = _border, max_width = 80 })
+
+vim.diagnostic.config {
+  float = { border = _border, max_width = 80 },
+  -- Unsure that if a line has an error and a warning, the sign for the error is
+  -- shown in the sign column
+  severity_sort = true,
+}
+
+-- Rome
+
+lspconfig.rome.setup {
+  cmd = {
+    'rome',
+    'lsp-proxy',
+    -- '--quote-style',    'single',
+    -- '--indent-width',   '2',
+    -- '--semicolons',     'as-needed',
+    -- '--indent-style',   'space',
+    -- '--trailing-comma', 'none',
+  },
 }
 
 null_ls.setup {
@@ -68,17 +58,17 @@ null_ls.setup {
     null_ls.builtins.code_actions.eslint_d,
     null_ls.builtins.formatting.prettierd.with {
       filetypes = {
-        'javascript',
-        'javascriptreact',
-        'typescript',
-        'typescriptreact',
+        -- 'javascript',
+        -- 'javascriptreact',
+        -- 'typescript',
+        -- 'typescriptreact',
         'vue',
         'css',
         'scss',
         'less',
         'html',
-        'json',
-        'jsonc',
+        -- 'json',
+        -- 'jsonc',
         'yaml',
         'markdown',
         'svg',
@@ -100,13 +90,12 @@ null_ls.setup {
         '-m',
 
         -- -g prevents log files from being generated
-        '-g',
-        '/dev/null',
+        -- '-g',
+        -- '/dev/null',
 
         -- specify config inline with -y so you don't need a whole ass config file
-        '-y',
-        "modifyLineBreaks:textWrapOptions:columns:80,defaultIndent:'  '",
-
+        -- '-y',
+        -- "modifyLineBreaks:textWrapOptions:columns:80",
         '-',
       },
     },
@@ -119,21 +108,14 @@ null_ls.setup {
     -- null_ls.builtins.diagnostics.ruff,
   },
 }
-vim.keymap.set('n', '<leader>f', function(payload)
-  vim.lsp.buf.format {
-    filter = function(client) return client.name ~= 'volar' end,
-  }
-end)
 
 -- LSP Mappings
 
-vim.keymap.set('n', 'K', function()
-  vim.lsp.buf.hover()
-  vim.notify 'please work'
-end)
+vim.keymap.set('n', 'K', vim.lsp.buf.hover)
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
 vim.keymap.set('n', 'rn', vim.lsp.buf.rename)
 vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action)
+vim.keymap.set('n', '<leader>f', vim.lsp.buf.format)
 
 -- Turn off inline diagnostics, and Show all diagnostics on current line in floating window
 vim.diagnostic.config { virtual_text = false }
@@ -227,16 +209,14 @@ lspconfig.lua_ls.setup {
         -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
         version = 'LuaJIT',
       },
-      diagnostics = {
-        -- Get the language server to recognize the `vim` global
-        globals = { 'vim' },
-      },
-      -- disabled because it took forever for the lsp to load
-      --
-      -- workspace = {
-      --   -- Make the server aware of Neovim runtime files
-      --   library = vim.api.nvim_get_runtime_file('', true),
-      -- },
+
+      -- Make the server aware of Neovim runtime files
+      workspace = { library = vim.api.nvim_get_runtime_file('', true) },
+
+      -- OR THIS: which just gets the language server to recognize the `vim` global
+      -- This way you don't have to wait for lua_ls to source all the files
+      -- diagnostics = { globals = { 'vim' } },
+
       -- Do not send telemetry data containing a randomized but unique identifier
       telemetry = {
         enable = false,

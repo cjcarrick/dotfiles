@@ -1,4 +1,4 @@
-LOCATION=$(fd . $1 | fzf --preview '~/.zfunc/inf {}' --preview-window=up)
+LOCATION=$(fd . $1 | fzf --preview 'stat -x {}' --preview-window=up)
 
 # Catches if you push <esc> or <C-c> from inside fzf and aborts
 if [[ "$LOCATION" ]]; then;

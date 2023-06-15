@@ -89,6 +89,7 @@ _G.packer_plugins = {
     path = "/home/cervidae/.local/share/nvim/site/pack/packer/start/auto-pairs",
     url = "https://github.com/jiangmiao/auto-pairs"
   },
+<<<<<<< HEAD
   ["bullets.vim"] = {
     loaded = false,
     needs_bufread = false,
@@ -101,6 +102,11 @@ _G.packer_plugins = {
     needs_bufread = false,
     only_cond = false,
     path = "/home/cervidae/.local/share/nvim/site/pack/packer/opt/ccc.nvim",
+=======
+  ["ccc.nvim"] = {
+    loaded = true,
+    path = "/Users/cervidae/.local/share/nvim/site/pack/packer/start/ccc.nvim",
+>>>>>>> 699d279955112e8dee7f9821080fcfaa9d526461
     url = "https://github.com/uga-rosa/ccc.nvim"
   },
   ["cmp-nvim-lsp"] = {
@@ -108,11 +114,14 @@ _G.packer_plugins = {
     path = "/home/cervidae/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp",
     url = "https://github.com/hrsh7th/cmp-nvim-lsp"
   },
+<<<<<<< HEAD
   ["cmp-nvim-lsp-signature-help"] = {
     loaded = true,
     path = "/home/cervidae/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp-signature-help",
     url = "https://github.com/hrsh7th/cmp-nvim-lsp-signature-help"
   },
+=======
+>>>>>>> 699d279955112e8dee7f9821080fcfaa9d526461
   ["cmp-path"] = {
     loaded = true,
     path = "/home/cervidae/.local/share/nvim/site/pack/packer/start/cmp-path",
@@ -123,21 +132,30 @@ _G.packer_plugins = {
     path = "/home/cervidae/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
     url = "https://github.com/saadparwaiz1/cmp_luasnip"
   },
+  ["emmet-vim"] = {
+    loaded = true,
+    path = "/Users/cervidae/.local/share/nvim/site/pack/packer/start/emmet-vim",
+    url = "https://github.com/mattn/emmet-vim"
+  },
   ["fidget.nvim"] = {
     loaded = true,
     path = "/home/cervidae/.local/share/nvim/site/pack/packer/start/fidget.nvim",
     url = "https://github.com/j-hui/fidget.nvim"
   },
+<<<<<<< HEAD
   harpoon = {
     loaded = true,
     path = "/home/cervidae/.local/share/nvim/site/pack/packer/start/harpoon",
     url = "https://github.com/ThePrimeagen/harpoon"
   },
+=======
+>>>>>>> 699d279955112e8dee7f9821080fcfaa9d526461
   ["impatient.nvim"] = {
     loaded = true,
     path = "/home/cervidae/.local/share/nvim/site/pack/packer/start/impatient.nvim",
     url = "https://github.com/lewis6991/impatient.nvim"
   },
+<<<<<<< HEAD
   ["iron.nvim"] = {
     loaded = true,
     path = "/home/cervidae/.local/share/nvim/site/pack/packer/start/iron.nvim",
@@ -153,18 +171,31 @@ _G.packer_plugins = {
     needs_bufread = false,
     only_cond = false,
     path = "/home/cervidae/.local/share/nvim/site/pack/packer/opt/leap.nvim",
+=======
+  ["leap.nvim"] = {
+    loaded = true,
+    path = "/Users/cervidae/.local/share/nvim/site/pack/packer/start/leap.nvim",
+>>>>>>> 699d279955112e8dee7f9821080fcfaa9d526461
     url = "https://github.com/ggandor/leap.nvim"
+  },
+  ["lsp_signature.nvim"] = {
+    loaded = true,
+    path = "/Users/cervidae/.local/share/nvim/site/pack/packer/start/lsp_signature.nvim",
+    url = "https://github.com/ray-x/lsp_signature.nvim"
   },
   ["mini.align"] = {
     loaded = true,
     path = "/home/cervidae/.local/share/nvim/site/pack/packer/start/mini.align",
     url = "https://github.com/echasnovski/mini.align"
   },
+<<<<<<< HEAD
   ["no-neck-pain.nvim"] = {
     loaded = true,
     path = "/home/cervidae/.local/share/nvim/site/pack/packer/start/no-neck-pain.nvim",
     url = "https://github.com/shortcuts/no-neck-pain.nvim"
   },
+=======
+>>>>>>> 699d279955112e8dee7f9821080fcfaa9d526461
   ["null-ls.nvim"] = {
     loaded = true,
     path = "/home/cervidae/.local/share/nvim/site/pack/packer/start/null-ls.nvim",
@@ -174,6 +205,21 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/cervidae/.local/share/nvim/site/pack/packer/start/nvim-cmp",
     url = "https://github.com/hrsh7th/nvim-cmp"
+  },
+  ["nvim-dap"] = {
+    loaded = true,
+    path = "/Users/cervidae/.local/share/nvim/site/pack/packer/start/nvim-dap",
+    url = "https://github.com/mfussenegger/nvim-dap"
+  },
+  ["nvim-dap-repl-highlights"] = {
+    loaded = true,
+    path = "/Users/cervidae/.local/share/nvim/site/pack/packer/start/nvim-dap-repl-highlights",
+    url = "https://github.com/LiadOz/nvim-dap-repl-highlights"
+  },
+  ["nvim-dap-vscode-js"] = {
+    loaded = true,
+    path = "/Users/cervidae/.local/share/nvim/site/pack/packer/start/nvim-dap-vscode-js",
+    url = "https://github.com/mxsdev/nvim-dap-vscode-js"
   },
   ["nvim-lspconfig"] = {
     loaded = true,
@@ -205,11 +251,14 @@ _G.packer_plugins = {
     path = "/home/cervidae/.local/share/nvim/site/pack/packer/start/packer.nvim",
     url = "https://github.com/wbthomason/packer.nvim"
   },
+<<<<<<< HEAD
   playground = {
     loaded = true,
     path = "/home/cervidae/.local/share/nvim/site/pack/packer/start/playground",
     url = "https://github.com/nvim-treesitter/playground"
   },
+=======
+>>>>>>> 699d279955112e8dee7f9821080fcfaa9d526461
   ["plenary.nvim"] = {
     loaded = true,
     path = "/home/cervidae/.local/share/nvim/site/pack/packer/start/plenary.nvim",
@@ -221,6 +270,7 @@ _G.packer_plugins = {
     url = "https://github.com/b0o/schemastore.nvim"
   },
   ["telescope.nvim"] = {
+<<<<<<< HEAD
     commands = { "Telescope" },
     loaded = false,
     needs_bufread = true,
@@ -245,11 +295,18 @@ _G.packer_plugins = {
     path = "/home/cervidae/.local/share/nvim/site/pack/packer/start/vim-fugitive",
     url = "https://github.com/tpope/vim-fugitive"
   },
+=======
+    loaded = true,
+    path = "/Users/cervidae/.local/share/nvim/site/pack/packer/start/telescope.nvim",
+    url = "https://github.com/nvim-telescope/telescope.nvim"
+  },
+>>>>>>> 699d279955112e8dee7f9821080fcfaa9d526461
   ["vim-illuminate"] = {
     loaded = true,
     path = "/home/cervidae/.local/share/nvim/site/pack/packer/start/vim-illuminate",
     url = "https://github.com/RRethy/vim-illuminate"
   },
+<<<<<<< HEAD
   ["vim-jsonpath"] = {
     commands = { "JsonPath" },
     loaded = false,
@@ -258,12 +315,15 @@ _G.packer_plugins = {
     path = "/home/cervidae/.local/share/nvim/site/pack/packer/opt/vim-jsonpath",
     url = "https://github.com/mogelbrod/vim-jsonpath"
   },
+=======
+>>>>>>> 699d279955112e8dee7f9821080fcfaa9d526461
   ["vim-signify"] = {
     loaded = true,
     path = "/home/cervidae/.local/share/nvim/site/pack/packer/start/vim-signify",
     url = "https://github.com/mhinz/vim-signify"
   },
   ["vim-surround"] = {
+<<<<<<< HEAD
     loaded = false,
     needs_bufread = false,
     only_cond = false,
@@ -285,15 +345,28 @@ _G.packer_plugins = {
     path = "/home/cervidae/.local/share/nvim/site/pack/packer/start/vim-textobj-user",
     url = "https://github.com/kana/vim-textobj-user"
   },
+=======
+    loaded = true,
+    path = "/Users/cervidae/.local/share/nvim/site/pack/packer/start/vim-surround",
+    url = "https://github.com/tpope/vim-surround"
+  },
+>>>>>>> 699d279955112e8dee7f9821080fcfaa9d526461
   ["vim-tmux-navigator"] = {
     loaded = true,
     path = "/home/cervidae/.local/share/nvim/site/pack/packer/start/vim-tmux-navigator",
     url = "https://github.com/christoomey/vim-tmux-navigator"
+  },
+  ["vscode-js-debug"] = {
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/cervidae/.local/share/nvim/site/pack/packer/opt/vscode-js-debug",
+    url = "https://github.com/microsoft/vscode-js-debug"
   }
 }
 
 time([[Defining packer_plugins]], false)
 
+<<<<<<< HEAD
 -- Command lazy-loads
 time([[Defining lazy-load commands]], true)
 pcall(vim.api.nvim_create_user_command, 'JsonPath', function(cmdargs)
@@ -324,6 +397,8 @@ vim.cmd [[au BufEnter * ++once lua require("packer.load")({'vim-abolish', 'ccc.n
 time([[Defining lazy-load event autocommands]], false)
 vim.cmd("augroup END")
 
+=======
+>>>>>>> 699d279955112e8dee7f9821080fcfaa9d526461
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then
   vim.cmd("doautocmd BufRead")
