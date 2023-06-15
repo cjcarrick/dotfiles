@@ -41,7 +41,7 @@ fi
 PS1+=$'%{\e[34m%}%c'
 
 # Autoload zsh add-zsh-hook and vcs_info functions (-U autoload w/o substition, -z use zsh style)
-autoload -Uz add-zsh-hook vcs_info old tmx mkf inf fzo
+autoload -Uz add-zsh-hook vcs_info old tmx mkf dict inf fzo
 # Enable substitution in the prompt.
 setopt prompt_subst
 # Run vcs_info just before a prompt is displayed (precmd)
@@ -86,17 +86,40 @@ export PATH="$PATH:/usr/local/opt/llvm/bin"
 
 
 
-# Plugins
-
 
 # Disable ZLE command mode (https://superuser.com/a/929542)
 bindkey -a -r ':'
 
 
-# Sntax highlighting 
+# Enable vi mode
+bindkey -v
+export KEYTIMEOUT=1
 
-# source "$(brew --prefix)/opt/zsh-syntax-highlighting/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-# # (must be at the end of .zshrc)
+# Change cursor shape for different vi modes.
+# https://unix.stackexchange.com/a/614203
+function zle-keymap-select {
+  if [[ ${KEYMAP} == vicmd ]] || [[ $1 = 'block' ]]; then
+    echo -ne '\e[2 q'
+  elif [[ ${KEYMAP} == main ]] ||
+       [[ ${KEYMAP} == viins ]] ||
+       [[ ${KEYMAP} = '' ]] ||
+       [[ $1 = 'beam' ]]; then
+    echo -ne '\e[6 q'
+  fi
+}
+zle -N zle-keymap-select
+zle-line-init() {
+    zle -K viins                 # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
+    echo -ne "\e[6 q"
+}
+zle -N zle-line-init
+echo -ne '\e[6 q'                # Use beam shape cursor on startup.
+preexec() { echo -ne '\e[6 q' ;} # Use beam shape cursor for each new prompt.
+
+# fix backspace in vi-mode
+# https://github.com/spaceship-prompt/spaceship-prompt/issues/91#issuecomment-327996599
+bindkey "^?" backward-delete-char
+
 
 # Change some colors
 typeset -A ZSH_HIGHLIGHT_STYLES
