@@ -1,5 +1,7 @@
 # My dotfiles
 
+_Files for mac and linux exist in the mac and linux branches_
+
 # Notes
 
 Some configuration files are Linux or MacOS specific. Only copy what you need.
