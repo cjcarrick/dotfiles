@@ -11,5 +11,5 @@
 
 defaults.pcm.card 1
 defaults.ctl.card 1
-defaults.pcm.device 3
+defaults.pcm.device 7
 
