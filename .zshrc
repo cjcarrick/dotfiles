@@ -76,12 +76,10 @@ alias l='ls -ACh --color --group-directories-first'
 
 
 alias pn="pnpm"
-export PNPM_HOME="$HOME/.local/share/pnpm"
 
 export PATH="$PATH:$HOME/.bun/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:$HOME/.local/bin:/usr/local/opt/python@3.10/libexec/bin"
-export PATH="$PATH:$PNPM_HOME"
 export PATH="$PATH:/usr/local/opt/llvm/bin"
 
 
