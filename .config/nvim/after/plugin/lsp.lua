@@ -15,7 +15,7 @@ end
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-local _border = 'rounded'
+local _border = 'single'
 require('lspconfig.ui.windows').default_options = {
   border = _border,
 }
@@ -58,17 +58,17 @@ null_ls.setup {
     null_ls.builtins.code_actions.eslint_d,
     null_ls.builtins.formatting.prettierd.with {
       filetypes = {
-        -- 'javascript',
-        -- 'javascriptreact',
-        -- 'typescript',
-        -- 'typescriptreact',
+        'javascript',
+        'javascriptreact',
+        'typescript',
+        'typescriptreact',
         'vue',
         'css',
         'scss',
         'less',
         'html',
-        -- 'json',
-        -- 'jsonc',
+        'json',
+        'jsonc',
         'yaml',
         'markdown',
         'svg',
@@ -115,7 +115,11 @@ vim.keymap.set('n', 'K', vim.lsp.buf.hover)
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
 vim.keymap.set('n', 'rn', vim.lsp.buf.rename)
 vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action)
-vim.keymap.set('n', '<leader>f', vim.lsp.buf.format)
+vim.keymap.set('n', '<leader>f', function()
+  vim.lsp.buf.format {
+    filter = function(client) return client.name ~= 'volar' end,
+  }
+end)
 
 -- Turn off inline diagnostics, and Show all diagnostics on current line in floating window
 vim.diagnostic.config { virtual_text = false }
@@ -210,8 +214,12 @@ lspconfig.lua_ls.setup {
         version = 'LuaJIT',
       },
 
+      workspace = {
+        -- https://github.com/LuaLS/lua-language-server/discussions/1688#discussioncomment-4185003
+        checkThirdParty = false,
       -- Make the server aware of Neovim runtime files
-      workspace = { library = vim.api.nvim_get_runtime_file('', true) },
+        library = vim.api.nvim_get_runtime_file('', true),
+      },
 
       -- OR THIS: which just gets the language server to recognize the `vim` global
       -- This way you don't have to wait for lua_ls to source all the files
