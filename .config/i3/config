@@ -29,6 +29,9 @@ bindsym Mod4+Shift+$down move down
 bindsym Mod4+Shift+$up move up
 bindsym Mod4+Shift+$right move right
 
+bindsym Mod4+Ctrl+$right move workspace to output right
+bindsym Mod4+Ctrl+$left move workspace to output left
+
 # enter fullscreen mode for the focused container
 bindsym Mod4+f fullscreen toggle
 
@@ -102,7 +105,6 @@ bindsym Mod4+Shift+7 move container to workspace number $ws7
 bindsym Mod4+Shift+8 move container to workspace number $ws8
 bindsym Mod4+Shift+9 move container to workspace number $ws9
 bindsym Mod4+Shift+0 move container to workspace number $ws10
-
 
 # Status Bar
 
