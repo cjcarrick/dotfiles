@@ -59,7 +59,7 @@ zstyle ':vcs_info:*' stagedstr ' +'
 zstyle ':vcs_info:git:*' formats       ' (%b%u%c)'
 zstyle ':vcs_info:git:*' actionformats ' (%b|%a%u%c)'
 
-PS1+=$' %{\e[31m%}%(?..[%?])%F{default}%b -> '
+PS1+=$' %{\e[31m%}%(?..[%?])%F{default} -> '
 
 
 # misc. aliases, environment variables
@@ -83,6 +83,25 @@ export PATH="$PATH:$HOME/.local/bin:/usr/local/opt/python@3.10/libexec/bin"
 export PATH="$PATH:/usr/local/opt/llvm/bin"
 
 
+# Colorscheme for linux console
+# if [ "$TERM" = "linux" ]; then
+  echo -en "\\e]P0000000"
+  echo -en "\\e]P1563634"
+  echo -en "\\e]P24a4924"
+  echo -en "\\e]P387673c"
+  echo -en "\\e]P43b5046"
+  echo -en "\\e]P552374c"
+  echo -en "\\e]P6e79653"
+  echo -en "\\e]P7444340"
+
+  echo -en "\\e]P8202020"
+  echo -en "\\e]P9b77b78"
+  echo -en "\\e]P109a9a45"
+  echo -en "\\e]P11d6bf65"
+  echo -en "\\e]P12a8cdca"
+  echo -en "\\e]P13865a81"
+  echo -en "\\e]P14689d6a"
+  echo -en "\\e]P15cbcbcb"
 
 
 # Disable ZLE command mode (https://superuser.com/a/929542)
@@ -124,10 +143,12 @@ source "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.p
 
 # Change some colors
 typeset -A ZSH_HIGHLIGHT_STYLES
-ZSH_HIGHLIGHT_STYLES[function]='fg=blue'
-ZSH_HIGHLIGHT_STYLES[command]='fg=blue'
-ZSH_HIGHLIGHT_STYLES[alias]='fg=blue'
-ZSH_HIGHLIGHT_STYLES[builtin]='fg=magenta'
-ZSH_HIGHLIGHT_STYLES[reserved-word]='fg=magenta'
-ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=green'
-ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=green'
+ZSH_HIGHLIGHT_STYLES[function]='fg=blue,bold'
+ZSH_HIGHLIGHT_STYLES[command]='fg=blue,bold'
+ZSH_HIGHLIGHT_STYLES[alias]='fg=blue,bold'
+ZSH_HIGHLIGHT_STYLES[builtin]='fg=magenta,bold'
+ZSH_HIGHLIGHT_STYLES[reserved-word]='fg=magenta,bold'
+ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=green,bold'
+ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=green,bold'
+ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=red,bold'
+ZSH_HIGHLIGHT_STYLES[precommand]='fg=magenta,bold'

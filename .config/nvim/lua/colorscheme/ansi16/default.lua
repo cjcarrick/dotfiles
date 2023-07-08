@@ -3,31 +3,39 @@
 vim.o.t_Co = 16
 
 local bg = 0
-local bgBright = 15
+local bgBright = 8
 
-local fg = 7
-local fgBright = 8
+local fg = 15
+local fgBright = 7
 
-local red = 1
-local brightRed = 9
+local red = 9
+local brightRed = 1
 
-local yellow = 3
-local brightYellow = 11
+local yellow = 11
+local brightYellow = 3
 
-local green = 2
-local brightGreen = 10
+local green = 10
+local brightGreen = 2
 
-local blue = 4
-local brightBlue = 12
+local blue = 12
+local brightBlue = 4
 
-local purple = 5
-local pink = 13
+local purple = 13
+local pink = 5
 
-local cyan = 6
-local orange = 14
+local cyan = 14
+local orange = 6
 
 local function hi(groups, table)
   for i, group in pairs(groups) do
+    if table.ctermfg and table.ctermfg > 7 then
+      table.bold = true
+      table.ctermfg = table.ctermfg - 8
+    end
+    -- Disable italics for better portability across terminals
+    if table.italic then
+      table.italic = false
+    end
     vim.api.nvim_set_hl(0, group, table)
   end
 end
@@ -136,9 +144,6 @@ hi({
   'htmlTag',
   'htmlEndTag',
 }, { ctermfg = fg })
-hi({
-  'htmlBold',
-}, { bold = false })
 -- }}
 
 -- CSS {{

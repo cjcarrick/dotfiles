@@ -248,6 +248,7 @@ hi({
   'Statement',
   'luaFunction',
   'sassMixin',
+  'sassMixing',
 }, { ctermfg = purple })
 
 hi({
@@ -330,7 +331,7 @@ hi(
   { ctermfg = fgBright }
 )
 
-hi({ 'TelescopeNormal' }, { ctermbg = bg, ctermfg = fgBright })
+hi({ 'TelescopeNormal' }, { ctermfg = fgBright })
 hi({ 'TelescopeMatching' }, { ctermfg = fg })
 -- hi({ 'TelescopeMultiIcon' }, { ctermfg = bgBright })
 
