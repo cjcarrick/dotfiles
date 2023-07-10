@@ -53,13 +53,6 @@ return require('packer').startup(function(use)
   use { 'neovim/nvim-lspconfig' }
   use { 'ray-x/lsp_signature.nvim' }
 
-  -- -- Jupyter notebooks
-  -- use { 'GCBallesteros/jupytext.vim' }
-  -- use { 'hkupty/iron.nvim' }
-  -- use { 'kana/vim-textobj-user' }
-  -- use { 'kana/vim-textobj-line' }
-  -- use { 'GCBallesteros/vim-textobj-hydrogen' }
-
   -- Completion
   use { 'L3MON4D3/LuaSnip', tag = 'v1.*' }
   use {
