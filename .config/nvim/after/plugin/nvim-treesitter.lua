@@ -1,6 +1,7 @@
-if not pcall(require, 'nvim-treesitter') then return end
+local ok, ts_configs = pcall(require, 'nvim-treesitter.configs')
+if not ok then return end
 
-require('nvim-treesitter.configs').setup {
+ts_configs.setup {
   ensure_installed = {},
   sync_install = false,
   auto_install = true,

@@ -1,3 +1,6 @@
+local ok, cmp = pcall(require, 'cmp')
+if not ok then return end
+
 local kind_icons = {
   Class = ' ',
   Color = ' ',
@@ -29,7 +32,6 @@ end
 
 vim.o.pumheight = 8
 
-local cmp = require 'cmp'
 cmp.setup {
 
   enabled = function()
@@ -52,7 +54,10 @@ cmp.setup {
   end,
 
   snippet = {
-    expand = function(args) require('luasnip').lsp_expand(args.body) end,
+    expand = function(args)
+      local ok, ls = pcall(require, 'luasnip')
+      if ok then ls.lsp_expand(args.body) end
+    end,
   },
 
   formatting = {

@@ -1,7 +1,15 @@
-local fidget = require 'fidget'
-local null_ls = require 'null-ls'
-local lspconfig = require 'lspconfig'
-local schemastore = require 'schemastore'
+local ok, fidget = pcall (requirem, 'fidget')
+if not ok then return end
+
+local ok, null_ls = pcall(require, 'null-ls')
+if not ok then return end
+
+local ok, lspconfig = pcall (require, 'lspconfig')
+if not ok then return end
+
+local ok, schemastore = pcall(require, 'schemastore')
+if not ok then return end
+
 
 local language_servers = lspconfig.util.available_servers() -- or list servers manually like {'gopls', 'clangd'}
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -217,7 +225,7 @@ lspconfig.lua_ls.setup {
       workspace = {
         -- https://github.com/LuaLS/lua-language-server/discussions/1688#discussioncomment-4185003
         checkThirdParty = false,
-      -- Make the server aware of Neovim runtime files
+        -- Make the server aware of Neovim runtime files
         library = vim.api.nvim_get_runtime_file('', true),
       },
 

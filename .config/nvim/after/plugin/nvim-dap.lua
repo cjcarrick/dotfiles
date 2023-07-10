@@ -1,6 +1,6 @@
-if not pcall(require, 'dap') then return end
-local dap = require 'dap'
-local ui = require 'dap.ui'
+local ok, dap = pcall(require, 'dap')
+if not ok then return end
+
 local widgets = require 'dap.ui.widgets'
 
 require('dap-vscode-js').setup {
@@ -87,7 +87,7 @@ local floatWinNr = nil
 --   })
 -- end)
 
-vim.keymap.set('n', '<Leader>b', function() require('dap').toggle_breakpoint() end)
+vim.keymap.set('n', '<Leader>b', function() dap.toggle_breakpoint() end)
 
 -- vim.keymap.set(
 --   'n',
@@ -95,7 +95,7 @@ vim.keymap.set('n', '<Leader>b', function() require('dap').toggle_breakpoint() e
 --   function() require('dap').set_breakpoint(nil, nil, vim.fn.input 'Log point message: ') end
 -- )
 
-vim.keymap.set('n', '<Leader>d', function() require('dap').repl.toggle { height = 10 } end)
+vim.keymap.set('n', '<Leader>d', function() dap.repl.toggle { height = 10 } end)
 
 vim.keymap.set({ 'n', 'v' }, 'L', function() widgets.hover() end)
 

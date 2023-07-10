@@ -1,6 +1,7 @@
-if not pcall(require, 'telescope') then return end
+local ok, telescope = pcall(require, 'telescope')
+if not ok then return end
 
-require('telescope').setup {
+telescope.setup {
   defaults = {
     mappings = {
       i = {

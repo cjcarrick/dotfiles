@@ -1,4 +1,5 @@
-local webdev = require 'nvim-web-devicons'
+local ok, webdev = pcall(require, 'nvim-web-devicons')
+if not ok then return end
 
 local bg = '0'
 local bgBright = '8'

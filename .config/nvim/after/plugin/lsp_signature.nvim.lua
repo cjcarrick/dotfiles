@@ -1,6 +1,7 @@
-if not pcall(require, 'lsp_signature') then return end
+local ok, sig = pcall(require, 'lsp_signature')
+if not ok then return end
 
-require('lsp_signature').setup {
+sig.setup {
 
   bind = true,                                               -- This is mandatory, otherwise border config won't get registered.
   -- If you want to hook lspsaga or other signature handler, pls set to false

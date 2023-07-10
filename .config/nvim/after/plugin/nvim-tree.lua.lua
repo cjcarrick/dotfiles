@@ -1,4 +1,5 @@
-if not pcall(require, 'nvim-tree') then return end
+local ok, tree = pcall(require, 'nvim-tree')
+if not ok then return end
 
 local lib = require 'nvim-tree.lib'
 local utils = require 'nvim-tree.utils'
@@ -110,7 +111,7 @@ local function on_attach(bufnr)
   end, opts 'Print Node Path')
 end
 
-require('nvim-tree').setup {
+tree.setup {
   on_attach = on_attach,
   sort_by = function(nodes) table.sort(nodes, natural_cmp) end,
   view = {

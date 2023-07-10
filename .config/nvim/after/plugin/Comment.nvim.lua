@@ -1,5 +1,8 @@
-if pcall(require, 'Comment') then
-  local ft = require 'Comment.ft'
-  require('Comment').setup {}
-  ft.scss = { '// %s', '/* %s */' }
-end
+local ok, comment = pcall(require, 'Comment')
+if not ok then return end
+
+local ft = require 'Comment.ft'
+
+comment.setup {}
+
+ft.scss = { '// %s', '/* %s */' }
