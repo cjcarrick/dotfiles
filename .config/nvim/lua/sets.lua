@@ -1,8 +1,6 @@
 vim.g.user_emmet_mode = 'inv' -- enable all functions, which is equal to
 vim.g.user_emmet_leader_key = '<C-e>'
 
-vim.g['grammarous#jar_url'] = 'https://www.languagetool.org/download/LanguageTool-5.9.zip'
-
 local set = vim.opt
 
 -- Fixes italics in tmux
@@ -82,3 +80,49 @@ vim.g.tex_flavor = 'latex'
 set.mouse = 'a'
 set.updatetime = 300
 set.compatible = false -- I forget why this is here
+
+-- Formatters
+local fmt_cmds = {
+  {
+    {
+      'astro',
+      'css',
+      'html',
+      'javascript',
+      'javascriptreact',
+      'json',
+      'jsonc',
+      'markdown',
+      'scss',
+      'typescript',
+      'typescriptreact',
+      'vue',
+      'xml',
+      'yaml',
+    },
+    'prettier --stdin-filepath %',
+  },
+
+  {
+    { 'python', 'ipynb' },
+    'black',
+  },
+
+  {
+    { 'lua' },
+    'stylua --search-parent-directories --stdin-filepath % -',
+  },
+
+  -- untested
+  {
+    { 'tex' },
+    'latexindent -m -g /dev/null -y "modifyLineBreaks:textWrapOptions:columns:80"',
+  },
+}
+
+for _, c in pairs(fmt_cmds) do
+  vim.api.nvim_create_autocmd('FileType', {
+    pattern = c[1],
+    callback = function() vim.opt_local.formatprg = c[2] end,
+  })
+end

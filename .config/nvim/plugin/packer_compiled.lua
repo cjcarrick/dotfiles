@@ -139,11 +139,6 @@ _G.packer_plugins = {
     path = "/home/cervidae/.local/share/nvim/site/pack/packer/start/mini.align",
     url = "https://github.com/echasnovski/mini.align"
   },
-  ["null-ls.nvim"] = {
-    loaded = true,
-    path = "/home/cervidae/.local/share/nvim/site/pack/packer/start/null-ls.nvim",
-    url = "https://github.com/jose-elias-alvarez/null-ls.nvim"
-  },
   ["nvim-cmp"] = {
     loaded = true,
     path = "/home/cervidae/.local/share/nvim/site/pack/packer/start/nvim-cmp",

@@ -1,15 +1,6 @@
-local ok, fidget = pcall (requirem, 'fidget')
-if not ok then return end
-
-local ok, null_ls = pcall(require, 'null-ls')
-if not ok then return end
-
+local ok, fidget = pcall (require, 'fidget')
 local ok, lspconfig = pcall (require, 'lspconfig')
-if not ok then return end
-
 local ok, schemastore = pcall(require, 'schemastore')
-if not ok then return end
-
 
 local language_servers = lspconfig.util.available_servers() -- or list servers manually like {'gopls', 'clangd'}
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -60,62 +51,62 @@ lspconfig.rome.setup {
   },
 }
 
-null_ls.setup {
-  sources = {
-    null_ls.builtins.formatting.stylua,
-    null_ls.builtins.code_actions.eslint_d,
-    null_ls.builtins.formatting.prettierd.with {
-      filetypes = {
-        'javascript',
-        'javascriptreact',
-        'typescript',
-        'typescriptreact',
-        'vue',
-        'css',
-        'scss',
-        'less',
-        'html',
-        'json',
-        'jsonc',
-        'yaml',
-        'markdown',
-        'svg',
-        'xml',
-        'markdown.mdx',
-        'graphql',
-        'handlebars',
-        'astro',
-      },
-    },
-
-    null_ls.builtins.diagnostics.puglint,
-
-    null_ls.builtins.formatting.latexindent.with {
-      filetypes = { 'tex', 'latex' },
-      args = {
-        -- -m this allows latexindent to modify line breaks. This must be turned
-        -- on in order for wrapping to work
-        '-m',
-
-        -- -g prevents log files from being generated
-        -- '-g',
-        -- '/dev/null',
-
-        -- specify config inline with -y so you don't need a whole ass config file
-        -- '-y',
-        -- "modifyLineBreaks:textWrapOptions:columns:80",
-        '-',
-      },
-    },
-
-    null_ls.builtins.formatting.black.with {
-      filetypes = { 'ipynb', 'python' },
-    },
-    -- ruff is insanely fast, but doesn't do all the cool lsp things that
-    -- pyright does
-    -- null_ls.builtins.diagnostics.ruff,
-  },
-}
+-- null_ls.setup {
+--   sources = {
+--     null_ls.builtins.formatting.stylua,
+--     null_ls.builtins.code_actions.eslint_d,
+--     null_ls.builtins.formatting.prettierd.with {
+--       filetypes = {
+--         'javascript',
+--         'javascriptreact',
+--         'typescript',
+--         'typescriptreact',
+--         'vue',
+--         'css',
+--         'scss',
+--         'less',
+--         'html',
+--         'json',
+--         'jsonc',
+--         'yaml',
+--         'markdown',
+--         'svg',
+--         'xml',
+--         'markdown.mdx',
+--         'graphql',
+--         'handlebars',
+--         'astro',
+--       },
+--     },
+--
+--     null_ls.builtins.diagnostics.puglint,
+--
+--     null_ls.builtins.formatting.latexindent.with {
+--       filetypes = { 'tex', 'latex' },
+--       args = {
+--         -- -m this allows latexindent to modify line breaks. This must be turned
+--         -- on in order for wrapping to work
+--         '-m',
+--
+--         -- -g prevents log files from being generated
+--         -- '-g',
+--         -- '/dev/null',
+--
+--         -- specify config inline with -y so you don't need a whole ass config file
+--         -- '-y',
+--         -- "modifyLineBreaks:textWrapOptions:columns:80",
+--         '-',
+--       },
+--     },
+--
+--     null_ls.builtins.formatting.black.with {
+--       filetypes = { 'ipynb', 'python' },
+--     },
+--     -- ruff is insanely fast, but doesn't do all the cool lsp things that
+--     -- pyright does
+--     -- null_ls.builtins.diagnostics.ruff,
+--   },
+-- }
 
 -- LSP Mappings
 
