@@ -8,8 +8,29 @@
 #
 # All imports must either be absolute paths starting with `/`, or paths relative
 # to the user's home directory starting with `~/`.
-import:
-  - ~/.config/alacritty/colors.yml
+# import:
+colors:
+  primary:
+    background: '#000000'
+    foreground: '#cbcbcb'
+  normal:
+    black:    '#000000'
+    red:     '#563634'
+    green:   '#4a4924'
+    yellow:  '#87673c'
+    blue:    '#324044'
+    magenta: '#52374c'
+    cyan:    '#e79653'
+    white:   '#51504d'
+  bright:
+    black:  '#202020'
+    red:     '#b77b78'
+    green:   '#9a9a45'
+    yellow:  '#d6bf65'
+    blue:    '#a8cdca'
+    magenta: '#865a81'
+    cyan:    '#689d6a'
+    white:   '#cbcbcb'
 
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
