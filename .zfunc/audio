@@ -1,0 +1,33 @@
+CHOICE=$( aplay -l | awk '$0 !~ /^  / && NR != 1' | fzf )
+if [[ -z "$CHOICE" ]]; then
+  return 1
+fi
+
+CARD=`echo "$CHOICE" | grep -m 1 -oP '(?<=card )[0-9]+'`
+if [[ -z "$CARD" ]]; then
+  echo "Error: Could not determine card"
+  return 1
+fi
+
+DEVICE=`echo "$CHOICE" | grep -m 1 -oP '(?<=, device )[0-9]+'`
+if [[ -z "$DEVICE" ]]; then
+  echo "Error: Could not determine device"
+fi
+
+cat > $HOME/.asoundrc <<-EOF
+# It seems like: 
+# - defaults.pcm.card sets the card to ouput to
+# - defaults.ctl.card sets the card that gets controlled by alsamixer
+# - defaults.pcm.device sets the device on the card to output through
+#   - Ex: Nvidia card, outputting to the 2nd HDMI port
+#
+# Use
+# - 'aplay -Ll' to list cards and devices
+# - 'alsamixer' to unmute channels and set volume
+# - 'speaker-test' to test output
+
+defaults.pcm.card $CARD
+defaults.ctl.card $CARD
+defaults.pcm.device $DEVICE
+EOF
+

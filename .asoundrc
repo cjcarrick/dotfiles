@@ -1,15 +1,14 @@
 # It seems like: 
 # - defaults.pcm.card sets the card to ouput to
-# - defaults.ctl.card sets the card that gets controlled by `alsamixer`. 
+# - defaults.ctl.card sets the card that gets controlled by alsamixer
 # - defaults.pcm.device sets the device on the card to output through
 #   - Ex: Nvidia card, outputting to the 2nd HDMI port
 #
 # Use
-# - `aplay -Ll` to list cards and devices
-# - `alsamixer` to unmute channels and set volume
-# - `speaker-test` to test output
+# - 'aplay -Ll' to list cards and devices
+# - 'alsamixer' to unmute channels and set volume
+# - 'speaker-test' to test output
 
 defaults.pcm.card 1
 defaults.ctl.card 1
 defaults.pcm.device 7
-
