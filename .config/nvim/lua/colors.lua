@@ -32,10 +32,11 @@ local function hi(groups, table)
       table.bold = true
       table.ctermfg = table.ctermfg - 8
     end
-    -- Disable italics for better portability across terminals
-    if table.italic then
-      table.italic = false
-    end
+    -- -- Disable italics for better portability across terminals
+    -- -- In the linux console, 'italics' just switch fg and bg
+    -- if table.italic then
+    --   table.italic = false
+    -- end
     vim.api.nvim_set_hl(0, group, table)
   end
 end
