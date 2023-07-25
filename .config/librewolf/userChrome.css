@@ -69,6 +69,17 @@ toolbar #addon_darkreader_org-BAP image {
   display: none;
 }
 
+#sidebar-splitter {
+  border: none !important;
+  background: linear-gradient(
+    90deg,
+    var(--toolbar-bgcolor) 30%,
+    var(--lwt-tabs-border-color, rgba(0, 0, 0, 0.3)) 30%,
+    var(--lwt-tabs-border-color, rgba(0, 0, 0, 0.3)) 60%,
+    var(--toolbar-bgcolor) 60%
+  ) !important;
+}
+
 /* #reload-button  > .toolbarbutton-icon { */
 /*   height: calc(2 * var(--toolbarbutton-inner-padding) + 12px) !important; */
 /*   width: calc(2 * var(--toolbarbutton-inner-padding) + 12px) !important; */
