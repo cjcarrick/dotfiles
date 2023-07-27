@@ -36,7 +36,7 @@ bindsym Mod4+Ctrl+$left move workspace to output left
 bindsym Mod4+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym Mod4+s layout stacking
+# bindsym Mod4+s layout stacking
 bindsym Mod4+w layout tabbed
 bindsym Mod4+e layout toggle split
 
@@ -62,9 +62,11 @@ bindsym Mod4+Return exec i3-sensible-terminal
 bindsym Mod4+r exec --no-startup-id dmenu_run -b -h 37 -fn "FantasqueSansMono Nerd Font-14"
 
 # color picker
-bindsym --release Control+Print exec --no-startup-id xcolor | tr -d '\n' | xclip -selection clipboard
+bindsym --release Mod4+Control+s exec --no-startup-id xcolor | tr -d '\n' | xclip -selection primary
 
-bindcode 148 exec qalculate-qt
+# screenshot
+bindsym --release Mod4+s exec --no-startup-id scrot -s -F ~/Downloads/screenshot-$(date '+%T').png
+bindsym --release Mod4+Shift+s exec --no-startup-id scrot -s -F - | xclip -selection clipboard -t image/png
 
 
 # Workspaces
