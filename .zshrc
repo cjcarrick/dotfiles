@@ -58,6 +58,10 @@ zstyle ':vcs_info:git:*' actionformats ' (%b|%a%u%c)'
 PS1+=$' %{\e[31m%}%(?..[%?])%F{default} -> '
 
 
+# YubiKey SSH with PIV
+eval "$(ssh-agent)"
+
+
 # misc. aliases, environment variables
 export FZF_DEFAULT_COMMAND='rg --no-ignore -g !node_modules -g !.git -l ""'
 export FZF_DEFAULT_OPTS='--ansi'
