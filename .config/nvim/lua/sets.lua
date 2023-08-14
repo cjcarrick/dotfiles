@@ -104,6 +104,11 @@ local fmt_cmds = {
   },
 
   {
+    { 'c', 'cpp' },
+    '/opt/clang-format-static/clang-format-16',
+  },
+
+  {
     { 'python', 'ipynb' },
     'black',
   },

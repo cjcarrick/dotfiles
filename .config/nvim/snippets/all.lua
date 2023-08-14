@@ -19,6 +19,10 @@ local function in_comment_or_string() --{{{
   return expr:type() == 'comment' or expr:type() == 'string'
 end --}}}
 
+local function isodate()
+  return os.date("%Y-%m-%d")
+end
+
 return {
   s(
     'place',
@@ -26,4 +30,7 @@ return {
     { show_condition = in_comment_or_string }
   ),
   s('uuid', f(uuid, {}, {})),
+
+  s('date', f(function() return os.date('%Y-%m-%d') end, {}, {})),
+  s('time', f(function() return os.date('%H:%M') end, {}, {})),
 }

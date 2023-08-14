@@ -30,6 +30,7 @@ local function hi(groups, table)
   for i, group in pairs(groups) do
     if table.ctermfg and table.ctermfg > 7 then
       table.bold = true
+      table.cterm = { bold = true }
       table.ctermfg = table.ctermfg - 8
     end
     -- -- Disable italics for better portability across terminals

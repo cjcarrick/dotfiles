@@ -50,7 +50,7 @@ return require('packer').startup(function(use)
   use { 'b0o/schemastore.nvim' }
   use { 'j-hui/fidget.nvim', branch = 'legacy' }
   use { 'neovim/nvim-lspconfig' }
-  use { 'ray-x/lsp_signature.nvim' }
+  -- use { 'ray-x/lsp_signature.nvim' }
 
   -- Completion
   use { 'L3MON4D3/LuaSnip', tag = 'v1.*' }

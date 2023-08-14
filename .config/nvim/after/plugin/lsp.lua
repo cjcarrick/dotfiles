@@ -37,19 +37,19 @@ vim.diagnostic.config {
   severity_sort = true,
 }
 
--- Rome
-
-lspconfig.rome.setup {
-  cmd = {
-    'rome',
-    'lsp-proxy',
-    -- '--quote-style',    'single',
-    -- '--indent-width',   '2',
-    -- '--semicolons',     'as-needed',
-    -- '--indent-style',   'space',
-    -- '--trailing-comma', 'none',
-  },
-}
+-- -- Rome
+--
+-- lspconfig.rome.setup {
+--   cmd = {
+--     'rome',
+--     'lsp-proxy',
+--     -- '--quote-style',    'single',
+--     -- '--indent-width',   '2',
+--     -- '--semicolons',     'as-needed',
+--     -- '--indent-style',   'space',
+--     -- '--trailing-comma', 'none',
+--   },
+-- }
 
 -- null_ls.setup {
 --   sources = {
@@ -114,11 +114,11 @@ vim.keymap.set('n', 'K', vim.lsp.buf.hover)
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
 vim.keymap.set('n', 'rn', vim.lsp.buf.rename)
 vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action)
-vim.keymap.set('n', '<leader>f', function()
-  vim.lsp.buf.format {
-    filter = function(client) return client.name ~= 'volar' end,
-  }
-end)
+-- vim.keymap.set('n', '<leader>f', function()
+--   vim.lsp.buf.format {
+--     filter = function(client) return client.name ~= 'volar' end,
+--   }
+-- end)
 
 -- Turn off inline diagnostics, and Show all diagnostics on current line in floating window
 vim.diagnostic.config { virtual_text = false }

@@ -33,13 +33,7 @@ return {
         })
     ),
 
-    s(
-        'incl',
-        c(1, {
-            fmt('#include <{}>', { i(1, 'iostream') }),
-            fmt('#include "{}"', { i(1, './lib/file') }),
-        })
-    ),
+    s('incl', { t( '#include ' ) }),
 
   -- Disabled because it's not that hard to type "() {<cr>}"
   -- -- Automatically expand functions on <returntype> <funcname>{

@@ -129,11 +129,6 @@ _G.packer_plugins = {
     path = "/home/cervidae/.local/share/nvim/site/pack/packer/start/leap.nvim",
     url = "https://github.com/ggandor/leap.nvim"
   },
-  ["lsp_signature.nvim"] = {
-    loaded = true,
-    path = "/home/cervidae/.local/share/nvim/site/pack/packer/start/lsp_signature.nvim",
-    url = "https://github.com/ray-x/lsp_signature.nvim"
-  },
   ["mini.align"] = {
     loaded = true,
     path = "/home/cervidae/.local/share/nvim/site/pack/packer/start/mini.align",

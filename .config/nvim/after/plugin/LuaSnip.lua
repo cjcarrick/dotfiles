@@ -1,5 +1,4 @@
-local ok, ls = pcall(require, 'luasnip')
-if not ok then return end
+local ls = require ('luasnip')
 
 local ft_func
 if pcall(require, 'treesitter') then
