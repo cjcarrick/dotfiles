@@ -59,7 +59,10 @@ PS1+=$' %{\e[31m%}%(?..[%?])%F{default} -> '
 
 
 # YubiKey SSH with PIV
-eval "$(ssh-agent)"
+if [[ "$TERM" == 'linux' ]]; then
+  eval "$(ssh-agent)" # only run this once, at login
+fi
+alias yk-ssh="ssh-add -s /usr/lib/libykcs11.so"
 
 
 # misc. aliases, environment variables
