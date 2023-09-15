@@ -322,9 +322,9 @@ hi({ 'SignifySignDelete' }, { ctermbg = bg, ctermfg = red })
 hi({ 'SignifySignChange' }, { ctermbg = bg, ctermfg = orange })
 
 hi({ 'DiffAdd', 'diffAdded' }, { ctermbg = brightGreen })
-hi({ 'DiffChange', 'diffChanged' }, { ctermbg = brightYellow })
+hi({ 'DiffChange', 'diffChanged' }, { ctermbg = 'NONE' })
 hi({ 'DiffDelete', 'diffRemoved' }, { ctermbg = brightRed })
-hi({ 'DiffText', 'diffLine' }, { ctermbg = yellow })
+hi({ 'DiffText', 'diffLine' }, { ctermbg = brightYellow })
 
 hi({ 'gitcommitComment' }, { ctermfg = fgBright })
 hi({ 'gitcommitUnmerged' }, { ctermfg = red })

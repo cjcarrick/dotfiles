@@ -114,11 +114,11 @@ vim.keymap.set('n', 'K', vim.lsp.buf.hover)
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
 vim.keymap.set('n', 'rn', vim.lsp.buf.rename)
 vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action)
--- vim.keymap.set('n', '<leader>f', function()
---   vim.lsp.buf.format {
---     filter = function(client) return client.name ~= 'volar' end,
---   }
--- end)
+vim.keymap.set('n', '<leader>f', function()
+  vim.lsp.buf.format {
+    filter = function(client) return client.name ~= 'volar' end,
+  }
+end)
 
 -- Turn off inline diagnostics, and Show all diagnostics on current line in floating window
 vim.diagnostic.config { virtual_text = false }
@@ -142,10 +142,10 @@ lspconfig.texlab.setup {
   },
 }
 
--- ESLint (make sure this loads first)
+-- ESLint
 
 -- lspconfig.eslint.setup {
---   format = false,
+--   format = false
 -- }
 
 -- CSS

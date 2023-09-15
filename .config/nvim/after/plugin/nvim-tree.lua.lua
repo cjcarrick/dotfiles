@@ -50,6 +50,10 @@ end
 -- Adapted from the native move function (https://github.com/nvim-tree/nvim-tree.lua/blob/b601b5aa25627f68d3d73ba9269b49e4f04ce126/lua/nvim-tree/actions/fs/rename-file.lua#L18-L32)
 local function move_file_to(node)
   local to = vim.fn.input('Move to: ', node.absolute_path, 'file')
+  if (vim.loop.fs_stat(to)) then
+    print("Destination is not empty.")
+    return
+  end
   local success, err = vim.loop.fs_rename(node.absolute_path, to)
   if not success then print('Could not move', node.absolute_path, 'to', to, 'Err:', err) end
   utils.rename_loaded_buffers(node.absolute_path, to)

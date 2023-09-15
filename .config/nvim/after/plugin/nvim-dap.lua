@@ -1,6 +1,8 @@
 local ok, dap = pcall(require, 'dap')
 if not ok then return end
 
+dap.set_log_level('TRACE')
+
 local widgets = require 'dap.ui.widgets'
 
 require('dap-vscode-js').setup {
@@ -12,6 +14,7 @@ require('dap-vscode-js').setup {
   -- log_file_level = false -- Logging level for output to file. Set to false to disable file logging.
   -- log_console_level = vim.log.levels.ERROR -- Logging level for output to console. Set to false to disable console output.
 }
+
 
 for _, language in ipairs { 'typescript', 'javascript' } do
   dap.configurations[language] = {
@@ -205,7 +208,7 @@ end)
 
 dap.adapters.lldb = {
   type = 'executable',
-  command = '/usr/local/opt/llvm/bin/lldb-vscode',
+  command = '/usr/bin/lldb-vscode',
   name = 'lldb',
 }
 
