@@ -8,8 +8,8 @@
 #
 # All imports must either be absolute paths starting with `/`, or paths relative
 # to the user's home directory starting with `~/`.
-import:
-  - ~/.config/alacritty/colors.yml
+# import:
+#   - ~/.config/alacritty/colors.yml
 
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
@@ -48,8 +48,8 @@ window:
   # Blank space added around the window in pixels. This padding is scaled
   # by DPI and the specified value is always added at both opposing sides.
   padding:
-    x: 0
-    y: 0
+    x: 8
+    y: 8
 
   # Spread additional padding evenly around the terminal content.
   dynamic_padding: true
@@ -63,7 +63,7 @@ window:
   # Values for `decorations` (macOS only):
   #     - transparent: Title bar, transparent background and title bar buttons
   #     - buttonless: Title bar, transparent background and no title bar buttons
-  decorations: buttonless
+  decorations: full
 
   # Background opacity
   #
@@ -192,6 +192,28 @@ font:
 #draw_bold_text_with_bright_colors: false
 
 # Colors (Tomorrow Night)
+colors:
+  primary:
+    background: '#282828'
+    foreground: '#ebdbb2'
+  normal:
+    black: '#282828'
+    red: '#c15550'
+    green: '#98971a'
+    yellow: '#dead2a'
+    blue: '#458588'
+    magenta: '#b85b96'
+    cyan: '#689d6a'
+    white: '#ebdbb2'
+  bright:
+    black: '#606060'
+    red: '#743e3c'
+    green: '#605f20'
+    yellow: '#836a28'
+    blue: '#365658'
+    magenta: '#d3869b'
+    cyan: '#cf813c'
+    white: '#3f3f3f'
 
 # Transparent cell backgrounds
 #
