@@ -48,10 +48,10 @@ return require('packer').startup(function(use)
 
   -- LSP
   use { 'b0o/schemastore.nvim' }
-  use { 'j-hui/fidget.nvim' }
+  use { 'j-hui/fidget.nvim', tag = 'legacy' }
   use { 'jose-elias-alvarez/null-ls.nvim' }
   use { 'neovim/nvim-lspconfig' }
-  use { 'ray-x/lsp_signature.nvim' }
+  -- use { 'ray-x/lsp_signature.nvim' }
 
   -- -- Jupyter notebooks
   -- use { 'GCBallesteros/jupytext.vim' }
