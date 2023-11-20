@@ -63,7 +63,7 @@ window:
   # Values for `decorations` (macOS only):
   #     - transparent: Title bar, transparent background and title bar buttons
   #     - buttonless: Title bar, transparent background and no title bar buttons
-  decorations: full
+  decorations: buttonless
 
   # Background opacity
   #
@@ -164,16 +164,16 @@ font:
   # Offset is the extra space around each character. `offset.y` can be thought
   # of as modifying the line spacing, and `offset.x` as modifying the letter
   # spacing.
-  # offset:
-  #  x: 0
-  #  y: 0
+  offset:
+   x: 0
+   y: 4
 
   # Glyph offset determines the locations of the glyphs within their cells with
   # the default being at the bottom. Increasing `x` moves the glyph to the
   # right, increasing `y` moves the glyph upward.
-  #glyph_offset:
-  #  x: 0
-  #  y: 0
+  glyph_offset:
+   x: 0
+   y: 2
 
   # Thin stroke font rendering (macOS only)
   #
@@ -191,7 +191,6 @@ font:
 # If `true`, bold text is drawn using the bright color variants.
 #draw_bold_text_with_bright_colors: false
 
-# Colors (Tomorrow Night)
 colors:
   primary:
     background: '#282828'
@@ -208,8 +207,8 @@ colors:
   bright:
     black: '#606060'
     red: '#743e3c'
-    green: '#605f20'
-    yellow: '#836a28'
+    green: '#40451d'
+    yellow: '#605222'
     blue: '#365658'
     magenta: '#d3869b'
     cyan: '#cf813c'
