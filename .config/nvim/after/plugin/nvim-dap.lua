@@ -1,6 +1,8 @@
-if not pcall(require, 'dap') then return end
-local dap = require 'dap'
-local ui = require 'dap.ui'
+local ok, dap = pcall(require, 'dap')
+if not ok then return end
+
+dap.set_log_level('TRACE')
+
 local widgets = require 'dap.ui.widgets'
 
 require('dap-vscode-js').setup {
@@ -12,6 +14,7 @@ require('dap-vscode-js').setup {
   -- log_file_level = false -- Logging level for output to file. Set to false to disable file logging.
   -- log_console_level = vim.log.levels.ERROR -- Logging level for output to console. Set to false to disable console output.
 }
+
 
 for _, language in ipairs { 'typescript', 'javascript' } do
   dap.configurations[language] = {
@@ -87,7 +90,7 @@ local floatWinNr = nil
 --   })
 -- end)
 
-vim.keymap.set('n', '<Leader>b', function() require('dap').toggle_breakpoint() end)
+vim.keymap.set('n', '<Leader>b', function() dap.toggle_breakpoint() end)
 
 -- vim.keymap.set(
 --   'n',
@@ -95,7 +98,7 @@ vim.keymap.set('n', '<Leader>b', function() require('dap').toggle_breakpoint() e
 --   function() require('dap').set_breakpoint(nil, nil, vim.fn.input 'Log point message: ') end
 -- )
 
-vim.keymap.set('n', '<Leader>d', function() require('dap').repl.toggle { height = 10 } end)
+vim.keymap.set('n', '<Leader>R', function() dap.repl.toggle { height = 10 } end)
 
 vim.keymap.set({ 'n', 'v' }, 'L', function() widgets.hover() end)
 
@@ -205,7 +208,7 @@ end)
 
 dap.adapters.lldb = {
   type = 'executable',
-  command = '/usr/local/opt/llvm/bin/lldb-vscode',
+  command = '/usr/bin/lldb-vscode',
   name = 'lldb',
 }
 

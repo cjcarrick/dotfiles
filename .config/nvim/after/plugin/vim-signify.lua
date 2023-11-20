@@ -2,10 +2,10 @@ local map = vim.keymap.set
 
 vim.g.netrw_browsex_viewer = 'open'
 
-vim.g.signify_sign_add = '▏'
-vim.g.signify_sign_delete = '▁'
-vim.g.signify_sign_delete_first_line = '▔'
-vim.g.signify_sign_change = '▏'
+vim.g.signify_sign_add = '│'
+vim.g.signify_sign_delete = '│'
+vim.g.signify_sign_delete_first_line = '│'
+vim.g.signify_sign_change = '│'
 vim.g.signify_sign_change_delete = vim.g.signify_sign_change .. vim.g.signify_sign_delete_first_line
 
 if vim.g.signify_vcs_cmds == nil then

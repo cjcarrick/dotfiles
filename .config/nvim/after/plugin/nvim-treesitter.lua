@@ -1,6 +1,7 @@
-if not pcall(require, 'nvim-treesitter') then return end
+local ok, ts_configs = pcall(require, 'nvim-treesitter.configs')
+if not ok then return end
 
-require('nvim-treesitter.configs').setup {
+ts_configs.setup {
   ensure_installed = {},
   sync_install = false,
   auto_install = true,
@@ -8,15 +9,17 @@ require('nvim-treesitter.configs').setup {
   highlight = {
     enable = true,
     disable = {
-      'html',
+      -- 'html',
       'markdown',
       'css',
       'sass',
       'scss',
       'setup',
       'tex',
+      'latex',
       'help',
       'telescope',
+      -- 'cpp'
     },
   },
 
@@ -39,7 +42,7 @@ require('nvim-treesitter.configs').setup {
     },
   },
 
-  context_commentstring = { enable = true },
+  context_commentstring = { enable = false },
 
   playground = { enable = false },
 }

@@ -1,3 +1,6 @@
+local ok, cmp = pcall(require, 'cmp')
+if not ok then return end
+
 local kind_icons = {
   Class = ' ',
   Color = ' ',
@@ -12,6 +15,7 @@ local kind_icons = {
   Interface = ' ',
   Keyword = ' ',
   Method = ' ',
+  Reference = ' ',
   Module = ' ',
   Property = ' ',
   Snippet = ' ',
@@ -29,7 +33,6 @@ end
 
 vim.o.pumheight = 8
 
-local cmp = require 'cmp'
 cmp.setup {
 
   enabled = function()
@@ -52,8 +55,19 @@ cmp.setup {
   end,
 
   snippet = {
-    expand = function(args) require('luasnip').lsp_expand(args.body) end,
+    expand = function(args)
+      local ok, ls = pcall(require, 'luasnip')
+      if ok then ls.lsp_expand(args.body) end
+    end,
   },
+
+  window = {
+    documentation = {
+      side_padding = 2,
+      border = { "", "", "", "│", "", "", "", "│" }
+    }
+  },
+
 
   formatting = {
     format = function(_, vim_item)
@@ -70,9 +84,23 @@ cmp.setup {
     end,
   },
 
+    view = {
+      docs = {
+        auto_open = false
+      }
+    },
+
   mapping = cmp.mapping.preset.insert {
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
+
+    ['<C-g>'] = function()
+      if cmp.visible_docs() then
+        cmp.close_docs()
+      else
+        cmp.open_docs()
+      end
+    end,
 
     ['<C-Space>'] = cmp.mapping(function()
       print 'hello'
@@ -129,3 +157,12 @@ cmp.setup {
     { name = 'nvim_lsp', keyword_length = 0 },
   },
 }
+
+cmp.setup.filetype('tex', {
+  sources = {
+    { name = 'luasnip' },
+    { name = 'buffer', keyword_length = 4 },
+    { name = 'nvim_lsp', keyword_length = 0 },
+  }
+})
+

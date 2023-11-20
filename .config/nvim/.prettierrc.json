@@ -3,5 +3,6 @@
   "semi": false,
   "singleQuote": true,
   "arrowParens": "avoid",
-  "proseWrap": "always"
+  "proseWrap": "always",
+  "printWidth": 80
 }

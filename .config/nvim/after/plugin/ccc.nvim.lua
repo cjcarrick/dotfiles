@@ -1,6 +1,6 @@
-if not pcall(require, 'ccc') then return end
+local ok, ccc = pcall(require, 'ccc')
+if not ok then return end
 
-local ccc = require 'ccc'
 ccc.setup {
     highlighter = { auto_enable = true },
     inputs = {

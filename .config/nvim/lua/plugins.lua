@@ -18,95 +18,60 @@ local disabled_built_ins = {
   'spellfile_plugin',
   'matchit',
 }
+
 for _, plugin in pairs(disabled_built_ins) do
   vim.g['loaded_' .. plugin] = 1
 end
 
-return require('packer').startup(function(use)
-  -- Interface
-  use { 'RRethy/vim-illuminate' }
+return require 'paq' {
 
-  -- TODO: make fails. Missing <luaxlib.h>. Probably comes from liblua. How do
-  -- you intall liblua on macos?
-  -- use { 'JosefLitos/reform.nvim', disable = true, run = 'make' }
+  -- Interface
+  -- 'RRethy/vim-illuminate',
 
   -- Functionality
-  use { 'echasnovski/mini.align', branch = 'stable' }
-  use { 'mattn/emmet-vim' }
-  use { 'numToStr/Comment.nvim' }
-
-  use { 'christoomey/vim-tmux-navigator' }
-  use { 'ggandor/leap.nvim' }
-  use { 'jiangmiao/auto-pairs' }
-  use { 'tpope/vim-surround' }
-  use { 'uga-rosa/ccc.nvim' }
-  -- use { 'alvan/vim-closetag' }
+  { 'echasnovski/mini.align', branch = 'stable' },
+  'mattn/emmet-vim',
+  'numToStr/Comment.nvim',
+  'gaoDean/autolist.nvim',
+  'christoomey/vim-tmux-navigator',
+  'ggandor/leap.nvim',
+  -- 'jiangmiao/auto-pairs',
+  { 'altermo/ultimate-autopair.nvim' , branch = 'v0.6' },
+  'tpope/vim-surround',
+  'uga-rosa/ccc.nvim',
 
   -- Misc.
-  use { 'lewis6991/impatient.nvim' }
-  use { 'wbthomason/packer.nvim' }
+  'lewis6991/impatient.nvim',
+  'savq/paq-nvim',
 
   -- LSP
-  use { 'b0o/schemastore.nvim' }
-  use { 'j-hui/fidget.nvim', tag = 'legacy' }
-  use { 'jose-elias-alvarez/null-ls.nvim' }
-  use { 'neovim/nvim-lspconfig' }
-  -- use { 'ray-x/lsp_signature.nvim' }
-
-  -- -- Jupyter notebooks
-  -- use { 'GCBallesteros/jupytext.vim' }
-  -- use { 'hkupty/iron.nvim' }
-  -- use { 'kana/vim-textobj-user' }
-  -- use { 'kana/vim-textobj-line' }
-  -- use { 'GCBallesteros/vim-textobj-hydrogen' }
+  'b0o/schemastore.nvim',
+  { 'j-hui/fidget.nvim', branch = 'legacy' },
+  'neovim/nvim-lspconfig',
+  'ray-x/lsp_signature.nvim',
 
   -- Completion
-  use { 'L3MON4D3/LuaSnip', tag = 'v1.*' }
-  use {
-    'hrsh7th/nvim-cmp',
-    requires = {
-      { 'hrsh7th/cmp-nvim-lsp' },
-      { 'hrsh7th/cmp-path' },
-      { 'saadparwaiz1/cmp_luasnip' },
-    },
-  }
+  { 'L3MON4D3/LuaSnip', branch = 'v1.0.0' },
+  'hrsh7th/nvim-cmp',
+  'hrsh7th/cmp-nvim-lsp',
+  'hrsh7th/cmp-path',
+  'hrsh7th/cmp-buffer',
+  'saadparwaiz1/cmp_luasnip',
 
   -- Treesitter
-  use {
-    'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate',
-    disable = false,
-    requires = { 'JoosepAlviste/nvim-ts-context-commentstring' },
-  }
+  { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
 
   -- Git
-  use { 'mhinz/vim-signify' }
+  'mhinz/vim-signify',
 
   -- Telescope
-  use {
-    'nvim-telescope/telescope.nvim',
-    tag = '0.1.0',
-    requires = { 'nvim-lua/plenary.nvim', 'nvim-tree/nvim-web-devicons' },
-  }
+  { 'nvim-telescope/telescope.nvim', branch = '0.1.4' },
+  'nvim-lua/plenary.nvim',
 
-  -- nvim-tree
-  use {
-    'nvim-tree/nvim-tree.lua',
-    requires = { 'nvim-tree/nvim-web-devicons' },
-  }
-  -- use { 'tpope/vim-vinegar' }
+  'stevearc/oil.nvim',
 
-  -- debugger
-  use {
-    'mfussenegger/nvim-dap',
-    requires = {
-      'LiadOz/nvim-dap-repl-highlights',
-      'mxsdev/nvim-dap-vscode-js',
-      {
-        'microsoft/vscode-js-debug',
-        opt = true,
-        run = 'npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out',
-      },
-    },
-  }
-end)
+  -- -- debugger
+  -- 'mfussenegger/nvim-dap',
+  -- 'LiadOz/nvim-dap-repl-highlights',
+  -- 'mxsdev/nvim-dap-vscode-js', -- depends: github.com/microsoft/vscode-js-debug
+}

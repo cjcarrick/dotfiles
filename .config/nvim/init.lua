@@ -1,7 +1,9 @@
 require 'impatient'
 require 'keys'
 require 'sets'
-require 'colorscheme.ansi16.default'
+require 'colors'
 require 'statusline'
 require 'plugins'
 
+-- require 'nvim-web-devicons'.setup()
+-- require('pairs')

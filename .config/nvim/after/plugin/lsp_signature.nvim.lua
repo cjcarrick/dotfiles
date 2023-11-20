@@ -1,6 +1,7 @@
-if not pcall(require, 'lsp_signature') then return end
+local ok, sig = pcall(require, 'lsp_signature')
+if not ok then return end
 
-require('lsp_signature').setup {
+sig.setup {
 
   bind = true,                                               -- This is mandatory, otherwise border config won't get registered.
   -- If you want to hook lspsaga or other signature handler, pls set to false
@@ -29,7 +30,7 @@ require('lsp_signature').setup {
   hint_scheme = 'String',
   hi_parameter = 'LspSignatureActiveParameter', -- how your parameter will be highlight
   handler_opts = {
-    border = 'rounded',                         -- double, rounded, single, shadow, none, or a table of borders
+    border = 'single',                         -- double, rounded, single, shadow, none, or a table of borders
   },
 
   always_trigger = false,                   -- sometime show signature on new line or in middle of parameter can be confusing, set it to false for #58
@@ -47,6 +48,7 @@ require('lsp_signature').setup {
   toggle_key = '<C-s>',                     -- toggle signature on and off in insert mode,  e.g. toggle_key = '<M-x>'
   toggle_key_flip_floatwin_setting = true, -- true: toggle float setting after toggle key pressed
 
-  select_signature_key = nil,               -- cycle to next signature, e.g. '<M-n>' function overloading
+  select_signature_key =nil,               -- cycle to next signature, e.g. '<M-n>' function overloading
   move_cursor_key = nil,                    -- imap, use nvim_set_current_win to move cursor between current win and floating
 }
+

@@ -1,7 +1,6 @@
-local fidget = require 'fidget'
-local null_ls = require 'null-ls'
-local lspconfig = require 'lspconfig'
-local schemastore = require 'schemastore'
+local ok, fidget = pcall (require, 'fidget')
+local ok, lspconfig = pcall (require, 'lspconfig')
+local ok, schemastore = pcall(require, 'schemastore')
 
 local language_servers = lspconfig.util.available_servers() -- or list servers manually like {'gopls', 'clangd'}
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -15,7 +14,7 @@ end
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-local _border = 'rounded'
+local _border = 'single'
 require('lspconfig.ui.windows').default_options = {
   border = _border,
 }
@@ -27,7 +26,7 @@ require('lspconfig.ui.windows').default_options = {
 
 -- vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = _border, max_width = 80 })
 vim.lsp.handlers['textDocument/signatureHelp'] =
-    vim.lsp.with(vim.lsp.handlers.signature_help, { border = _border, max_width = 80 })
+vim.lsp.with(vim.lsp.handlers.signature_help, { border = _border, max_width = 80 })
 
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = _border, max_width = 80 })
 
@@ -38,84 +37,89 @@ vim.diagnostic.config {
   severity_sort = true,
 }
 
--- Rome
+-- -- Rome
+--
+-- lspconfig.rome.setup {
+--   cmd = {
+--     'rome',
+--     'lsp-proxy',
+--     -- '--quote-style',    'single',
+--     -- '--indent-width',   '2',
+--     -- '--semicolons',     'as-needed',
+--     -- '--indent-style',   'space',
+--     -- '--trailing-comma', 'none',
+--   },
+-- }
 
-lspconfig.rome.setup {
-  cmd = {
-    'rome',
-    'lsp-proxy',
-    -- '--quote-style',    'single',
-    -- '--indent-width',   '2',
-    -- '--semicolons',     'as-needed',
-    -- '--indent-style',   'space',
-    -- '--trailing-comma', 'none',
-  },
-}
-
-null_ls.setup {
-  sources = {
-    null_ls.builtins.formatting.stylua,
-    null_ls.builtins.code_actions.eslint_d,
-    null_ls.builtins.formatting.prettierd.with {
-      filetypes = {
-        -- 'javascript',
-        -- 'javascriptreact',
-        -- 'typescript',
-        -- 'typescriptreact',
-        'vue',
-        'css',
-        'scss',
-        'less',
-        'html',
-        -- 'json',
-        -- 'jsonc',
-        'yaml',
-        'markdown',
-        'svg',
-        'xml',
-        'markdown.mdx',
-        'graphql',
-        'handlebars',
-        'astro',
-      },
-    },
-
-    null_ls.builtins.diagnostics.puglint,
-
-    null_ls.builtins.formatting.latexindent.with {
-      filetypes = { 'tex', 'latex' },
-      args = {
-        -- -m this allows latexindent to modify line breaks. This must be turned
-        -- on in order for wrapping to work
-        '-m',
-
-        -- -g prevents log files from being generated
-        -- '-g',
-        -- '/dev/null',
-
-        -- specify config inline with -y so you don't need a whole ass config file
-        -- '-y',
-        -- "modifyLineBreaks:textWrapOptions:columns:80",
-        '-',
-      },
-    },
-
-    null_ls.builtins.formatting.black.with {
-      filetypes = { 'ipynb', 'python' },
-    },
-    -- ruff is insanely fast, but doesn't do all the cool lsp things that
-    -- pyright does
-    -- null_ls.builtins.diagnostics.ruff,
-  },
-}
+-- null_ls.setup {
+--   sources = {
+--     null_ls.builtins.formatting.stylua,
+--     null_ls.builtins.code_actions.eslint_d,
+--     null_ls.builtins.formatting.prettierd.with {
+--       filetypes = {
+--         'javascript',
+--         'javascriptreact',
+--         'typescript',
+--         'typescriptreact',
+--         'vue',
+--         'css',
+--         'scss',
+--         'less',
+--         'html',
+--         'json',
+--         'jsonc',
+--         'yaml',
+--         'markdown',
+--         'svg',
+--         'xml',
+--         'markdown.mdx',
+--         'graphql',
+--         'handlebars',
+--         'astro',
+--       },
+--     },
+--
+--     null_ls.builtins.diagnostics.puglint,
+--
+--     null_ls.builtins.formatting.latexindent.with {
+--       filetypes = { 'tex', 'latex' },
+--       args = {
+--         -- -m this allows latexindent to modify line breaks. This must be turned
+--         -- on in order for wrapping to work
+--         '-m',
+--
+--         -- -g prevents log files from being generated
+--         -- '-g',
+--         -- '/dev/null',
+--
+--         -- specify config inline with -y so you don't need a whole ass config file
+--         -- '-y',
+--         -- "modifyLineBreaks:textWrapOptions:columns:80",
+--         '-',
+--       },
+--     },
+--
+--     null_ls.builtins.formatting.black.with {
+--       filetypes = { 'ipynb', 'python' },
+--     },
+--     -- ruff is insanely fast, but doesn't do all the cool lsp things that
+--     -- pyright does
+--     -- null_ls.builtins.diagnostics.ruff,
+--   },
+-- }
 
 -- LSP Mappings
 
+vim.keymap.set('i', '<C-h>', vim.lsp.buf.signature_help)
 vim.keymap.set('n', 'K', vim.lsp.buf.hover)
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
 vim.keymap.set('n', 'rn', vim.lsp.buf.rename)
 vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action)
-vim.keymap.set('n', '<leader>f', vim.lsp.buf.format)
+vim.keymap.set('n', '<leader>f', function()
+  vim.lsp.buf.format {
+    filter = function(client) return client.name ~= 'volar' end,
+  }
+end)
 
 -- Turn off inline diagnostics, and Show all diagnostics on current line in floating window
 vim.diagnostic.config { virtual_text = false }
@@ -139,10 +143,10 @@ lspconfig.texlab.setup {
   },
 }
 
--- ESLint (make sure this loads first)
+-- ESLint
 
 -- lspconfig.eslint.setup {
---   format = false,
+--   format = false
 -- }
 
 -- CSS
@@ -210,12 +214,16 @@ lspconfig.lua_ls.setup {
         version = 'LuaJIT',
       },
 
-      -- Make the server aware of Neovim runtime files
-      workspace = { library = vim.api.nvim_get_runtime_file('', true) },
+      workspace = {
+        -- https://github.com/LuaLS/lua-language-server/discussions/1688#discussioncomment-4185003
+        checkThirdParty = false,
+        -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file('', true),
+      },
 
       -- OR THIS: which just gets the language server to recognize the `vim` global
       -- This way you don't have to wait for lua_ls to source all the files
-      -- diagnostics = { globals = { 'vim' } },
+      diagnostics = { globals = { 'vim' } },
 
       -- Do not send telemetry data containing a randomized but unique identifier
       telemetry = {

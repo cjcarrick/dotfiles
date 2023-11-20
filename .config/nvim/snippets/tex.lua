@@ -1,20 +1,9 @@
-function start_of_line(line_to_cursor) return line_to_cursor == '' end
-
 return {
   s(
     '!mla',
     fmt(
       [[
-\documentclass[mla8]{mla}                       % use mla as base
-\usepackage{setspace} \singlespacing            % use single spacing
-\pagestyle{empty}                               % remove page numbers and header
-\setlength{\parindent}{0pt}                     % disable indentation
-% \setlength{\parindent}{0.25in}
-
-\renewcommand{\labelitemi}{-}                   % adjust how list bullets are drawn
-\renewcommand{\labelitemii}{\labelitemi}
-\renewcommand{\labelitemiii}{\labelitemi}
-\renewcommand{\labelitemiv}{\labelitemi}
+\documentclass[mla8]{mla}
 
 \title{<title>}
 \author{<author>}
@@ -23,7 +12,9 @@ return {
 \course{<course>}
 
 \begin{document}
+
 <body>
+
 \end{document}
 ]],
       {
@@ -37,15 +28,64 @@ return {
       {
         delimiters = '<>',
       }
-    )
+    ),
+    {
+      show_condition = function (line_to_cursor)
+        return line_to_cursor:sub(1, 1) == '!'
+      end
+    }
+  ),
+  s(
+    '!chicago',
+    fmt(
+      [[
+\documentclass{turabian-researchpaper}
+
+% This will use Chicago notes-bibliography format, as opposed to author-date format.
+
+% Cite things by using \autocite{ref_id}
+
+\usepackage{biblatex-chicago}
+\addbibresource{<bibresource>}
+
+\title{<title>}
+\author{<author>}
+\date{<date>}
+\course{<course>}
+
+\begin{document}
+
+\maketitle
+
+<body>
+
+\clearpage
+\printbibliography
+
+\end{document}
+
+]],
+      {
+        bibresource = i(1, 'relative/path/to/biberesource.bib'),
+        title = i(2, 'Title'),
+        author = i(3, 'Author'),
+        date = i(4, 'Date'),
+        course = i(5, 'Course'),
+        body = i(0),
+      },
+      { delimiters = '<>' }
+    ),
+    {
+      show_condition = function (line_to_cursor)
+        return line_to_cursor:sub(1, 1) == '!'
+      end
+    }
   ),
   s(
     '!apa',
     fmt(
       [[
 \documentclass[stu,12pt]{apa7}
-\usepackage[american]{babel}
-\usepackage{csquotes}
 
 % % \usepackage[style=apa,sortcites=true,sorting=nyt]{biblatex}
 % \usepackage[style=apa,sortcites=true,sorting=nyt,backend=biber]{biblatex}
@@ -100,6 +140,11 @@ return {
         body = i(0),
       },
       { delimiters = '<>' }
-    )
+    ),
+    {
+      show_condition = function (line_to_cursor)
+        return line_to_cursor:sub(1,1) == '!'
+      end
+    }
   ),
 }

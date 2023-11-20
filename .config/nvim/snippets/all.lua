@@ -6,24 +6,14 @@ local function uuid()
   end)
 end
 
--- @return boolean
-local function in_comment_or_string() --{{{
-
-  if not pcall(require, 'treesitter') then return true end
-  local ts_utils = require 'nvim-treesitter.ts_utils'
-
-  local current_node = ts_utils.get_node_at_cursor()
-  if not current_node then return false end
-
-  local expr = current_node
-  return expr:type() == 'comment' or expr:type() == 'string'
-end --}}}
-
 return {
-  s(
-    'place',
-    fmt('https://placebear.com/{}/{}', { i(1, '256'), i(2, '256') }),
-    { show_condition = in_comment_or_string }
-  ),
-  s('uuid', f(uuid, {}, {})),
+  s('!place', fmt('https://placebear.com/{}/{}', { i(1, '256'), i(2, '256') }), {
+  }),
+  s('!uuid', f(uuid, {}, {}), {
+  }),
+
+  s('!dt', f(function() return os.date '%b %d, %Y %I:%m' end, {}, {}), {
+  }),
+  s('!iso', f(function() return os.date '%Y-%M-%dT%H:%m:%S%z' end, {}, {}), {
+  }),
 }

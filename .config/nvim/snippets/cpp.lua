@@ -23,23 +23,42 @@ local function singular(input)
 end
 
 return {
-    s('if', fmt('if ({}) {{\n    {}\n}}', { i(1, 'condition'), i(2) })),
-    s('whi', fmt('while ({}) {{\n    {}\n}}', { i(1, 'condition'), i(2) })),
-    s(
-        'main',
-        c(1, {
-            fmt('int main()\n{{\n    {}\n\n    return 0;\n}}', { i(1) }),
-            fmt('int main(int argc, char **argv) {{\n    {}\n\n    return 0;\n}}', { i(1) }),
-        })
-    ),
+  s('if', fmt('if ({}) {{\n    {}\n}}', { i(1, 'condition'), i(2) })),
+  s('whi', fmt('while ({}) {{\n    {}\n}}', { i(1, 'condition'), i(2) })),
+  s(
+    'main',
+    c(1, {
+      fmt('int main()\n{{\n    {}\n\n    return 0;\n}}', { i(1) }),
+      fmt('int main(int argc, char **argv) {{\n    {}\n\n    return 0;\n}}', { i(1) }),
+    })
+  ),
 
-    s(
-        'incl',
-        c(1, {
-            fmt('#include <{}>', { i(1, 'iostream') }),
-            fmt('#include "{}"', { i(1, './lib/file') }),
-        })
-    ),
+  s('incl', { t '#include ' }),
+
+  -- Include GUards for header files
+  -- (Type "gu" then hit <C-j>)
+  s('gu', {
+    f(function()
+      local fname = vim.api.nvim_buf_get_name(0)
+      -- Change /home/user/.../lib/utils/main.hpp to utils/main.hpp
+      -- or /home/user/.../main.hpp to main.hpp
+      if fname:match 'lib.*' then
+        fname = fname:match('lib.*'):sub(5)
+      else
+        fname = fname:match('/[^/]*$'):sub(2)
+      end
+      local F_NAME = fname:upper():gsub('[^%a%d]', '_')
+      return {
+        '#ifndef ' .. F_NAME,
+        '#define ' .. F_NAME,
+      }
+    end, {}, {}),
+    t { '', '', '' },
+    i(0),
+    t { '', '', '#endif' },
+  }, {
+    hidden = true,
+  }),
 
   -- Disabled because it's not that hard to type "() {<cr>}"
   -- -- Automatically expand functions on <returntype> <funcname>{
