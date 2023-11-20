@@ -4,7 +4,6 @@
 SAVEHIST=1000
 HISTSIZE=1000
 HISTFILE=~/.zsh_history
-setopt SHARE_HISTORY
 
 bindkey "^[[A" history-beginning-search-backward
 bindkey "^[[B" history-beginning-search-forward
@@ -33,12 +32,12 @@ compinit -C
 
 # Prompt
 
-PS1='%B'
+PS1=''
 # Only inlcude hostname in prompt when in a remote connection
 if [[ -n "$SSH_CLIENT" ]] || [[ -n "$SSH_TTY" ]]; then
   PS1+='%m:'
 fi
-PS1+=$'%{\e[34m%}%c'
+PS1+=$'%{\e[90m%}%c'
 
 # Autoload zsh add-zsh-hook and vcs_info functions (-U autoload w/o substition, -z use zsh style)
 autoload -Uz add-zsh-hook vcs_info old tmx mkf dict fzo colorscheme
@@ -48,7 +47,7 @@ setopt prompt_subst
 add-zsh-hook precmd vcs_info
 # add ${vcs_info_msg_0} to the prompt
 # e.g. here we add the Git information in red  
-PS1+=$'%{\e[31m%}${vcs_info_msg_0_}%f'
+PS1+=$'%F{red}${vcs_info_msg_0_}%f'
 
 # Enable checking for (un)staged changes, enabling use of %u and %c
 zstyle ':vcs_info:*' check-for-changes true
@@ -59,7 +58,22 @@ zstyle ':vcs_info:*' stagedstr ' +'
 zstyle ':vcs_info:git:*' formats       ' (%b%u%c)'
 zstyle ':vcs_info:git:*' actionformats ' (%b|%a%u%c)'
 
-PS1+=$' %{\e[31m%}%(?..[%?])%F{default}%b -> '
+PS1+=$' %b%F{red}%(?..[%?])%F{default}%b '
+
+
+# Authentication
+
+export GPG_TTY="$(tty)"
+
+# gpg-agent can be used instead of ssh-agent for ssh authentication.
+gpgconf --launch gpg-agent
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+
+# by default, pinentry-ncurses would start in the same tty that gpg-agent is
+# running in. We don't have access to this tty from our new zsh instance. So, 
+# tell gpg-agent that we have a new tty.
+gpg-connect-agent updatestartuptty /bye >/dev/null
+
 
 
 # misc. aliases, environment variables
