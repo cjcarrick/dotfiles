@@ -1,0 +1,20 @@
+[user]
+	name = Chris Carrick
+	email = 36552610+cjcarrick@users.noreply.github.com
+	signingkey = FDC3A9697E15F0FEF5357303C1623D1D6C856A11
+
+[diff]
+  tool = vimdiff
+[merge]
+  tool = vimdiff
+[mergetool "vimdiff"]
+  path = /usr/local/bin/nvim
+
+# https://stackoverflow.com/a/61891229
+[core]
+	compression = 0
+[http]
+	postBuffer = 1048576000
+	maxRequestBuffer = 100M
+[commit]
+	gpgSign = true
