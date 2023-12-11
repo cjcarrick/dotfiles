@@ -1,37 +1,38 @@
 
 -- Defines highlight groups for different file ttypes
-local hl_groups = {
-   bg = { ctermfg = 0 },
-   bgBright = { ctermfg = 15 },
+---@type { color: { fg : string, ctermfg : number } }
+local colors = {
+  black      = { fg = '#202020', ctermfg = 0  }, -- popups, etc. use sparingly
+  -- black      = { fg = '#282828', ctermfg = 0  }, -- popups, etc. use sparingly
+  darkGray   = { fg = '#282828', ctermfg = 0  }, -- normal background
+  gray       = { fg = '#3f3f3f', ctermfg = 7  }, -- cursorline, etc
+  brightGray = { fg = '#606060', ctermfg = 15 }, -- comments, etc
+  white      = { fg = '#ebdbb2', ctermfg = 7  }, -- main text colors
 
-   fg = { ctermfg = 7 },
-   fgBright = { ctermfg = 8 },
+  red    = { fg = '#c15550', ctermfg = 1  },
+  orange = { fg = '#cf813c', ctermfg = 14 },
+  yellow = { fg = '#dead2a', ctermfg = 3  },
+  green  = { fg = '#98971a', ctermfg = 2  },
+  blue   = { fg = '#458588', ctermfg = 4  },
+  cyan   = { fg = '#689d6a', ctermfg = 6  },
+  purple = { fg = '#b85b96', ctermfg = 5  },
+  pink   = { fg = '#b85b96', ctermfg = 13  },
 
-   red = { ctermfg = 1 },
-   brightRed = { ctermfg = 9 },
+  brightYellow = { fg = '#605222', ctermfg = 11 },
+  brightRed    = { fg = '#743e3c', ctermfg = 9 },
+  brightGreen  = { fg = '#40451d', ctermfg = 10 },
+  brightBlue   = { fg = '#365658', ctermfg = 12 },
 
-   yellow = { ctermfg = 3 },
-   brightYellow = { ctermfg = 11 },
-
-   green = { ctermfg = 2 },
-   brightGreen = { ctermfg = 10 },
-
-   blue = { ctermfg = 4 },
-   brightBlue = { ctermfg = 12 },
-
-   purple = { ctermfg = 5 },
-   pink = { ctermfg = 13 },
-
-   cyan = { ctermfg = 6 },
-   orange = { ctermfg = 14 },
+  NONE = { fg = 'NONE', ctermfg = 'NONE' }
 }
 
+---@type { icon: { icon: string, hl: string } }
 local icon_table = {
-  ['txt'] =                  { icon = ' ',    hl = 'fg' },
+  ['txt'] =                  { icon = ' ',    hl = 'white' },
   --
   ['sh'] =                   { icon = 'sh',   hl = 'green' },
   ['shell'] =                { icon = 'sh',   hl = 'green' },
-  ['awk'] =                  { icon = 'sh',   hl = 'green'},
+  ['awk'] =                  { icon = 'sh',   hl = 'green' },
   ['.bashprofile'] =         { icon = 'sh',   hl = 'orange' },
   ['.bashrc'] =              { icon = 'sh',   hl = 'orange' },
   ['bash'] =                 { icon = 'sh',   hl = 'orange' },
@@ -55,30 +56,30 @@ local icon_table = {
   ['bat'] =                  { icon = 'win',  hl = 'blue' },
   ['cab'] =                  { icon = 'win',  hl = 'blue' },
   --
-  ['cfg'] =                  { icon = 'cnf',  hl = 'fgBright' },
-  ['toml'] =                 { icon = 'cnf',  hl = 'fgBright' },
-  ['conf'] =                 { icon = 'cnf',  hl = 'fgBright' },
-  ['editorconfig'] =         { icon = 'cnf',  hl = 'fgBright' },
-  ['.env'] =                 { icon = 'cnf',  hl = 'fgBright' },
+  ['cfg'] =                  { icon = 'cfg',  hl = 'white' },
+  ['toml'] =                 { icon = 'toml',  hl = 'red' },
+  ['conf'] =                 { icon = 'conf',  hl = 'white' },
+  ['editorconfig'] =         { icon = 'cnf',  hl = 'white' },
+  ['.env'] =                 { icon = 'env',  hl = 'white' },
   --
-  ['img'] =                  { icon = 'img',  hl = 'fg' },
-  ['iso'] =                  { icon = 'img',  hl = 'fg' },
+  ['img'] =                  { icon = 'img',  hl = 'white' },
+  ['iso'] =                  { icon = 'img',  hl = 'white' },
   ['so'] =                   { icon = 'l',    hl = 'blue' },
   ['pkgbuild'] =             { icon = 'a',    hl = 'blue' },
   ['ebuild'] =               { icon = 'g',    hl = 'purple' },
   ['deb'] =                  { icon = 'd',    hl = 'orange' },
   ['android'] =              { icon = 'a',    hl = 'green' },
   ['apk'] =                  { icon = 'apk',  hl = 'green' },
-  ['.DS_Store'] =            { icon = 'tmp',  hl = 'fgBright' },
-  ['ds_store'] =             { icon = 'tmp',  hl = 'fgBright' },
-  ['apple'] =                { icon = 'apl',  hl = 'fg' },
-  ['localized'] =            { icon = 'apl',  hl = 'fg' },
+  ['.DS_Store'] =            { icon = 'tmp',  hl = 'brightGray' },
+  ['ds_store'] =             { icon = 'tmp',  hl = 'brightGray' },
+  ['apple'] =                { icon = 'apl',  hl = 'white' },
+  ['localized'] =            { icon = 'apl',  hl = 'white' },
   ['dll'] =                  { icon = 'w',    hl = 'blue' },
   ['exe'] =                  { icon = 'exe',  hl = 'orange' },
   ['windows'] =              { icon = 'win',  hl = 'blue' },
   --
-  ['/Trash.$'] =             { icon = 'tmp',  hl = 'fg' },
-  ['/.Trash-d+.$'] =         { icon = 'tmp',  hl = 'fg' },
+  ['/Trash.$'] =             { icon = 'tmp',  hl = 'white' },
+  ['/.Trash-d+.$'] =         { icon = 'tmp',  hl = 'white' },
   --
   ['.gitattributes'] =       { icon = 'git',  hl = 'orange' },
   ['.gitconfig'] =           { icon = 'git',  hl = 'orange' },
@@ -117,10 +118,10 @@ local icon_table = {
   ['Vagrantfile$'] =         { icon = 'l',    hl = 'green' },
   --
   ['c'] =                    { icon = 'c',    hl = 'blue' },
-  ['cuh'] =                  { icon = 'h',    hl = 'fg' },
+  ['cuh'] =                  { icon = 'h',    hl = 'white' },
   ['h'] =                    { icon = 'h' },
   ['m'] =                    { icon = 'm',    hl = 'blue' },
-  ['cmakelists.txt'] =       { icon = 'm',    hl = 'fg' },
+  ['cmakelists.txt'] =       { icon = 'm',    hl = 'white' },
   ['makefile'] =             { icon = 'm' },
   --
   ['c++'] =                  { icon = 'cpp', hl = 'blue' },
@@ -193,9 +194,9 @@ local icon_table = {
   --
   ['.eslintrc.cjs'] =        { icon = 'esln',    hl = 'purple' },
   ['.eslintrc.js'] =         { icon = 'esln' , hl = 'purple' },
-  ['.eslintignore'] =        { icon = 'esln',    hl = 'fg' },
+  ['.eslintignore'] =        { icon = 'esln',    hl = 'white' },
   --
-  ['.prettierignore'] =      { icon = 'p',    hl = 'fg' },
+  ['.prettierignore'] =      { icon = 'p',    hl = 'white' },
   ['.prettierrc'] =          { icon = 'p',    hl = 'pink' },
   --
   ['clj'] =                  { icon = 'clj',    hl = 'green' },
@@ -234,7 +235,7 @@ local icon_table = {
   ['docker-compose.yml'] =   { icon = 'dock',    hl = 'blue' },
   ['dockerfile'] =           { icon = 'dock', hl = 'blue' },
   --
-  ['dropbox'] =              { icon = 'box' , hl = 'blue'},
+  ['dropbox'] =              { icon = 'box' , hl = 'blue' },
   --
   ['ejs'] =                  { icon = 'ejs',    hl = 'blue' },
   --
@@ -274,7 +275,7 @@ local icon_table = {
   ['pyc'] =                  { icon = 'py',   hl = 'yellow' },
   ['pyd'] =                  { icon = 'py',   hl = 'yellow' },
   ['pyo'] =                  { icon = 'py',   hl = 'yellow' },
-  ['requirements.txt'] =     { icon = 'i',    hl = 'fg' },
+  ['requirements.txt'] =     { icon = 'i',    hl = 'white' },
   --
   ['eex'] =                  { icon = 'eex',  hl = 'purple' },
   ['ex'] =                   { icon = 'ex',   hl = 'purple' },
@@ -282,8 +283,8 @@ local icon_table = {
   ['leex'] =                 { icon = 'leex', hl = 'purple' },
   ['mix.lock'] =             { icon = 'lock', hl = 'purple' },
   --
-  ['license'] =              { icon = 'l',    hl = 'fg' },
-  ['lock'] =                 { icon = 'l',    hl = 'fg' },
+  ['license'] =              { icon = 'l',    hl = 'white' },
+  ['lock'] =                 { icon = 'l',    hl = 'white' },
   --
   ['lua'] =                  { icon = 'lua',  hl = 'blue' },
   --
@@ -297,9 +298,9 @@ local icon_table = {
   ['ml'] =                   { icon = 'm',    hl = 'purple' },
   ['mli'] =                  { icon = 'ML' , hl = 'purple' },
   --
-  ['part'] =                 { icon = 'part', hl = 'fgBright' },
-  ['temp'] =                 { icon = 'temp', hl = 'fgBright' },
-  ['tmp'] =                  { icon = 'tmp',  hl = 'fgBright' },
+  ['part'] =                 { icon = 'part', hl = 'brightGray' },
+  ['temp'] =                 { icon = 'temp', hl = 'brightGray' },
+  ['tmp'] =                  { icon = 'tmp',  hl = 'brightGray' },
   --
   ['pp'] =                   { icon = 'p' ,   hl = 'green' },
   ['procfile'] =             { icon = 'k',    hl = 'green' },
@@ -353,7 +354,7 @@ local icon_table = {
   ['bib'] =                  { icon = 'bib',  hl = 'green' },
   ['twig'] =                 { icon = 'twig', hl = 'red' },
   --
-  ['log'] =                  { icon = 'log',  hl = 'fg' },
+  ['log'] =                  { icon = 'log',  hl = 'white' },
   --
   ['eot'] =                  { icon = 'font', hl = 'red' },
   ['font'] =                 { icon = 'font',  hl = 'red' },
@@ -409,28 +410,28 @@ local icon_table = {
   ['.clang-format'] =        { icon = 'yml',  hl = 'purple' },
   ['yml'] =                  { icon = 'yml',  hl = 'purple' },
   --
-  ['bz'] =                   { icon = 'bz',   hl = 'fgBright' },
-  ['bz2'] =                  { icon = 'bz2',  hl = 'fgBright' },
-  ['cpio'] =                 { icon = 'cpio', hl = 'fgBright' },
-  ['gz'] =                   { icon = 'gz',   hl = 'fgBright' },
-  ['lz'] =                   { icon = 'lz',   hl = 'fgBright' },
-  ['lz4'] =                  { icon = 'lz4',  hl = 'fgBright' },
-  ['lzh'] =                  { icon = 'lzh',  hl = 'fgBright' },
-  ['lzma'] =                 { icon = 'lzma', hl = 'fgBright' },
-  ['lzo'] =                  { icon = 'lzo',  hl = 'fgBright' },
-  ['rar'] =                  { icon = 'rar',  hl = 'fgBright' },
-  ['tar'] =                  { icon = 'tar',  hl = 'fgBright' },
-  ['taz'] =                  { icon = 'taz',  hl = 'fgBright' },
-  ['tbz'] =                  { icon = 'tbz',  hl = 'fgBright' },
-  ['tbz2'] =                 { icon = 'tbz2', hl = 'fgBright' },
-  ['tgz'] =                  { icon = 'tgz',  hl = 'fgBright' },
-  ['tlz'] =                  { icon = 'tlz',  hl = 'fgBright' },
-  ['txz'] =                  { icon = 'txz',  hl = 'fgBright' },
-  ['tz'] =                   { icon = 'tz',   hl = 'fgBright' },
-  ['tzo'] =                  { icon = 'tzo',  hl = 'fgBright' },
-  ['xz'] =                   { icon = 'xz',   hl = 'fgBright' },
-  ['zip'] =                  { icon = 'zip',  hl = 'fgBright' },
-  ['zst'] =                  { icon = 'zst',  hl = 'fgBright' },
+  ['bz'] =                   { icon = 'bz',   hl = 'brightGray' },
+  ['bz2'] =                  { icon = 'bz2',  hl = 'brightGray' },
+  ['cpio'] =                 { icon = 'cpio', hl = 'brightGray' },
+  ['gz'] =                   { icon = 'gz',   hl = 'brightGray' },
+  ['lz'] =                   { icon = 'lz',   hl = 'brightGray' },
+  ['lz4'] =                  { icon = 'lz4',  hl = 'brightGray' },
+  ['lzh'] =                  { icon = 'lzh',  hl = 'brightGray' },
+  ['lzma'] =                 { icon = 'lzma', hl = 'brightGray' },
+  ['lzo'] =                  { icon = 'lzo',  hl = 'brightGray' },
+  ['rar'] =                  { icon = 'rar',  hl = 'brightGray' },
+  ['tar'] =                  { icon = 'tar',  hl = 'brightGray' },
+  ['taz'] =                  { icon = 'taz',  hl = 'brightGray' },
+  ['tbz'] =                  { icon = 'tbz',  hl = 'brightGray' },
+  ['tbz2'] =                 { icon = 'tbz2', hl = 'brightGray' },
+  ['tgz'] =                  { icon = 'tgz',  hl = 'brightGray' },
+  ['tlz'] =                  { icon = 'tlz',  hl = 'brightGray' },
+  ['txz'] =                  { icon = 'txz',  hl = 'brightGray' },
+  ['tz'] =                   { icon = 'tz',   hl = 'brightGray' },
+  ['tzo'] =                  { icon = 'tzo',  hl = 'brightGray' },
+  ['xz'] =                   { icon = 'xz',   hl = 'brightGray' },
+  ['zip'] =                  { icon = 'zip',  hl = 'brightGray' },
+  ['zst'] =                  { icon = 'zst',  hl = 'brightGray' },
 }
 
 -- ---@param line string
@@ -448,14 +449,14 @@ M.has_loaded = function() return M._loaded end
 
 M.setup = function()
   if M._loaded then return end
-  for name, table in pairs(hl_groups) do
+  for name, table in pairs(colors) do
     vim.api.nvim_set_hl(0, 'devicons_' .. name, table)
   end
   M._loaded = true
 end
 
 M.get_icon = function(name, ext, opts)
-  if ext ~= nil then return icon_table[ext] end
+  if ext ~= nil then return '', 'none' end
   if icon_table[name] then return icon_table[name].icon, 'devicons_' .. icon_table[name].hl end
   local compound_ext = name:match '%.(.*)'
   local last_ext = name:match '%.([^.]*)$'

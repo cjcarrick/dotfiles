@@ -26,7 +26,7 @@ end
 return require 'paq' {
 
   -- Interface
-  -- 'RRethy/vim-illuminate',
+  'RRethy/vim-illuminate',
 
   -- Functionality
   { 'echasnovski/mini.align', branch = 'stable' },
@@ -36,7 +36,7 @@ return require 'paq' {
   'christoomey/vim-tmux-navigator',
   'ggandor/leap.nvim',
   -- 'jiangmiao/auto-pairs',
-  { 'altermo/ultimate-autopair.nvim' , branch = 'v0.6' },
+  -- { 'altermo/ultimate-autopair.nvim' , branch = 'v0.6' },
   'tpope/vim-surround',
   'uga-rosa/ccc.nvim',
 

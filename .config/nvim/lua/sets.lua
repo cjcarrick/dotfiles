@@ -1,5 +1,8 @@
-vim.g.user_emmet_mode = 'inv' -- enable all functions, which is equal to
-vim.g.user_emmet_expandabbr_key = '<C-y>,'
+vim.g.user_emmet_mode = 'inv' -- 'insert', 'normal', 'visual'
+vim.g.user_emmet_leader_key = '<C-_>'
+vim.g.user_emmet_install_global = 0
+-- vim.g.user_emmet_expandabbr_key = '<C-y>,'
+vim.keymap.set('i', '<C-y>', '<plug>(emmet-expand-abbr)' , { silent = false })
 
 -- -- this is a complete hack but it works super well
 -- vim.api.nvim_create_autocmd('TextChangedI', {

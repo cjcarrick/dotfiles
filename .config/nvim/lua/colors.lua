@@ -1,112 +1,122 @@
 -- enable 16 color
 -- vim.o.t_Co = 16
 
-local bg = 0
-local bgBright = 15
+vim.o.termguicolors = true
+---@type { color: { gui : string, cterm : number } }
+local colors = {
+  black      = { gui = '#202020', cterm = 0  }, -- popups, etc. use sparingly
+  darkGray   = { gui = '#282828', cterm = 0  }, -- normal background
+  gray       = { gui = '#3f3f3f', cterm = 7  }, -- cursorline, etc
+  brightGray = { gui = '#606060', cterm = 15 }, -- comments, etc
+  white      = { gui = '#ebdbb2', cterm = 7  }, -- main text colors
 
-local fg = 7
-local fgBright = 8
+  red    = { gui = '#c15550', cterm = 1  },
+  orange = { gui = '#cf813c', cterm = 14 },
+  yellow = { gui = '#dead2a', cterm = 3  },
+  green  = { gui = '#98971a', cterm = 2  },
+  blue   = { gui = '#458588', cterm = 4  },
+  cyan   = { gui = '#689d6a', cterm = 6  },
+  purple = { gui = '#b85b96', cterm = 5  },
+  pink   = { gui = '#b85b96', cterm = 13  },
 
-local red = 1
-local brightRed = 9
+  brightYellow = { gui = '#605222', cterm = 11 },
+  brightRed    = { gui = '#743e3c', cterm = 9 },
+  brightGreen  = { gui = '#40451d', cterm = 10 },
+  brightBlue   = { gui = '#365658', cterm = 12 },
 
-local yellow = 3
-local brightYellow = 11
-
-local green = 2
-local brightGreen = 10
-
-local blue = 4
-local brightBlue = 12
-
-local purple = 5
-local pink = 13
-
-local cyan = 6
-local orange = 14
+  NONE = { gui = 'NONE', cterm = 'NONE' }
+}
 
 local function hi(groups, table)
   for _, group in pairs(groups) do
-    vim.api.nvim_set_hl(0, group, table)
+      vim.api.nvim_set_hl(0, group, {
+        ctermfg = table.fg and table.fg.cterm or nil,
+        ctermbg = table.bg and table.bg.cterm or nil,
+        fg = table.fg and table.fg.gui or nil,
+        bg = table.bg and table.bg.gui or nil,
+        italic = table.italic,
+        link = table.link
+      })
   end
 end
 
-hi({ 'Normal', 'NormalFloat', 'none', 'cBracket' }, { ctermfg = fg, ctermbg = 'NONE' })
+hi({ 'Normal', 'none', 'cBracket' }, { fg = colors.white, bg = colors.darkGray})
+hi({ 'NormalFloat' }, { fg = colors.white, bg = colors.black})
+hi({ 'FloatBorder' }, { bg = colors.black, fg = colors.black })
 
-hi({ 'Cursor' }, { ctermfg = bg, ctermbg = blue })
-hi({ 'CursorColumn' }, { ctermbg = bgBright })
+hi({ 'Cursor' }, { fg = colors.brightGray, bg = colors.blue })
+hi({ 'CursorColumn' }, { bg = colors.gray })
 
-hi({ 'CursorLine', 'TelescopeSelection' }, { ctermbg = bgBright })
+hi({ 'CursorLine', 'TelescopeSelection' }, { bg = { gui = '#353535', cterm = 7  }})
 
-hi({ 'LineNr' }, { ctermfg = fgBright, ctermbg = 'NONE' })
-hi({ 'CursorLineNr' }, { ctermfg = fg, ctermbg = 'NONE' })
+hi({ 'LineNr' }, { fg = colors.brightGray, bg = colors.darkGray })
+hi({ 'CursorLineNr' }, { fg = colors.white, bg = 'NONE' })
+hi({ 'CursorLineSign', 'CursorLineNr' }, { bg = colors.darkGray})
 
-hi({ 'LspSignatureActiveParameter' }, { ctermbg = brightBlue })
-hi({ 'Search', 'IncSearch' }, { ctermbg = brightYellow, ctermfg = fg })
-
-hi({ 'FloatBorder' }, { ctermfg = bgBright })
+hi({ 'LspSignatureActiveParameter' }, { bg = colors.brightBlue })
+hi({ 'Search', 'IncSearch' }, { bg = colors.brightYellow, fg = colors.white })
 
 hi({ 'ErrorMsg', 'ModeMsg', 'MoreMsg' }, { link = 'Normal' })
 
-hi({ 'WarningMsg' }, { ctermfg = red })
-hi({ 'Question' }, { ctermfg = purple })
+hi({ 'WarningMsg' }, { fg = colors.red })
+hi({ 'Question' }, { fg = colors.purple })
 
-hi({ 'Pmenu' }, { ctermfg = fg, ctermbg = bgBright })
-hi({ 'PmenuSel', 'TabLineSel' }, { ctermbg = fgBright, ctermfg = fg })
-hi({ 'PmenuSbar' }, { ctermbg = bgBright })
-hi({ 'PmenuThumb' }, { ctermbg = fg })
+hi({ 'Pmenu' }, { fg = colors.white, bg = colors.black })
+hi({ 'PmenuSel', 'TabLineSel' }, { bg = colors.gray })
+hi({ 'PmenuSbar' }, { bg = colors.gray })
+hi({ 'PmenuThumb' }, { bg = colors.white })
 
-hi({ 'SpellBad' }, { ctermfg = red })
-hi({ 'SpellCap', 'SpellLocal', 'SpellRare' }, { ctermfg = yellow })
+hi({ 'SpellBad' }, { fg = colors.red })
+hi({ 'SpellCap', 'SpellLocal', 'SpellRare' }, { fg = colors.yellow })
 
-hi({ 'StatusLine' }, { ctermfg = fg })
-hi({ 'StatusLineAlt' }, { ctermfg = fgBright })
-hi({ 'StatusLineError' }, { ctermfg = red })
-hi({ 'StatusLineWarn' }, { ctermfg = orange })
-hi({ 'StatusLineHint', 'StatusLineInfo' }, { ctermfg = blue })
-hi({ 'StatusLineNC' }, { ctermfg = fgBright })
+hi({ 'StatusLine', 'MsgArea' }, { fg = colors.white, bg = colors.darkGray })
+hi({ 'StatusLineAlt' }, { fg = colors.brightGray, bg = colors.darkGray })
+hi({ 'StatusLineError' }, { fg = colors.red, bg = colors.darkGray  })
+hi({ 'StatusLineWarn' }, { fg = colors.orange, bg = colors.darkGray  })
+hi({ 'StatusLineHint', 'StatusLineInfo' }, { fg = colors.blue , bg = colors.darkGray  })
+hi({ 'StatusLineNC' }, { fg = colors.white , bg = colors.darkGray  })
 
-hi({ 'TabLine' }, { ctermfg = fgBright, ctermbg = bgBright })
-hi({ 'TabLineFill' }, { ctermfg = fgBright, ctermbg = bgBright })
+hi({ 'TabLine' }, { fg = colors.white, bg = colors.gray })
+hi({ 'TabLineFill' }, { fg = colors.white, bg = colors.gray })
 
-hi({ 'Visual' }, { ctermbg = brightBlue })
-hi({ 'VisualNOS' }, { ctermbg = brightBlue })
+hi({ 'Visual' }, { bg = colors.brightBlue })
+hi({ 'VisualNOS' }, { bg = colors.brightBlue })
 
-hi({ 'ColorColumn' }, { ctermbg = bgBright })
-hi({ 'Conceal' }, { ctermfg = fg })
-hi({ 'Directory' }, { ctermfg = fg })
-hi({ 'VertSplit' }, { ctermfg = bgBright })
-hi({ 'Folded' }, { ctermfg = fg })
-hi({ 'FoldColumn' }, { ctermfg = fg })
-hi({ 'SignColumn' }, { ctermfg = fg, ctermbg = 'NONE' })
+hi({ 'ColorColumn' }, { bg = colors.gray })
+hi({ 'Conceal' }, { fg = colors.white })
+hi({ 'Directory' }, { fg = colors.white })
+hi({ 'VertSplit' }, { fg = colors.gray })
+hi({ 'Folded' }, { fg = colors.white })
+hi({ 'FoldColumn' }, { fg = colors.white })
+hi({ 'SignColumn' }, { fg = colors.white, bg = colors.darkGray })
 
-hi({ 'MatchParen' }, { ctermbg = fgBright, ctermfg = fg })
+hi({ 'MatchParen' }, { bg = colors.brightGray })
 
-hi({ 'SpecialKey' }, { ctermfg = fg })
-hi({ 'Title' }, { ctermfg = green })
-hi({ 'WildMenu' }, { ctermfg = fg })
+hi({ 'SpecialKey' }, { fg = colors.white })
+hi({ 'Title' }, { fg = colors.green })
+hi({ 'WildMenu' }, { fg = colors.white })
 
-hi({ 'preproc' }, { ctermfg = fg })
+hi({ 'preproc' }, { fg = colors.white })
 
-hi({ 'NonText' }, { ctermfg = bg })
-hi({ 'Comment' }, { ctermfg = fgBright, italic = true })
-hi({ 'Whitespace' }, { ctermfg = bgBright })
+hi({ 'NonText' }, { fg = colors.brightGray })
+hi({ 'Comment' }, { fg = colors.brightGray, italic = true })
+hi({ 'Whitespace' }, { fg = colors.gray })
 
-hi({ 'Operator', 'SpecialChar' }, { ctermfg = cyan })
+hi({ 'Operator', 'SpecialChar' }, { fg = colors.cyan })
 
-hi({ 'PreCondit' }, { ctermfg = yellow })
+hi({ 'PreCondit' }, { fg = colors.yellow })
 
-hi({ 'Character', 'String' }, { ctermfg = green })
+hi({ 'Character', 'String' }, { fg = colors.green })
 
-hi({ 'Number', 'Boolean', 'Float' }, { ctermfg = orange })
+hi({ 'Number', 'Boolean', 'Float' }, { fg = colors.orange })
 
-hi({ 'Undefined' }, { ctermfg = orange })
+hi({ 'Undefined' }, { fg = colors.orange })
 
-hi({ 'Function' }, { ctermfg = blue, nocombine = false })
+hi({ 'Function' }, { fg = colors.blue, nocombine = false })
 
-hi({ 'Constant' }, { ctermfg = yellow })
+hi({ 'Constant' }, { fg = colors.yellow })
 
-hi({ 'label', 'Identifier', 'Tag' }, { ctermfg = red })
+hi({ 'label', 'Identifier', 'Tag' }, { fg = colors.red })
 
 hi({ 'Parameter', 'Hlargs' }, { italic = true })
 
@@ -121,7 +131,7 @@ hi({
   'Macro',
   'Repeat',
   'Statement',
-}, { ctermfg = purple })
+}, { fg = colors.purple })
 
 hi({
   'Type',
@@ -130,7 +140,7 @@ hi({
   'Structure',
   'Typedef',
   'Special',
-}, { ctermfg = yellow })
+}, { fg = colors.yellow })
 
 hi({
   'Debug',
@@ -138,49 +148,49 @@ hi({
   'Ignore',
   'SpecialComment',
   'Todo',
-}, { ctermfg = fg })
+}, { fg = colors.white })
 
 hi({
   'DiagnosticError',
   'DiagnosticLineNrError',
   'Error',
-}, { ctermfg = red })
+}, { fg = colors.red })
 
 hi({
   'DiagnosticWarn',
   'DiagnosticLineNrWarn',
-}, { ctermfg = orange })
+}, { fg = colors.orange })
 
 hi({
   'DiagnosticHint',
   'DiagnosticInfo',
   'DiagnosticLineNrInfo',
   'DiagnosticLineNrHint',
-}, { ctermfg = blue, nocombine = false })
+}, { fg = colors.blue, nocombine = false })
 
 hi({ 'DiagnosticUnderlineError' }, { underline = true })
 hi({ 'DiagnosticUnderlineInfo' }, { underline = true })
 hi({ 'DiagnosticUnderlineWarn' }, { underline = true })
 
-hi({ 'DiffAdd', 'diffAdded' }, { ctermbg = brightGreen })
-hi({ 'DiffChange', 'diffChanged' }, { ctermbg = 'NONE' })
-hi({ 'DiffDelete', 'diffRemoved' }, { ctermbg = brightRed })
-hi({ 'DiffText', 'diffLine' }, { ctermbg = brightYellow })
+hi({ 'DiffAdd', 'diffAdded' }, { bg = colors.brightGreen })
+hi({ 'DiffChange', 'diffChanged' }, { bg = 'NONE' })
+hi({ 'DiffDelete', 'diffRemoved' }, { bg = colors.brightRed })
+hi({ 'DiffText', 'diffLine' }, { bg = colors.brightYellow })
 
-hi({ 'gitcommitComment' }, { ctermfg = fgBright })
-hi({ 'gitcommitUnmerged' }, { ctermfg = red })
-hi({ 'gitcommitOnBranch' }, { ctermfg = fg })
-hi({ 'gitcommitBranch' }, { ctermfg = purple })
-hi({ 'gitcommitDiscardedType' }, { ctermfg = red })
-hi({ 'gitcommitSelectedType' }, { ctermfg = green })
-hi({ 'gitcommitHeader' }, { ctermfg = fg })
-hi({ 'gitcommitUntrackedFile' }, { ctermfg = cyan })
-hi({ 'gitcommitDiscardedFile' }, { ctermfg = red })
-hi({ 'gitcommitSelectedFile' }, { ctermfg = green })
-hi({ 'gitcommitUnmergedFile' }, { ctermfg = yellow })
-hi({ 'gitcommitFile' }, { ctermfg = fg })
+hi({ 'gitcommitComment' }, { fg = colors.white })
+hi({ 'gitcommitUnmerged' }, { fg = colors.red })
+hi({ 'gitcommitOnBranch' }, { fg = colors.brightGray })
+hi({ 'gitcommitBranch' }, { fg = colors.purple })
+hi({ 'gitcommitDiscardedType' }, { fg = colors.red })
+hi({ 'gitcommitSelectedType' }, { fg =colors.brightYellow})
+hi({ 'gitcommitHeader' }, { fg = colors.brightGray })
+hi({ 'gitcommitUntrackedFile' }, { fg = colors.cyan })
+hi({ 'gitcommitDiscardedFile' }, { fg = colors.red })
+hi({ 'gitcommitSelectedFile' }, { fg = colors.green })
+hi({ 'gitcommitUnmergedFile' }, { fg = colors.yellow })
+hi({ 'gitcommitFile' }, { fg = colors.brightGray })
 hi({ 'gitcommitNoBranch' }, { link = 'gitcommitNoBranch' })
-hi({ 'gitcommitUntracked' }, { ctermfg = orange })
+hi({ 'gitcommitUntracked' }, { fg = colors.orange })
 hi({ 'gitcommitDiscarded' }, { link = 'gitcommitDiscarded' })
 hi({ 'gitcommitSelected' }, { link = 'gitcommitSelected' })
 hi({ 'gitcommitDiscardedArrow' }, { link = 'gitcommitDiscardedArrow' })
@@ -217,7 +227,7 @@ hi({
 hi({
   'cssUnitDecorators',
   '@unit',
-}, { ctermfg = red })
+}, { fg = colors.red })
 hi({
   'cssAttr',
   'cssClassName',
@@ -226,7 +236,7 @@ hi({
   'cssColor',
   'sassClass',
   'sassClassChar',
-}, { ctermfg = orange })
+}, { fg = colors.orange })
 hi({
   'cssCustomProp',
   'cssHacks',
@@ -235,10 +245,10 @@ hi({
   '@pseudo',
   'cssPseudoClassId',
   'cssVendor',
-}, { ctermfg = cyan })
+}, { fg = colors.cyan })
 hi({
   '@attribute.scss',
-}, { ctermfg = orange })
+}, { fg = colors.orange })
 -- }}
 
 -- Lua {{
@@ -254,7 +264,7 @@ hi({
 }, { link = 'Delimiter' })
 hi({
   '@punctuation.delimiter.typescript',
-}, { ctermfg = 'NONE', ctermbg = 'NONE' })
+}, { fg = 'NONE', bg = 'NONE' })
 hi({
   'typescriptBOMNavigatorProp',
   'typescriptStringMethod',
@@ -284,18 +294,18 @@ hi({
   'markdownH4Delimiter',
   'markdownH5Delimiter',
   'markdownH6Delimiter',
-}, { ctermbg = 'NONE', link = 'markdownH3' })
+}, { bg = 'NONE', link = 'markdownH3' })
 hi({
   'markdownH1',
   'markdownH1Delimiter',
-}, { ctermfg = blue })
+}, { fg = colors.blue })
 hi({
   'markdownH2',
   'markdownH2Delimiter',
-}, { ctermfg = red })
+}, { fg = colors.red })
 hi({
   'markdownCode',
-}, { ctermfg = fgBright, italic = true })
+}, { fg = colors.white, italic = true })
 hi({
   'markdownListMarker',
 }, { link = 'Normal' })
@@ -306,7 +316,7 @@ hi({
   'htmlTag',
   'htmlEndTag',
   '@text.title.html',
-}, { ctermfg = fg })
+}, { fg = colors.brightGray })
 hi({
   'htmlTagName',
   'htmlSpecialTagName',
@@ -318,19 +328,19 @@ hi({
 }, { link = 'String' })
 hi({
   'htmlArg',
-}, { ctermfg = orange })
+}, { fg = colors.orange })
 hi({
   '@tag.delimiter',
 }, { link = 'Delimiter' })
 hi({
   '@tag.attribute',
-}, { ctermfg = orange })
+}, { fg = colors.orange })
 -- }}
 
 -- LSP {{
 hi({
   'FidgetTask',
-}, { ctermfg = fgBright })
+}, { fg = colors.white })
 hi({
   'LspInfoBorder',
 }, { link = 'FloatBorder' })
@@ -342,13 +352,13 @@ hi({
 }, { italic = true })
 hi({
   'DapBreakpoint',
-}, { ctermfg = red })
+}, { fg = colors.red })
 hi({
   'DapStopped',
-}, { ctermfg = orange })
+}, { fg = colors.orange })
 hi({
   'DapLogPoint',
-}, { ctermfg = blue })
+}, { fg = colors.blue })
 hi({
   'DapUIFloatBorder',
 }, { link = 'FloatBorder' })
@@ -360,33 +370,33 @@ hi({
 -- Telescope {{
 hi({
   'TelescopeNormal',
-}, { ctermbg = bg, ctermfg = fgBright })
+}, { fg = colors.brightGray })
 hi({
   'TelescopeMatching',
-}, { ctermfg = fg })
+}, { fg = colors.white })
 hi({
   'TelescopeBorder',
-}, { link = 'FloatBorder' })
+}, { fg = colors.brightGray })
 hi({
   'TelescopePromptTitle',
   'TelescopePreviewTitle',
   'TelescopePreviewMessage',
   'TelescopePromptCounter',
-}, { ctermfg = fgBright })
+}, { fg = colors.brightGray })
 hi({
   'TelescopeSelectionCaret',
-}, { ctermfg = bgBright, ctermbg = bgBright })
+}, { bg ={ gui = '#353535', cterm = 7  } })
 -- }}
 
 -- CMP {{
 hi({
   'CmpItemKindSnippet',
   'CmpItemKindText',
-}, { ctermfg = fg })
+}, { fg = colors.white })
 hi({
   'CmpItemKindFunction',
   'CmpItemKindMethod',
-}, { link = 'Function' })
+}, { fg = colors.blue })
 hi({
   'CmpItemKindConstant',
 }, { link = 'Constant' })
@@ -394,7 +404,13 @@ hi({
   'CmpItemKindEnum',
   'CmpItemKindEnumMember',
   'CmpItemKindVariable',
-}, { link = 'Identifier' })
+}, { fg = colors.red })
+hi({
+  'CmpItemKindKeyword',
+}, { fg = colors.purple })
+
+hi({'CmpItemAbbr'}, { fg = colors.brightGray })
+hi({'CmpItemAbbrMatch'}, { fg = colors.white })
 -- }}
 
 -- Illuminate {{
@@ -404,29 +420,29 @@ hi({
   'illuminatedWordWrite',
   'illuminatedWordText',
   'illuminatedCurWord',
-}, { ctermbg = bgBright })
+}, { bg = colors.gray })
 -- }}
 
 -- Leap {{
-hi({ 'LeapLabelPrimary' }, { ctermfg = bg, ctermbg = green })
-hi({ 'LeapLabelSecondary' }, { ctermfg = bg, ctermbg = blue })
+hi({ 'LeapLabelPrimary' }, { fg = colors.brightGray, bg = colors.green })
+hi({ 'LeapLabelSecondary' }, { fg = colors.brightGray, bg = colors.blue })
 -- }}
 
 -- Signify {{
-hi({ 'SignifySignAdd' }, { ctermbg = bg, ctermfg = green })
-hi({ 'SignifySignDelete' }, { ctermbg = bg, ctermfg = red })
-hi({ 'SignifySignChange' }, { ctermbg = bg, ctermfg = orange })
+hi({ 'SignifySignAdd' }, { bg = colors.brightGreen, fg = colors.green })
+hi({ 'SignifySignDelete' }, { bg = colors.brightRed, fg = colors.red })
+hi({ 'SignifySignChange' }, { bg = colors.brightYellow, fg = colors.orange })
 -- }}
 
 -- Glyph Palette {{
-hi({ 'GlyphPalette0' }, { ctermfg = red })
-hi({ 'GlyphPalette1' }, { ctermfg = orange })
-hi({ 'GlyphPalette2' }, { ctermfg = yellow })
-hi({ 'GlyphPalette3' }, { ctermfg = green })
-hi({ 'GlyphPalette4' }, { ctermfg = blue })
-hi({ 'GlyphPalette5' }, { ctermfg = cyan })
-hi({ 'GlyphPalette6' }, { ctermfg = purple })
-hi({ 'GlyphPalette7' }, { ctermfg = pink })
-hi({ 'GlyphPalette8' }, { ctermfg = fg })
-hi({ 'GlyphPalette9' }, { ctermfg = fgBright })
+hi({ 'GlyphPalette0' }, { fg = colors.red })
+hi({ 'GlyphPalette1' }, { fg = colors.orange })
+hi({ 'GlyphPalette2' }, { fg = colors.yellow })
+hi({ 'GlyphPalette3' }, { fg = colors.green })
+hi({ 'GlyphPalette4' }, { fg = colors.blue })
+hi({ 'GlyphPalette5' }, { fg = colors.cyan })
+hi({ 'GlyphPalette6' }, { fg = colors.purple })
+hi({ 'GlyphPalette7' }, { fg = colors.pink })
+hi({ 'GlyphPalette8' }, { fg = colors.brightGray })
+hi({ 'GlyphPalette9' }, { fg = colors.white })
 -- }}

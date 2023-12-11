@@ -71,15 +71,17 @@ cmp.setup {
 
   formatting = {
     format = function(_, vim_item)
-      vim_item.kind = (kind_icons[vim_item.kind] or vim_item.kind)
+      -- vim_item.kind = (kind_icons[vim_item.kind] or vim_item.kind)
       -- prevent menus from being really wide, and try to keep them fixed width
       -- (https://github.com/hrsh7th/nvim-cmp/discussions/609#discussioncomment-3395522)
-      local MAX_LABEL_WIDTH = 25
-      if #vim_item.abbr > MAX_LABEL_WIDTH then
-        vim_item.abbr = vim.fn.strcharpart(vim_item.abbr, 0, MAX_LABEL_WIDTH) .. '…'
+      local MAX_LABEL_WIDTH = 40
+      MAX_LABEL_WIDTH = MAX_LABEL_WIDTH - #vim_item.kind
+      if #vim_item.word > MAX_LABEL_WIDTH - 2 then
+        vim_item.abbr = vim_item.word:sub(0, MAX_LABEL_WIDTH - 2) .. '… '
       else
-        vim_item.abbr = vim_item.abbr .. (' '):rep(MAX_LABEL_WIDTH - #vim_item.abbr)
+        vim_item.abbr = vim_item.word .. (' '):rep(MAX_LABEL_WIDTH - #vim_item.word)
       end
+      -- vim_item.kind = (' '):rep(MAX_LABEL_WIDTH - #vim_item.abbr) .. vim_item.kind
       return vim_item
     end,
   },

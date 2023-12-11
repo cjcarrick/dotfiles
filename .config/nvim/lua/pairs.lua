@@ -15,12 +15,12 @@ local my_pairs = {
   ['{'] = { '}' },
   ['['] = { ']' },
   ['('] = { ')' },
-  ['"'] = { '"', map_cr = false },
-  ['"""'] = { '"""', indent_on_cr = false },
-  ["'"] = { "'", map_cr = false },
-  ["`"] = { "`", map_cr = false },
-  ["``"] = { "''", map_cr = false },
-  ['```'] = { '```', indent_on_cr = false },
+  -- ['"'] = { '"', map_cr = false },
+  -- ['"""'] = { '"""', indent_on_cr = false },
+  -- ["'"] = { "'", map_cr = false, map_space = false },
+  -- ["`"] = { "`", map_cr = false },
+  -- ["``"] = { "''", map_cr = false },
+  -- ['```'] = { '```', indent_on_cr = false },
   ['<!--'] = { '-->' },
 }
 
@@ -63,13 +63,9 @@ local function search_forwards(str, opts)
     if r == 1 then c_start = col + 1 end
     for c = c_start, #line do
       local ch = line:sub(c, c)
-      if not is_whitespace(ch) then
-        if ch == str:sub(str_char_i, str_char_i) then
-          str_char_i = str_char_i + 1
-          if str_char_i > #str then return row + r - 1, c - #str end
-        else
-          return
-        end
+      if ch == str:sub(str_char_i, str_char_i) then
+        str_char_i = str_char_i + 1
+        if str_char_i > #str then return row + r - 1, c - #str end
       end
     end
 
@@ -107,23 +103,19 @@ local function search_backwards(str, opts)
 
     local line = before[r]
     -- string can't fit on this line, just skip it
-    if #line >= #str then
+    -- if #line >= #str then
 
-    local c_begin = 1
+    local c_begin = #line
     if r == #before then c_begin = col end
     for c = c_begin, 1, -1 do
       local char = line:sub(c, c)
-      if not is_whitespace(char) then
         if char == str:sub(str_char_i, str_char_i) then
           str_char_i = str_char_i - 1
           if str_char_i == 0 then return row - #before + r, c - 1 end
-        else
-          return
         end
-      end
     end
 
-    end
+    -- end
 
 
   end
@@ -137,14 +129,12 @@ local function spaces_balanced(col, opener, opener_r, opener_c, closer, closer_r
   return (opener_r == closer_r) and ((col - opener_c - #opener) == (closer_c - col))
 end
 
-vim.opt.showmode = false
 for opener, opts in pairs(my_pairs) do
 
   local first_char = opts[1]:sub(1, 1)
   vim.keymap.set('i', first_char, function()
     local opener_r, opener_c = search_backwards(opener)
     local closer_r, closer_c = search_forwards(opts[1])
-    print(first_char, closer_r, closer_c)
     if closer_r and opener_r then
       local row, col = pos()
 
@@ -152,7 +142,9 @@ for opener, opts in pairs(my_pairs) do
       -- |  -->  |}
       -- } 
       if opener_r == row -1 and closer_r == row + 1 then
-        vim.api.nvim_buf_set_text(0, opener_r, opener_c + #opener, closer_r, closer_c, {'', ''})
+        local existing_indent = vim.fn.indent(closer_r + 1)
+        local new_indent = string.rep(' ', existing_indent)
+        vim.api.nvim_buf_set_text(0, opener_r, opener_c + #opener, closer_r, closer_c, {'', new_indent})
         closer_r = closer_r - 1
 
       -- {  |  }  -->  {  |}
@@ -169,6 +161,7 @@ for opener, opts in pairs(my_pairs) do
   end)
 
   local last_char = opener:sub(#opener, #opener)
+
   vim.keymap.set('i', last_char, function()
     -- Check if adding this last char would complete the opener
     local row, col = pos()
@@ -182,6 +175,7 @@ for opener, opts in pairs(my_pairs) do
       if closer_r == nil then
         vim.api.nvim_put({ last_char }, 'c', false, true)
         vim.api.nvim_put({ opts[1] }, 'c', false, false)
+        print('aadd closer', last_char, opts[1])
         return
       else
         -- This handles the case when the opener is already placed, but the
@@ -196,6 +190,7 @@ for opener, opts in pairs(my_pairs) do
 
     fallback_keymap(last_char)
   end)
+
 end
 
 vim.keymap.set('i', '<bs>', function()
@@ -204,7 +199,6 @@ vim.keymap.set('i', '<bs>', function()
   for opener, opts in pairs(my_pairs) do
     local opener_r, opener_c = search_backwards(opener)
     local closer_r, closer_c = search_forwards(opts[1])
-    print(opener, opts[1], 'bs', opener_r, opener_c, closer_r, closer_c)
 
     if opener_r and closer_r then
       local immediately_before_cursor = opener_r == row and opener_c + #opener == col
@@ -221,7 +215,6 @@ vim.keymap.set('i', '<bs>', function()
       -- {         {|}
       -- |    ->
       -- }
-      print('ooooo')
       if opener_r == row - 1 and closer_r == row + 1 and col == 0 then
         vim.api.nvim_buf_set_text(0, opener_r, opener_c + #opener, closer_r, closer_c, {})
         return
@@ -236,6 +229,7 @@ vim.keymap.set('i', '<space>', function()
   local row, col = pos()
 
   for opener, opts in pairs(my_pairs) do
+    if opts.map_space == false then goto next end
     local opener_r, opener_c = search_backwards(opener)
     local closer_r, closer_c = search_forwards(opts[1])
 
@@ -248,6 +242,7 @@ vim.keymap.set('i', '<space>', function()
         return
       end
     end
+    ::next::
   end
 
   fallback_keymap '<space>'
@@ -270,7 +265,7 @@ vim.keymap.set('i', '<cr>', function()
         local existing_indent = vim.fn.indent(row + 1)
         local new_indent = string.rep(' ', existing_indent)
         if closer.indent_on_cr ~= false then
-          new_indent = string.rep(' ', vim.bo.tabstop * (1 + existing_indent))
+          new_indent = string.rep(' ', vim.bo.tabstop  + existing_indent)
         end
         vim.api.nvim_buf_set_text(0, opener_r, opener_c + #opener, closer_r, closer_c, {
           '',
@@ -287,411 +282,3 @@ vim.keymap.set('i', '<cr>', function()
 
   fallback_keymap '<cr>'
 end)
-
--- for opener, closer in pairs(my_pairs) do
---   -- auto-add closer when the opener is inserted
---   print(opener)
---   vim.keymap.set('i', opener, function()
---     print('open', opener)
---     vim.api.nvim_put({ opener }, 'c', false, true)
---     local closer_r = find_closing_pair(opener)
---     print(closer_r)
---     if closer_r == nil then vim.api.nvim_put({ closer }, 'c', false, false) end
---   end)
---
---   if #closer == 1 then
---     vim.keymap.set('i', closer, function()
---       local r, c = pos()
---
---       -- {| -> {}|
---       -- (This is just the default mapping)
---       local closer_r, closer_c = find_closing_pair(opener)
---       if closer_r == nil then
---         vim.api.nvim_put({ closer }, 'c', false, true)
---       else
---
---         -- {|}  -> {}|
---         --
---         -- {    |    }  -> {    }|
---         --
---         -- {                 {
---         --     |        ->   }|
---         -- }
---         --
---         -- {                     {
---         --     foo;|        ->       foo;
---         -- }                     }|
---         local erase_from_row = closer_r - 1
---         local erase_from_col = c
---         local multiline = closer_r - r >= 1
---         local move_down = multiline
---         if multiline then
---           erase_from_col = closer_c - 1
---           local this_line = vim.api.nvim_buf_get_lines(0, r-1, r, false)[1]
---           if this_line:match("^ +$") then
---             erase_from_row = r - 1
---             move_down = false
---           end
---         end
---         vim.api.nvim_buf_set_text(0, erase_from_row, erase_from_col, closer_r - 1, closer_c - 1, {})
---         if move_down then
---           vim.api.nvim_win_set_cursor(0, { r + 1, closer_c + 1 })
---         else
---           vim.api.nvim_win_set_cursor(0, { r, c + 1 })
---         end
---
---
---       end
---     end)
---   end
--- end
---
--- vim.opt.showmode = false
--- vim.keymap.set('i', '<bs>', function()
---   local r, c = pos()
---   local opener, opener_r, opener_c = find_opening_pair()
---   if opener == nil then  return fallback_keymap '<bs>' end
---
---   local closer_r, closer_c = find_closing_pair(opener)
---   if closer_r == nil then return  fallback_keymap '<bs>' end
---
---   -- keep spaces balanced by removing a space before and after the cursor when
---   -- deleting a space
---   if r == opener_r and r == closer_r then
---     -- make sure spaces are already balanced
---     if c + 1 - opener_c == closer_c - c then
---       return vim.api.nvim_buf_set_text(0, r - 1, c - 1, r - 1, c + 1, {})
---     end
---   end
---
---   -- auto-remove closer when the opener is deleted with <bs>
---   print(opener_c, c, closer_c)
---   if opener_r == r and c == opener_c + #opener then
---     return vim.api.nvim_buf_set_text(0, r - 1, opener_c - 2 - #opener, closer_r - 1, closer_c -1+ #my_pairs[opener], {})
---   end
---
---   -- join lines when opener and closer span multiple lines
---   -- {         {|}                     {            {|}
---   -- |   ->                or          |      ->
---   -- }                                   }
---   print(closer_r - opener_r, opener_c, c, closer_c)
---   if closer_r - opener_r == 2 and opener_c - 1 == c then
---     vim.api.nvim_buf_set_text(0, opener_r - 1, opener_c, r, c, {})
---     return
---   end
---
---
---
---   fallback_keymap '<bs>'
--- end, { remap = false })
---
--- -- auto-balance spaces inside of the pairs
--- vim.keymap.set('i', '<space>', function()
---
---   local r, c = pos()
---
---   -- you need a space before no matter what
---   fallback_keymap '<space>'
---
---   local opener, opener_r, opener_c = find_opening_pair()
---
---   -- ensure opener exists and is on the same line as the cursor
---   if opener == nil or r ~= opener_r then return print('no opener on this line') end
---
---   local closer_r, closer_c = find_closing_pair(opener)
---   -- ensure closer exists and is on the same line as the cursor
---   if closer_r == nil or r ~= closer_r then return print('no closer on this line') end
---
---   -- ensure that the spaces before and after the cursor are already balanced
---   if c + 1 - opener_c == closer_c - c then
---     vim.api.nvim_put({ ' ' }, 'c', false, false)
---   end
--- end)
---
--- vim.keymap.set('i', '<cr>', function()
---   -- {|}    ->    {
---   --                  |
---   --              }
---
---   local r, c = pos()
---
---   local opener, opener_r, opener_c = find_opening_pair()
---   if opener == nil then return fallback_keymap('<cr>') end
---
---   local closer_r, closer_c = find_closing_pair(opener)
---   if closer_r == nil then return fallback_keymap('<cr>') end
---
---   if closer_r ~= opener_r then return fallback_keymap('<cr>') end
---
---   local existing_indent = vim.fn.indent(r)
---   vim.api.nvim_put({'', string.rep(" ", vim.bo.tabstop + existing_indent) }, 'c', false, true)
---   vim.api.nvim_put({'', string.rep(" ", existing_indent)}, 'c', false, false)
--- end)
---   if #closer == 1 then
---     vim.keymap.set('i', closer, function()
---       local r, c = pos()
---
---       -- {| -> {}|
---       -- (This is just the default mapping)
---       local closer_r, closer_c = find_closing_pair(opener)
---       if closer_r == nil then
---         vim.api.nvim_put({ closer }, 'c', false, true)
---       else
---
---         -- {|}  -> {}|
---         --
---         -- {    |    }  -> {    }|
---         --
---         -- {                 {
---         --     |        ->   }|
---         -- }
---         --
---         -- {                     {
---         --     foo;|        ->       foo;
---         -- }                     }|
---         local erase_from_row = closer_r - 1
---         local erase_from_col = c
---         local multiline = closer_r - r >= 1
---         local move_down = multiline
---         if multiline then
---           erase_from_col = closer_c - 1
---           local this_line = vim.api.nvim_buf_get_lines(0, r-1, r, false)[1]
---           if this_line:match("^ +$") then
---             erase_from_row = r - 1
---             move_down = false
---           end
---         end
---         vim.api.nvim_buf_set_text(0, erase_from_row, erase_from_col, closer_r - 1, closer_c - 1, {})
---         if move_down then
---           vim.api.nvim_win_set_cursor(0, { r + 1, closer_c + 1 })
---         else
---           vim.api.nvim_win_set_cursor(0, { r, c + 1 })
---         end
---
---
---       end
---     end)
---   end
--- end
---
--- vim.opt.showmode = false
--- vim.keymap.set('i', '<bs>', function()
---   local r, c = pos()
---   local opener, opener_r, opener_c = find_opening_pair()
---   if opener == nil then  return fallback_keymap '<bs>' end
---
---   local closer_r, closer_c = find_closing_pair(opener)
---   if closer_r == nil then return  fallback_keymap '<bs>' end
---
---   -- keep spaces balanced by removing a space before and after the cursor when
---   -- deleting a space
---   if r == opener_r and r == closer_r then
---     -- make sure spaces are already balanced
---     if c + 1 - opener_c == closer_c - c then
---       return vim.api.nvim_buf_set_text(0, r - 1, c - 1, r - 1, c + 1, {})
---     end
---   end
---
---   -- auto-remove closer when the opener is deleted with <bs>
---   print(opener_c, c, closer_c)
---   if opener_r == r and c == opener_c + #opener then
---     return vim.api.nvim_buf_set_text(0, r - 1, opener_c - 2 - #opener, closer_r - 1, closer_c -1+ #my_pairs[opener], {})
---   end
---
---   -- join lines when opener and closer span multiple lines
---   -- {         {|}                     {            {|}
---   -- |   ->                or          |      ->
---   -- }                                   }
---   print(closer_r - opener_r, opener_c, c, closer_c)
---   if closer_r - opener_r == 2 and opener_c - 1 == c then
---     vim.api.nvim_buf_set_text(0, opener_r - 1, opener_c, r, c, {})
---     return
---   end
---
---
---
---   fallback_keymap '<bs>'
--- end, { remap = false })
---
--- -- auto-balance spaces inside of the pairs
--- vim.keymap.set('i', '<space>', function()
---
---   local r, c = pos()
---
---   -- you need a space before no matter what
---   fallback_keymap '<space>'
---
---   local opener, opener_r, opener_c = find_opening_pair()
---
---   -- ensure opener exists and is on the same line as the cursor
---   if opener == nil or r ~= opener_r then return print('no opener on this line') end
---
---   local closer_r, closer_c = find_closing_pair(opener)
---   -- ensure closer exists and is on the same line as the cursor
---   if closer_r == nil or r ~= closer_r then return print('no closer on this line') end
---
---   -- ensure that the spaces before and after the cursor are already balanced
---   if c + 1 - opener_c == closer_c - c then
---     vim.api.nvim_put({ ' ' }, 'c', false, false)
---   end
--- end)
---
--- vim.keymap.set('i', '<cr>', function()
---   -- {|}    ->    {
---   --                  |
---   --              }
---
---   local r, c = pos()
---
---   local opener, opener_r, opener_c = find_opening_pair()
---   if opener == nil then return fallback_keymap('<cr>') end
---
---   local closer_r, closer_c = find_closing_pair(opener)
---   if closer_r == nil then return fallback_keymap('<cr>') end
---
---   if closer_r ~= opener_r then return fallback_keymap('<cr>') end
---
---   local existing_indent = vim.fn.indent(r)
---   vim.api.nvim_put({'', string.rep(" ", vim.bo.tabstop + existing_indent) }, 'c', false, true)
---   vim.api.nvim_put({'', string.rep(" ", existing_indent)}, 'c', false, false)
--- end)
-
--- for opener, closer in pairs(my_pairs) do
---   -- auto-add closer when the opener is inserted
---   print(opener)
---   vim.keymap.set('i', opener, function()
---     print('open', opener)
---     vim.api.nvim_put({ opener }, 'c', false, true)
---     local closer_r = find_closing_pair(opener)
---     print(closer_r)
---     if closer_r == nil then vim.api.nvim_put({ closer }, 'c', false, false) end
---   end)
---
---   if #closer == 1 then
---     vim.keymap.set('i', closer, function()
---       local r, c = pos()
---
---       -- {| -> {}|
---       -- (This is just the default mapping)
---       local closer_r, closer_c = find_closing_pair(opener)
---       if closer_r == nil then
---         vim.api.nvim_put({ closer }, 'c', false, true)
---       else
---
---         -- {|}  -> {}|
---         --
---         -- {    |    }  -> {    }|
---         --
---         -- {                 {
---         --     |        ->   }|
---         -- }
---         --
---         -- {                     {
---         --     foo;|        ->       foo;
---         -- }                     }|
---         local erase_from_row = closer_r - 1
---         local erase_from_col = c
---         local multiline = closer_r - r >= 1
---         local move_down = multiline
---         if multiline then
---           erase_from_col = closer_c - 1
---           local this_line = vim.api.nvim_buf_get_lines(0, r-1, r, false)[1]
---           if this_line:match("^ +$") then
---             erase_from_row = r - 1
---             move_down = false
---           end
---         end
---         vim.api.nvim_buf_set_text(0, erase_from_row, erase_from_col, closer_r - 1, closer_c - 1, {})
---         if move_down then
---           vim.api.nvim_win_set_cursor(0, { r + 1, closer_c + 1 })
---         else
---           vim.api.nvim_win_set_cursor(0, { r, c + 1 })
---         end
---
---
---       end
---     end)
---   end
--- end
---
--- vim.opt.showmode = false
--- vim.keymap.set('i', '<bs>', function()
---   local r, c = pos()
---   local opener, opener_r, opener_c = find_opening_pair()
---   if opener == nil then  return fallback_keymap '<bs>' end
---
---   local closer_r, closer_c = find_closing_pair(opener)
---   if closer_r == nil then return  fallback_keymap '<bs>' end
---
---   -- keep spaces balanced by removing a space before and after the cursor when
---   -- deleting a space
---   if r == opener_r and r == closer_r then
---     -- make sure spaces are already balanced
---     if c + 1 - opener_c == closer_c - c then
---       return vim.api.nvim_buf_set_text(0, r - 1, c - 1, r - 1, c + 1, {})
---     end
---   end
---
---   -- auto-remove closer when the opener is deleted with <bs>
---   print(opener_c, c, closer_c)
---   if opener_r == r and c == opener_c + #opener then
---     return vim.api.nvim_buf_set_text(0, r - 1, opener_c - 2 - #opener, closer_r - 1, closer_c -1+ #my_pairs[opener], {})
---   end
---
---   -- join lines when opener and closer span multiple lines
---   -- {         {|}                     {            {|}
---   -- |   ->                or          |      ->
---   -- }                                   }
---   print(closer_r - opener_r, opener_c, c, closer_c)
---   if closer_r - opener_r == 2 and opener_c - 1 == c then
---     vim.api.nvim_buf_set_text(0, opener_r - 1, opener_c, r, c, {})
---     return
---   end
---
---
---
---   fallback_keymap '<bs>'
--- end, { remap = false })
---
--- -- auto-balance spaces inside of the pairs
--- vim.keymap.set('i', '<space>', function()
---
---   local r, c = pos()
---
---   -- you need a space before no matter what
---   fallback_keymap '<space>'
---
---   local opener, opener_r, opener_c = find_opening_pair()
---
---   -- ensure opener exists and is on the same line as the cursor
---   if opener == nil or r ~= opener_r then return print('no opener on this line') end
---
---   local closer_r, closer_c = find_closing_pair(opener)
---   -- ensure closer exists and is on the same line as the cursor
---   if closer_r == nil or r ~= closer_r then return print('no closer on this line') end
---
---   -- ensure that the spaces before and after the cursor are already balanced
---   if c + 1 - opener_c == closer_c - c then
---     vim.api.nvim_put({ ' ' }, 'c', false, false)
---   end
--- end)
---
--- vim.keymap.set('i', '<cr>', function()
---   -- {|}    ->    {
---   --                  |
---   --              }
---
---   local r, c = pos()
---
---   local opener, opener_r, opener_c = find_opening_pair()
---   if opener == nil then return fallback_keymap('<cr>') end
---
---   local closer_r, closer_c = find_closing_pair(opener)
---   if closer_r == nil then return fallback_keymap('<cr>') end
---
---   if closer_r ~= opener_r then return fallback_keymap('<cr>') end
---
---   local existing_indent = vim.fn.indent(r)
---   vim.api.nvim_put({'', string.rep(" ", vim.bo.tabstop + existing_indent) }, 'c', false, true)
---   vim.api.nvim_put({'', string.rep(" ", existing_indent)}, 'c', false, false)
--- end)

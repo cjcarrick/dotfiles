@@ -1,6 +1,9 @@
 local ok, fidget = pcall (require, 'fidget')
+if not ok then return end
 local ok, lspconfig = pcall (require, 'lspconfig')
+if not ok then return end
 local ok, schemastore = pcall(require, 'schemastore')
+if not ok then return end
 
 local language_servers = lspconfig.util.available_servers() -- or list servers manually like {'gopls', 'clangd'}
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -14,7 +17,7 @@ end
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-local _border = 'single'
+local _border = { "", "" ,"", " ", "", "", "", " "}
 require('lspconfig.ui.windows').default_options = {
   border = _border,
 }
@@ -123,7 +126,7 @@ end)
 
 -- Turn off inline diagnostics, and Show all diagnostics on current line in floating window
 vim.diagnostic.config { virtual_text = false }
-vim.keymap.set('n', 'cd', function() vim.diagnostic.open_float { max_width = 80 } end)
+vim.keymap.set('n', 'cd', function() vim.diagnostic.open_float { max_width = 80, border = _border } end)
 
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
@@ -136,11 +139,15 @@ lspconfig.pyright.setup {}
 
 -- Latex
 lspconfig.texlab.setup {
-  filetypes = {
-    'tex',
-    -- 'plaintext',
-    'bib',
+  filetypes = { 'tex', 'bib' },
+}
+lspconfig.ltex.setup {
+  settings = {
+    ltex = {
+      language = 'en-US',
+    },
   },
+  filetypes = { 'tex' },
 }
 
 -- ESLint
@@ -233,18 +240,18 @@ lspconfig.lua_ls.setup {
   },
 }
 
-fidget.setup {
-  window = {
-    relative = 'win', -- where to anchor, either "win" or "editor"
-    blend = 100,      -- &winblend for the window
-    zindex = nil,     -- the zindex value for the window
-  },
-  fmt = { max_width = 80 },
-  timer = { spinner_rate = 60 },
-  text = {
-    spinner = 'dots',        -- animation shown when tasks are ongoing
-    done = '✔',            -- character shown when all tasks are complete
-    commenced = 'Started',   -- message shown when task starts
-    completed = 'Completed', -- message shown when task completes
-  },
-}
+-- fidget.setup {
+--   window = {
+--     relative = 'win', -- where to anchor, either "win" or "editor"
+--     blend = 100,      -- &winblend for the window
+--     zindex = nil,     -- the zindex value for the window
+--   },
+--   fmt = { max_width = 80 },
+--   timer = { spinner_rate = 60 },
+--   text = {
+--     spinner = 'dots',        -- animation shown when tasks are ongoing
+--     done = '✔',            -- character shown when all tasks are complete
+--     commenced = 'Started',   -- message shown when task starts
+--     completed = 'Completed', -- message shown when task completes
+--   },
+-- }

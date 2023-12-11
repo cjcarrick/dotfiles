@@ -16,7 +16,7 @@ telescope.setup {
     find_files = { theme = 'dropdown' },
     treesitter = { theme = 'dropdown' },
     oldfiles = { theme = 'dropdown' },
-    filetypes = { theme = 'ivy' },
+    filetypes = { theme = 'dropdown' },
     live_grep = { theme = 'dropdown' },
   },
 }

@@ -16,25 +16,21 @@ if not ok then return end
 
 autolist.setup()
 
-vim.keymap.set('i', '<tab>', '<cmd>AutolistTab<cr>')
-vim.keymap.set('i', '<s-tab>', '<cmd>AutolistShiftTab<cr>')
--- vim.keymap.set("i", "<c-t>", "<c-t><cmd>AutolistRecalculate<cr>") -- an example of using <c-t> to indent
-vim.keymap.set('i', '<CR>', '<CR><cmd>AutolistNewBullet<cr>')
-vim.keymap.set('n', 'o', 'o<cmd>AutolistNewBullet<cr>')
-vim.keymap.set('n', 'O', 'O<cmd>AutolistNewBulletBefore<cr>')
-vim.keymap.set('n', '<CR>', '<cmd>AutolistToggleCheckbox<cr><CR>')
--- vim.keymap.set("n", "<C-r>", "<cmd>AutolistRecalculate<cr>") -- this broke redo
+local function ft_map(keys, cmd, ft)
+  return keys,
+    function()
+      if vim.bo.ft == ft then return vim.cmd(cmd) end
+      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(keys, true, true, true), 'n', false)
+    end
+end
 
--- cycle list types with dot-repeat
--- vim.keymap.set('n', '<leader>cn', require('autolist').cycle_next_dr, { expr = true })
--- vim.keymap.set('n', '<leader>cp', require('autolist').cycle_prev_dr, { expr = true })
-
--- if you don't want dot-repeat
--- vim.keymap.set("n", "<leader>cn", "<cmd>AutolistCycleNext<cr>")
--- vim.keymap.set("n", "<leader>cp", "<cmd>AutolistCycleNext<cr>")
-
--- functions to recalculate list on edit
-vim.keymap.set('n', '>>', '>><cmd>AutolistRecalculate<cr>')
-vim.keymap.set('n', '<<', '<<<cmd>AutolistRecalculate<cr>')
-vim.keymap.set('n', 'dd', 'dd<cmd>AutolistRecalculate<cr>')
-vim.keymap.set('v', 'd', 'd<cmd>AutolistRecalculate<cr>')
+-- vim.keymap.set('i', ft_map('<tab>', '<cmd>AutolistTab<cr>', 'markdown'))
+-- vim.keymap.set('i', ft_map('<s-tab>', '<cmd>AutolistShiftTab<cr>', 'markdown'))
+-- vim.keymap.set('i', ft_map('<CR>', '<CR><cmd>AutolistNewBullet<cr>', 'markdown'))
+-- vim.keymap.set('n', ft_map('o', 'o<cmd>AutolistNewBullet<cr>', 'markdown'))
+-- vim.keymap.set('n', ft_map('O', 'O<cmd>AutolistNewBulletBefore<cr>', 'markdown'))
+-- vim.keymap.set('n', ft_map('<CR>', '<cmd>AutolistToggleCheckbox<cr><CR>', 'markdown'))
+-- vim.keymap.set('n', ft_map('>>', '>><cmd>AutolistRecalculate<cr>', 'markdown'))
+-- vim.keymap.set('n', ft_map('<<', '<<<cmd>AutolistRecalculate<cr>', 'markdown'))
+-- vim.keymap.set('n', ft_map('dd', 'dd<cmd>AutolistRecalculate<cr>', 'markdown'))
+-- vim.keymap.set('v', ft_map('d', 'd<cmd>AutolistRecalculate<cr>', 'markdown'))
